@@ -1,14 +1,121 @@
 {
-	"Name": "Go",
-	"TypeOfTile": "InstructionOnCross",
-	"Cost": "null",
-	"Position": "0"
-	"Ownership": "false"
-	"HouseNumber": "0"
-	"houseCost": "null"
-	"behaviour": "pay(200)"
-}
+	"Go":{
+		"colour: "null",
+		"typeOfTile": "InstructionOnCross",
+		"cost": "null",
+		"position": "0",
+		"ownership": "false",
+		"houseCost": "null",
+		"rent":"null",
+		"behaviour": "pay(200)"
+	}
 
-{
-	
+	"Crapper Street":{
+		"colour": "brown",
+		"typeOfTile": "property",
+		"cost": "60",
+		"position": "1",
+		"ownership": "true",
+		"houseCost": "50",
+		"rent":{
+			"0":"2",
+			"1":"10",
+			"2":"30",
+			"3":"90",
+			"4":"160",
+			"5":"250"
+		},
+		"behaviour": "auction()"
+	}
+
+	"Gangsters Paradise":{
+		"colour": "brown",
+		"typeOfTile": "property",
+		"cost": "60",
+		"position": "3",
+		"ownership": "true",
+		"houseCost":"50",
+		"rent":{
+			"0":"4",
+			"1":"20",
+			"2":"60",
+			"3":"180",
+			"4":"320",
+			"5":"450"
+		},
+		"behaviour": "auction()"
+	}
+
+	"Weeping Angel":{
+		"colour": "blue",
+		"typeOfTile": "property",
+		"cost": "100",
+		"position": "6",
+		"ownership": "true",
+		"houseCost":"50",
+		"rent":{
+			"0":"6",
+			"1":"30",
+			"2":"90",
+			"3":"270",
+			"4":"400",
+			"5":"550"
+		},
+		"behaviour": "auction()"
+	}
+
+	"Potts Avenue":{
+		"colour": "blue",
+		"typeOfTile": "property",
+		"cost": "100",
+		"position": "8",
+		"ownership": "true",
+		"houseCost":"50",
+		"rent":{
+			"0":"6",
+			"1":"30",
+			"2":"90",
+			"3":"270",
+			"4":"400",
+			"5":"550"
+		},
+		"behaviour": "auction()"
+	}
+
+	"Nardole Drive":{
+		"colour": "blue",
+		"typeOfTile": "property",
+		"cost": "120",
+		"position": "9",
+		"ownership": "true",
+		"houseCost":"50",
+		"rent":{
+			"0":"8",
+			"1":"40",
+			"2":"100",
+			"3":"300",
+			"4":"450",
+			"5":"600"
+		},
+		"behaviour": "auction()"
+	}
+
+	"Skywalker Drive":{
+		"colour": "purple",
+		"typeOfTile": "property",
+		"cost": "140",
+		"position": "11",
+		"ownership": "true",
+		"houseCost":"100",
+		"rent":{
+			"0":"10",
+			"1":"50",
+			"2":"150",
+			"3":"450",
+			"4":"625",
+			"5":"750"
+		},
+		"behaviour": "auction()"
+	}
+
 }
