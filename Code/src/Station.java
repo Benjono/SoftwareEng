@@ -1,2 +1,2 @@
-public class Station implements Tile{
+public class Station extends Tile{
 }

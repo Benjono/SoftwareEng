@@ -1,2 +1,2 @@
-public class Utility implements Tile {
+public class Utility extends Tile {
 }

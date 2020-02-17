@@ -1,2 +1,2 @@
-public class Property implements Tile {
+public class Property extends Tile {
 }
