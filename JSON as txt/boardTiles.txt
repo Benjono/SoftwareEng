@@ -2,7 +2,7 @@
 	"Go":{
 		"typeOfTile": "InstructionOnCross",
 		"colour: "null",
-		"position": "0",
+		"position": "(0)",
 		"ownership": "false",
 		"houseCost": "null",
 		"cost": "null",
@@ -13,7 +13,7 @@
 	"Crapper Street":{
 		"typeOfTile": "property",
 		"colour": "brown",
-		"position": "1",
+		"position": "(1)",
 		"ownership": "true",
 		"houseCost": "50",
 		"cost": "60",
@@ -31,7 +31,7 @@
 	"Gangsters Paradise":{
 		"typeOfTile": "property",
 		"colour": "brown",
-		"position": "3",
+		"position": "(3)",
 		"ownership": "true",
 		"houseCost":"50",
 		"cost": "60",
@@ -49,7 +49,7 @@
 	"Weeping Angel":{
 		"typeOfTile": "property",
 		"colour": "cyan",
-		"position": "6",
+		"position": "(6)",
 		"ownership": "true",
 		"houseCost":"50",
 		"cost": "100",
@@ -67,7 +67,7 @@
 	"Potts Avenue":{
 		"typeOfTile": "property",
 		"colour": "cyan",
-		"position": "8",
+		"position": "(8)",
 		"ownership": "true",
 		"houseCost":"50",
 		"cost": "100",
@@ -85,7 +85,7 @@
 	"Nardole Drive":{
 		"typeOfTile": "property",
 		"colour": "cyan",
-		"position": "9",
+		"position": "(9)",
 		"ownership": "true",
 		"houseCost":"50",
 		"cost": "120",
@@ -103,7 +103,7 @@
 	"Skywalker Drive":{
 		"typeOfTile": "property",
 		"colour": "purple",
-		"position": "11",
+		"position": "(11)",
 		"ownership": "true",
 		"houseCost":"100",
 		"cost": "140",
@@ -121,7 +121,7 @@
 	"Wookie Hole":{
 		"typeOfTile": "property",
 		"colour": "purple",
-		"position": "13",
+		"position": "(13)",
 		"ownership": "true",
 		"houseCost":"100",
 		"cost": "140",
@@ -139,7 +139,7 @@
 	"Rey Lane":{
 		"typeOfTile": "property",
 		"colour": "purple",
-		"position": "14",
+		"position": "(14)",
 		"ownership": "true",
 		"houseCost":"100",
 		"cost": "160",
@@ -157,7 +157,7 @@
 	"Cooper Drive":{
 		"typeOfTile": "property",
 		"colour": "orange",
-		"position": "16",
+		"position": "(16)",
 		"ownership": "true",
 		"houseCost":"100",
 		"cost": "180",
@@ -175,7 +175,7 @@
 	"Wolowitz Street":{
 		"typeOfTile": "property",
 		"colour": "orange",
-		"position": "18",
+		"position": "(18)",
 		"ownership": "true",
 		"houseCost":"100",
 		"cost": "180",
@@ -193,7 +193,7 @@
 	"Penny Lane":{
 		"typeOfTile": "property",
 		"colour": "orange",
-		"position": "19",
+		"position": "(19)",
 		"ownership": "true",
 		"houseCost":"100",
 		"cost": "200",
@@ -211,7 +211,7 @@
 	"Yue Fei Square":{
 		"typeOfTile": "property",
 		"colour": "red",
-		"position": "21",
+		"position": "(21)",
 		"ownership": "true",
 		"houseCost":"150",
 		"cost": "220",
@@ -229,7 +229,7 @@
 	"Mulan Rouge":{
 		"typeOfTile": "property",
 		"colour": "red",
-		"position": "23",
+		"position": "(23)",
 		"ownership": "true",
 		"houseCost":"150",
 		"cost": "220",
@@ -247,7 +247,7 @@
 	"Han Xin Gardens":{
 		"typeOfTile": "property",
 		"colour": "red",
-		"position": "24",
+		"position": "(24)",
 		"ownership": "true",
 		"houseCost":"150",
 		"cost": "240",
@@ -265,7 +265,7 @@
 	"Kirk Close":{
 		"typeOfTile": "property",
 		"colour": "yellow",
-		"position": "26",
+		"position": "(26)",
 		"ownership": "true",
 		"houseCost":"150",
 		"cost": "260",
@@ -283,7 +283,7 @@
 	"Picard Avenue":{
 		"typeOfTile": "property",
 		"colour": "yellow",
-		"position": "27",
+		"position": "(27)",
 		"ownership": "true",
 		"houseCost":"150",
 		"cost": "260",
@@ -301,7 +301,7 @@
 	"Crusher Creek":{
 		"typeOfTile": "property",
 		"colour": "yellow",
-		"position": "29",
+		"position": "(29)",
 		"ownership": "true",
 		"houseCost":"150",
 		"cost": "280",
@@ -319,7 +319,7 @@
 	"Sirat Mews":{
 		"typeOfTile": "property",
 		"colour": "green",
-		"position": "31",
+		"position": "(31)",
 		"ownership": "true",
 		"houseCost":"200",
 		"cost": "300",
@@ -337,7 +337,7 @@
 	"Ghengis Crescent":{
 		"typeOfTile": "property",
 		"colour": "green",
-		"position": "32",
+		"position": "(32)",
 		"ownership": "true",
 		"houseCost":"200",
 		"cost": "300",
@@ -355,7 +355,7 @@
 	"Ibis Close":{
 		"typeOfTile": "property",
 		"colour": "green",
-		"position": "34",
+		"position": "(34)",
 		"ownership": "true",
 		"houseCost":"200",
 		"cost": "320",
@@ -373,7 +373,7 @@
 	"Hawking Way":{
 		"typeOfTile": "property",
 		"colour": "blue",
-		"position": "37",
+		"position": "(37)",
 		"ownership": "true",
 		"houseCost":"200",
 		"cost": "350",
@@ -391,7 +391,7 @@
 	"Hawking Way":{
 		"typeOfTile": "property",
 		"colour": "blue",
-		"position": "37",
+		"position": "(37)",
 		"ownership": "true",
 		"houseCost":"200",
 		"cost": "350",
@@ -409,7 +409,7 @@
 	"Turing Heights":{
 		"typeOfTile": "property",
 		"colour": "blue",
-		"position": "39",
+		"position": "(39)",
 		"ownership": "true",
 		"houseCost":"200",
 		"cost": "400",
@@ -423,6 +423,241 @@
 		},
 		"behaviour": "(auction(),rentPay())"
 	}
+
+	"Brighton Station":{
+		"typeOfTile": "station",
+		"colour": "null",
+		"position": "(5)",
+		"ownership": "true",
+		"houseCost":"null",
+		"cost": "200",
+		"rent":{
+			"0":"null",
+			"1":"25",
+			"2":"50",
+			"3":"100",
+			"4":"200",
+			"5":"null"
+		},
+		"behaviour": "(auction(),stationRentPay())"
+	}
+
+	"Hove Station":{
+		"typeOfTile": "station",
+		"colour": "null",
+		"position": "(15)",
+		"ownership": "true",
+		"houseCost":"null",
+		"cost": "200",
+		"rent":{
+			"0":"null",
+			"1":"25",
+			"2":"50",
+			"3":"100",
+			"4":"200",
+			"5":"null"
+		},
+		"behaviour": "(auction(),stationRentPay())"
+	}
+
+	"Falmer Station":{
+		"typeOfTile": "station",
+		"colour": "null",
+		"position": "(25)",
+		"ownership": "true",
+		"houseCost":"null",
+		"cost": "200",
+		"rent":{
+			"0":"null",
+			"1":"25",
+			"2":"50",
+			"3":"100",
+			"4":"200",
+			"5":"null"
+		},
+		"behaviour": "(auction(),stationRentPay())"
+	}
+
+	"Lewes Station":{
+		"typeOfTile": "station",
+		"colour": "null",
+		"position": "(35)",
+		"ownership": "true",
+		"houseCost":"null",
+		"cost": "200",
+		"rent":{
+			"0":"null",
+			"1":"25",
+			"2":"50",
+			"3":"100",
+			"4":"200",
+			"5":"null"
+		},
+		"behaviour": "(auction(),stationRentPay())"
+	}
+
+	"Tesla Power Co":{
+		"typeOfTile": "utility",
+		"colour": "null",
+		"position": "(12)",
+		"ownership": "true",
+		"houseCost":"null",
+		"cost": "150",
+		"rent":{
+			"0":"null",
+			"1":"4*",
+			"2":"10*",
+			"3":"null",
+			"4":"null",
+			"5":"null"
+		},
+		"behaviour": "(auction(),utilityRentPay())"
+	}
+
+	"Edison Water":{
+		"typeOfTile": "utility",
+		"colour": "null",
+		"position": "(28)",
+		"ownership": "true",
+		"houseCost":"null",
+		"cost": "150",
+		"rent":{
+			"0":"null",
+			"1":"4*",
+			"2":"10*",
+			"3":"null",
+			"4":"null",
+			"5":"null"
+		},
+		"behaviour": "(auction(),utilityRentPay())"
+	}
+
+	"Income Tax":{
+		"typeOfTile": "landOnEvent",
+		"colour": "null",
+		"position": "(4)",
+		"ownership": "false",
+		"houseCost":"null",
+		"cost": "null",
+		"rent":{
+			"0":"null",
+			"1":"null",
+			"2":"null",
+			"3":"null",
+			"4":"null",
+			"5":"null"
+		},
+		"behaviour": "(tax(200))"
+	}
+
+	"Super Tax":{
+		"typeOfTile": "landOnEvent",
+		"colour": "null",
+		"position": "(38)",
+		"ownership": "false",
+		"houseCost":"null",
+		"cost": "null",
+		"rent":{
+			"0":"null",
+			"1":"null",
+			"2":"null",
+			"3":"null",
+			"4":"null",
+			"5":"null"
+		},
+		"behaviour": "(tax(100))"
+	}
+
+	"Opportunity Knocks":{
+		"typeOfTile": "landOnEvent",
+		"colour": "null",
+		"position": "(7,22,36)",
+		"ownership": "false",
+		"houseCost":"null",
+		"cost": "null",
+		"rent":{
+			"0":"null",
+			"1":"null",
+			"2":"null",
+			"3":"null",
+			"4":"null",
+			"5":"null"
+		},
+		"behaviour": "(draw(opportunityKnocks))"
+	}
+
+	"Pot Luck":{
+		"typeOfTile": "landOnEvent",
+		"colour": "null",
+		"position": "(2,17,33)",
+		"ownership": "false",
+		"houseCost":"null",
+		"cost": "null",
+		"rent":{
+			"0":"null",
+			"1":"null",
+			"2":"null",
+			"3":"null",
+			"4":"null",
+			"5":"null"
+		},
+		"behaviour": "(draw(potLuck))"
+	}
+
+	"Go to Jail":{
+		"typeOfTile": "landOnEvent",
+		"colour": "null",
+		"position": "(30)",
+		"ownership": "false",
+		"houseCost":"null",
+		"cost": "null",
+		"rent":{
+			"0":"null",
+			"1":"null",
+			"2":"null",
+			"3":"null",
+			"4":"null",
+			"5":"null"
+		},
+		"behaviour": "(goToJail())"
+	}
+
+	"Free Parking":{
+		"typeOfTile": "landOnEvent",
+		"colour": "null",
+		"position": "(30)",
+		"ownership": "false",
+		"houseCost":"null",
+		"cost": "null",
+		"rent":{
+			"0":"null",
+			"1":"null",
+			"2":"null",
+			"3":"null",
+			"4":"null",
+			"5":"null"
+		},
+		"behaviour": "(pay(collectPenalties()))"
+	}
+
+	"Jail/Just visiting":{
+		"typeOfTile": "doesNothing",
+		"colour": "null",
+		"position": "(11)",
+		"ownership": "false",
+		"houseCost":"null",
+		"cost": "null",
+		"rent":{
+			"0":"null",
+			"1":"null",
+			"2":"null",
+			"3":"null",
+			"4":"null",
+			"5":"null"
+		},
+		"behaviour": "(pay(collectPenalties()))"
+	}
+
 	
 	
 
