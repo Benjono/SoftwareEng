@@ -1,0 +1,14 @@
+{
+	"Name": "Go",
+	"TypeOfTile": "InstructionOnCross",
+	"Cost": "null",
+	"Position": "0"
+	"Ownership": "false"
+	"HouseNumber": "0"
+	"houseCost": "null"
+	"behaviour": "pay(200)"
+}
+
+{
+	
+}
