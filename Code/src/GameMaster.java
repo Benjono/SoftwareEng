@@ -11,7 +11,7 @@ public class GameMaster {
             players[player]=new Player();
         }
         for(int token=0;token<numPlayers;token++){
-            players[token].setToken(playerTokens[token]);
+            //players[token].setToken(playerTokens[token]);
         }
     }
 }
