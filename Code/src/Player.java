@@ -27,8 +27,10 @@ public class Player {
         return new int[]{ getRandom().nextInt(6) + 1,getRandom().nextInt(6) + 1 };
     }
 
-    public Player(){
+    public Player(Tokens thisToken){
         random = new Random();
+        place = 0;
+        token=thisToken;
     }
 
 }
