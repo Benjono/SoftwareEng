@@ -24,12 +24,11 @@ public class Player {
 
     // Returns two randomly generated numbers to represent dice rolls
     public int[] roll() {
-        return new int[]{getRandom().nextInt(6) + 1, getRandom().nextInt(6) + 1};
+        return new int[]{ getRandom().nextInt(6) + 1,getRandom().nextInt(6) + 1 };
     }
 
-    public Player()
-    {
-
+    public Player(){
+        random = new Random();
     }
 
 }
