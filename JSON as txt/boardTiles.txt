@@ -1,6 +1,6 @@
 {
 	"Go":{
-		"typeOfTile": "InstructionOnCross",
+		"typeOfTile": "instructionOnCross",
 		"colour: "null",
 		"position": "(0)",
 		"ownership": "false",
@@ -8,7 +8,7 @@
 		"cost": "null",
 		"rent":"null",
 		"behaviour": "pay(200)"
-	}
+	},
 
 	"Crapper Street":{
 		"typeOfTile": "property",
@@ -26,7 +26,7 @@
 			"5":"250"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Gangsters Paradise":{
 		"typeOfTile": "property",
@@ -44,7 +44,7 @@
 			"5":"450"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Weeping Angel":{
 		"typeOfTile": "property",
@@ -62,7 +62,7 @@
 			"5":"550"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Potts Avenue":{
 		"typeOfTile": "property",
@@ -80,7 +80,7 @@
 			"5":"550"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Nardole Drive":{
 		"typeOfTile": "property",
@@ -98,7 +98,7 @@
 			"5":"600"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Skywalker Drive":{
 		"typeOfTile": "property",
@@ -116,7 +116,7 @@
 			"5":"750"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Wookie Hole":{
 		"typeOfTile": "property",
@@ -134,7 +134,7 @@
 			"5":"750"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Rey Lane":{
 		"typeOfTile": "property",
@@ -152,7 +152,7 @@
 			"5":"900"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Cooper Drive":{
 		"typeOfTile": "property",
@@ -170,7 +170,7 @@
 			"5":"950"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Wolowitz Street":{
 		"typeOfTile": "property",
@@ -188,7 +188,7 @@
 			"5":"950"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Penny Lane":{
 		"typeOfTile": "property",
@@ -206,7 +206,7 @@
 			"5":"1000"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Yue Fei Square":{
 		"typeOfTile": "property",
@@ -224,7 +224,7 @@
 			"5":"1050"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Mulan Rouge":{
 		"typeOfTile": "property",
@@ -242,7 +242,7 @@
 			"5":"1050"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Han Xin Gardens":{
 		"typeOfTile": "property",
@@ -260,7 +260,7 @@
 			"5":"1100"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Kirk Close":{
 		"typeOfTile": "property",
@@ -278,7 +278,7 @@
 			"5":"1150"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Picard Avenue":{
 		"typeOfTile": "property",
@@ -296,7 +296,7 @@
 			"5":"1150"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Crusher Creek":{
 		"typeOfTile": "property",
@@ -314,7 +314,7 @@
 			"5":"1200"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Sirat Mews":{
 		"typeOfTile": "property",
@@ -332,7 +332,7 @@
 			"5":"1275"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Ghengis Crescent":{
 		"typeOfTile": "property",
@@ -350,7 +350,7 @@
 			"5":"1275"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Ibis Close":{
 		"typeOfTile": "property",
@@ -368,7 +368,7 @@
 			"5":"1400"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Hawking Way":{
 		"typeOfTile": "property",
@@ -386,7 +386,7 @@
 			"5":"1500"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Hawking Way":{
 		"typeOfTile": "property",
@@ -404,7 +404,7 @@
 			"5":"1500"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Turing Heights":{
 		"typeOfTile": "property",
@@ -422,7 +422,7 @@
 			"5":"2000"
 		},
 		"behaviour": "(auction(),rentPay())"
-	}
+	},
 
 	"Brighton Station":{
 		"typeOfTile": "station",
@@ -440,7 +440,7 @@
 			"5":"null"
 		},
 		"behaviour": "(auction(),stationRentPay())"
-	}
+	},
 
 	"Hove Station":{
 		"typeOfTile": "station",
@@ -458,7 +458,7 @@
 			"5":"null"
 		},
 		"behaviour": "(auction(),stationRentPay())"
-	}
+	},
 
 	"Falmer Station":{
 		"typeOfTile": "station",
@@ -476,7 +476,7 @@
 			"5":"null"
 		},
 		"behaviour": "(auction(),stationRentPay())"
-	}
+	},
 
 	"Lewes Station":{
 		"typeOfTile": "station",
@@ -494,7 +494,7 @@
 			"5":"null"
 		},
 		"behaviour": "(auction(),stationRentPay())"
-	}
+	},
 
 	"Tesla Power Co":{
 		"typeOfTile": "utility",
@@ -512,7 +512,7 @@
 			"5":"null"
 		},
 		"behaviour": "(auction(),utilityRentPay())"
-	}
+	},
 
 	"Edison Water":{
 		"typeOfTile": "utility",
@@ -530,7 +530,7 @@
 			"5":"null"
 		},
 		"behaviour": "(auction(),utilityRentPay())"
-	}
+	},
 
 	"Income Tax":{
 		"typeOfTile": "landOnEvent",
@@ -548,7 +548,7 @@
 			"5":"null"
 		},
 		"behaviour": "(tax(200))"
-	}
+	},
 
 	"Super Tax":{
 		"typeOfTile": "landOnEvent",
@@ -566,7 +566,7 @@
 			"5":"null"
 		},
 		"behaviour": "(tax(100))"
-	}
+	},
 
 	"Opportunity Knocks":{
 		"typeOfTile": "landOnEvent",
@@ -584,7 +584,7 @@
 			"5":"null"
 		},
 		"behaviour": "(draw(opportunityKnocks))"
-	}
+	},
 
 	"Pot Luck":{
 		"typeOfTile": "landOnEvent",
@@ -602,7 +602,7 @@
 			"5":"null"
 		},
 		"behaviour": "(draw(potLuck))"
-	}
+	},
 
 	"Go to Jail":{
 		"typeOfTile": "landOnEvent",
@@ -620,7 +620,7 @@
 			"5":"null"
 		},
 		"behaviour": "(goToJail())"
-	}
+	},
 
 	"Free Parking":{
 		"typeOfTile": "landOnEvent",
@@ -638,10 +638,10 @@
 			"5":"null"
 		},
 		"behaviour": "(pay(collectPenalties()))"
-	}
+	},
 
 	"Jail/Just visiting":{
-		"typeOfTile": "doesNothing",
+		"typeOfTile": "landOnEvent",
 		"colour": "null",
 		"position": "(11)",
 		"ownership": "false",
@@ -655,7 +655,7 @@
 			"4":"null",
 			"5":"null"
 		},
-		"behaviour": "(pay(collectPenalties()))"
+		"behaviour": "(skip())"
 	}
 
 	
