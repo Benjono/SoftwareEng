@@ -5,14 +5,18 @@ public class GameMaster {
     private boolean canMove;
     private boolean canNextTurn;
 
+    /**
+     * Constructor
+     * @author Jonathan Morris
+     */
     public GameMaster(){
         board = new Board();
         setCurTurn(0);
     }
 
     /**
-     * This function
-     * @Author Jonathan Morris
+     * This function does the setup for the game.
+     * @author Jonathan Morris
      * @param numPlayers
      * @param playerTokens
      */
@@ -29,9 +33,10 @@ public class GameMaster {
      * or not to allow them to roll again.
      *
      * @return int array
+     * @author Jonathan Morris
      */
     public int[] moveNextPiece(){
-        int[] rolls = players[curTurn].move();
+        int[] rolls = players[curTurn].move(board.getTileGrid().length);
         canNotMove();
         canTakeTurn();
         if (rolls[0]==rolls[1]){
@@ -42,18 +47,43 @@ public class GameMaster {
     }
 
     /**
-     * This function
+     * This function causes the next turn to happen.
+     *
+     * @author Jonathan Morris
      */
     public void nextTurn(){
         canNotTakeTurn();
         canMove();
         setCurTurn((getCurTurn()+1)%players.length);
     }
+    /******************************
+     * Getters and Setters
+     ******************************/
+    /**
+     * This function says that the next turn can be taken (so all actions that must be done by a player are done)
+     *
+     * @author Jonathan Morris
+     */
     public void canTakeTurn(){
         canNextTurn=true;
     }
+
+    /**
+     * This function says that the next turn can't be taken
+     *
+     * @author Jonathan Morris
+     */
     public void canNotTakeTurn() {
         canNextTurn=false;
+    }
+
+    /**
+     * This function returns if 'canNextTurn' is true or false
+     * @return boolean
+     * @author Jonathan Morris
+     */
+    public boolean isCanNextTurn() {
+        return canNextTurn;
     }
     public void canMove(){
         canMove=true;
