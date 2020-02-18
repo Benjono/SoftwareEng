@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 public class GameMasterTest {
+
     @Test
     public void setupTest(){
         GameMaster gm = new GameMaster();
@@ -10,5 +11,24 @@ public class GameMasterTest {
         Assertions.assertTrue(gm.getPlayers()[1].getToken()==Tokens.Cat);
         Assertions.assertTrue(gm.getPlayers()[2].getToken()==Tokens.Goblet);
 
+    }
+    @Test
+    public void moveTest(){
+        GameMaster gm = new GameMaster();
+        Tokens[] tk = new Tokens[]{Tokens.Boot, Tokens.Cat, Tokens.Goblet};
+        gm.setup(3,tk);
+        int notDouble = 0;
+        while (notDouble<3){
+            System.out.println(gm.getCurTurn());
+            int[] rolls = gm.moveNextPiece();
+            System.out.println(rolls[0]+" "+rolls[1]);
+            if (rolls[0]!=rolls[1]){
+                notDouble+=1;
+            }
+            if(gm.isCanNextTurn()) {
+                gm.nextTurn();
+            }
+        }
+        Assertions.assertEquals(0,gm.getCurTurn());
     }
 }
