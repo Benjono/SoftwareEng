@@ -1,7 +1,9 @@
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 public class GameMasterTest {
-
+    /**
+     * This test tests for if the setup correctly assigns tokens.
+     */
     @Test
     public void setupTest(){
         GameMaster gm = new GameMaster();
@@ -12,6 +14,10 @@ public class GameMasterTest {
         Assertions.assertTrue(gm.getPlayers()[2].getToken()==Tokens.Goblet);
 
     }
+
+    /**
+     * This test checks that the move function works
+     */
     @Test
     public void moveTest(){
         GameMaster gm = new GameMaster();
