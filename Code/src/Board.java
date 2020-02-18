@@ -1,6 +1,6 @@
-import org.json.JSONObject;
-import org.json.JSONArray;
-import org.json.JSONTokener;
+//import org.json.JSONObject;
+//import org.json.JSONArray;
+//import org.json.JSONTokener;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -16,7 +16,7 @@ public class Board {
     public Board(){
         try {
             File filePath = new File("../../config/boardTiles.json");
-            JSONObject dictionary = new JSONObject(filePath);
+            //JSONObject dictionary = new JSONObject(filePath);
         } catch (Exception e) {
             System.out.println("file bricked");
         }

@@ -21,6 +21,7 @@ public class GameMaster {
      * @param playerTokens
      */
     public void setup(int numPlayers, Tokens[] playerTokens){
+        players = new Player[numPlayers];
         for(int player=0;player<numPlayers;player++){
             players[player]=new Player(playerTokens[player]);
         }
@@ -96,5 +97,9 @@ public class GameMaster {
     }
     public void setCurTurn(int newCurTurn){
         curTurn = newCurTurn;
+    }
+
+    public Player[] getPlayers() {
+        return players;
     }
 }

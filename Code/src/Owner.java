@@ -1,9 +1,9 @@
 public enum Owner {
-    default 0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6
+    bank,
+    p1,
+    p2,
+    p3,
+    p4,
+    p5,
+    p6
 }

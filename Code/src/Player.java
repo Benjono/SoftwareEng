@@ -50,6 +50,7 @@ public class Player {
         place = 0;
         token=thisToken;
         countTrain = 0;
+        countUtil = new int[2];
         countUtil[0] = 0;
         countUtil[1] = 0;
     }
