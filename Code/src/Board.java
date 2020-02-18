@@ -2,10 +2,11 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONTokener;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 
 public class Board {
-    private Tile[] tileGrid;
+    Tile[] tileGrid;
 
     /**
      * constructs the board. Uses the boardTiles.json file, it will generate the appropriate classed tiles
@@ -13,12 +14,12 @@ public class Board {
      * @AUTHOR Alex
      */
     public Board(){
-        File filePath = new File("../../config/boardTiles.json");
-        JSONObject dictionary = new JSONObject(filePath);
+        try {
+            File filePath = new File("../../config/boardTiles.json");
+            JSONObject dictionary = new JSONObject(filePath);
+        } catch (Exception e) {
+            System.out.println("file bricked");
+        }
 
-    }
-
-    public Tile[] getTileGrid() {
-        return tileGrid;
     }
 }
