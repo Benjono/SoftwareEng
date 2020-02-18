@@ -1,2 +1,2 @@
-public class LandOnEvent {
+public class LandOnEvent extends Tile{
 }

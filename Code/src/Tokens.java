@@ -1,5 +1,8 @@
 public enum Tokens {
-    Hat,
+    HatStand,
     Cat,
-
+    Boot,
+    SmartPhone,
+    Spoon,
+    Goblet
 }
