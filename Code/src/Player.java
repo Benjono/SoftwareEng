@@ -57,10 +57,7 @@ public class Player {
     public int[] move(int maxBoardTiles){
         int[] dice = roll();
         int rolls = dice[0] + dice[1];
-        int place = getPlace() + rolls;
-        if(place >= maxBoardTiles){
-            place = place - maxBoardTiles;
-        }
+        int place = (getPlace() + rolls) % maxBoardTiles;
         return dice;
     }
 
