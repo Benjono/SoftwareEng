@@ -1,5 +1,20 @@
+import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONTokener;
+import java.io.File;
+
+
 public class Board {
+    Tile[] tileGrid;
+
+    /**
+     * constructs the board. Uses the boardTiles.json file, it will generate the appropriate classed tiles
+     * and put them into the correct position in the tile grid
+     * @AUTHOR Alex
+     */
     public Board(){
-        Tile[] tileGrid;
+        File filePath = new File("../../config/boardTiles.json");
+        JSONObject dictionary = new JSONObject(filePath);
+
     }
 }
