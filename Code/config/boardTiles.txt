@@ -1,7 +1,7 @@
-{
+[
 	"Go":{
 		"typeOfTile": "instructionOnCross",
-		"colour: null,
+		"colour": null,
 		"position": 0,
 		"ownership": false,
 		"houseCost": null,
@@ -656,9 +656,6 @@
 			"5":null
 		},
 		"behaviour": null
-	}
+	}	
 
-	
-	
-
-}
+]
