@@ -5,7 +5,7 @@ import java.io.File;
 
 
 public class Board {
-    Tile[] tileGrid;
+    private Tile[] tileGrid;
 
     /**
      * constructs the board. Uses the boardTiles.json file, it will generate the appropriate classed tiles
@@ -16,5 +16,9 @@ public class Board {
         File filePath = new File("../../config/boardTiles.json");
         JSONObject dictionary = new JSONObject(filePath);
 
+    }
+
+    public Tile[] getTileGrid() {
+        return tileGrid;
     }
 }
