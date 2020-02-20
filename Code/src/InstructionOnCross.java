@@ -1,7 +1,6 @@
 public class InstructionOnCross extends Tile {
-    public InstructionOnCross(String name, int position, String[] behavior){
+    public InstructionOnCross(String name){
         setName(name);
-        setPosition(position);
-        setBehavoir(behavior);
+        setBuyable(false);
     }
 }
