@@ -1,4 +1,9 @@
 import java.util.Random;
+/**
+ * Player class
+ * Implements what the player does in the game
+ * @author Joe C
+ */
 
 public class Player {
 
@@ -58,7 +63,7 @@ public class Player {
     public int[] move(int maxBoardTiles){
         int[] dice = roll();
         int rolls = dice[0] + dice[1];
-        int place = (getPlace() + rolls) % maxBoardTiles;
+        place = (getPlace() + rolls) % maxBoardTiles;
         return dice;
     }
 
