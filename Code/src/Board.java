@@ -133,4 +133,14 @@ public class Board {
     public Tile[] getTileGrid() {
         return tileGrid;
     }
+
+    public Tile getTile(int tilePos){
+        try{
+            return tileGrid[tilePos];
+        }
+        catch(ArrayIndexOutOfBoundsException e){
+
+        }
+    }
+
 }
