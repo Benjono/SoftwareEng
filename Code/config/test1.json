@@ -1,7 +1,7 @@
 {
 	"Go":{
 		"typeOfTile": "instructionOnCross",
-		"colour: null,
+		"colour": null,
 		"position": 0,
 		"ownership": false,
 		"houseCost": null,
@@ -265,17 +265,17 @@
 	"Kirk Close":{
 		"typeOfTile": "property",
 		"colour": "yellow",
-		"position": "(26)",
+		"position": 26,
 		"ownership": true,
-		"houseCost":"150",
-		"cost": "260",
+		"houseCost":150,
+		"cost": 260,
 		"rent":{
-			"0":"22",
-			"1":"110",
-			"2":"330",
-			"3":"800",
-			"4":"975",
-			"5":"1150"
+			"0":22,
+			"1":110,
+			"2":330,
+			"3":800,
+			"4":975,
+			"5":1150
 		},
 		"behaviour": null
 	},
@@ -388,24 +388,6 @@
 		"behaviour": null
 	},
 
-	"Hawking Way":{
-		"typeOfTile": "property",
-		"colour": "blue",
-		"position": 37,
-		"ownership": true,
-		"houseCost":200,
-		"cost": 350,
-		"rent":{
-			"0":35,
-			"1":175,
-			"2":500,
-			"3":1100,
-			"4":1300,
-			"5":1500
-		},
-		"behaviour": null
-	},
-
 	"Turing Heights":{
 		"typeOfTile": "property",
 		"colour": "blue",
@@ -432,7 +414,7 @@
 		"houseCost":null,
 		"cost": 200,
 		"rent":{
-			"0":null,
+			"0":0,
 			"1":25,
 			"2":50,
 			"3":100,
@@ -450,7 +432,7 @@
 		"houseCost":null,
 		"cost": 200,
 		"rent":{
-			"0":null,
+			"0":0,
 			"1":25,
 			"2":50,
 			"3":100,
@@ -468,7 +450,7 @@
 		"houseCost":null,
 		"cost": 200,
 		"rent":{
-			"0":null,
+			"0":0,
 			"1":25,
 			"2":50,
 			"3":100,
@@ -486,7 +468,7 @@
 		"houseCost":null,
 		"cost": 200,
 		"rent":{
-			"0":null,
+			"0":0,
 			"1":25,
 			"2":50,
 			"3":100,
@@ -504,7 +486,7 @@
 		"houseCost":null,
 		"cost": 150,
 		"rent":{
-			"0":null,
+			"0":0,
 			"1":4,
 			"2":10,
 			"3":null,
@@ -522,7 +504,7 @@
 		"houseCost":null,
 		"cost": 150,
 		"rent":{
-			"0":null,
+			"0":0,
 			"1":4,
 			"2":10,
 			"3":null,
@@ -533,7 +515,7 @@
 	},
 
 	"Income Tax":{
-		"typeOfTile": "landOnEvent",
+		"typeOfTile": "tax",
 		"colour": null,
 		"position": 4,
 		"ownership": false,
@@ -551,7 +533,7 @@
 	},
 
 	"Super Tax":{
-		"typeOfTile": "landOnEvent",
+		"typeOfTile": "tax",
 		"colour": null,
 		"position": 38,
 		"ownership": false,
@@ -569,7 +551,7 @@
 	},
 
 	"Opportunity Knocks":{
-		"typeOfTile": "landOnEvent",
+		"typeOfTile": "cardDraw",
 		"colour": null,
 		"position": [7,22,36],
 		"ownership": false,
@@ -587,7 +569,7 @@
 	},
 
 	"Pot Luck":{
-		"typeOfTile": "landOnEvent",
+		"typeOfTile": "cardDraw",
 		"colour": null,
 		"position": [2,17,33],
 		"ownership": false,
@@ -605,7 +587,7 @@
 	},
 
 	"Go to Jail":{
-		"typeOfTile": "landOnEvent",
+		"typeOfTile": "toJail",
 		"colour": null,
 		"position": 30,
 		"ownership": false,
@@ -623,27 +605,9 @@
 	},
 
 	"Free Parking":{
-		"typeOfTile": "landOnEvent",
+		"typeOfTile": "freeParking",
 		"colour": null,
-		"position": 30,
-		"ownership": false,
-		"houseCost":null,
-		"cost": null,
-		"rent":{
-			"0":null,
-			"1":null,
-			"2":null,
-			"3":null,
-			"4":null,
-			"5":null
-		},
-		"behaviour": "collectPenalties"
-	},
-
-	"Jail/Just visiting":{
-		"typeOfTile": "landOnEvent",
-		"colour": null,
-		"position": 11,
+		"position": 20,
 		"ownership": false,
 		"houseCost":null,
 		"cost": null,
@@ -656,9 +620,24 @@
 			"5":null
 		},
 		"behaviour": null
-	}
+	},
 
-	
-	
+	"Jail/Just visiting":{
+		"typeOfTile": "doesNothing",
+		"colour": null,
+		"position": 10,
+		"ownership": false,
+		"houseCost":null,
+		"cost": null,
+		"rent":{
+			"0":null,
+			"1":null,
+			"2":null,
+			"3":null,
+			"4":null,
+			"5":null
+		},
+		"behaviour": null
+	}	
 
 }

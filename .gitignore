@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 Code/.idea/workspace.xml
 Code/.idea/workspace.xml
@@ -8,3 +9,9 @@ Code/.idea/workspace.xml
 Code/Code.iml
 *.xml
 *.class
+=======
+**/**/.idea/
+**/out/
+**/*.iml
+**\.idea\
+>>>>>>> 01d9096cb38f3190516ca3655595c85ed5fbb8b2

@@ -1,10 +1,10 @@
 public enum Colours {
-    Brown,
-    Cyan,
-    Purple,
-    Orange,
-    Red,
-    Yellow,
-    Green,
-    Blue
+    brown,
+    cyan,
+    purple,
+    orange,
+    red,
+    yellow,
+    green,
+    blue
 }
