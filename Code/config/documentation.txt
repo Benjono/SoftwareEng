@@ -1,18 +1,29 @@
+Calling constructors for tiles - note name is the key at the start:
+properties require a name, position, ownership, housecost, cost and all 6 rent fields.
+instructionOnCross requires a name, an ownership and a position.
+station requires a name, a position, an ownership, a cost and 5 rent fields.
+utility requires a name, a position, ownership, a cost and 3 rent fields.
+tax requires a name, a position, an ownership and a behaviour (int).
+cardDraw requires positions (array of ints), an ownership, and a behaviour (string).
+toJail requires a name, position and an ownership.
+freeParking requires a name, a position and an ownership.
+doesNothing requires a name, a position and an ownership
+
 Tiles:
-"Tile Name":{
-		"typeOfTile": object being created - all implement tile interface
-		"colour": colour of properties - null on all other
-		"position": position displayed on board (currently 0-39) -1 from excel file
-		"ownership": can a player own the tile
-		"houseCost": cost to build a new level of house on a property - null on non-properties
-		"cost": cost to buy tile - null on non-ownable
+	"Tile Name":{
+		"typeOfTile": object being created - all implement tile interface - string
+		"colour": colour of properties - null on all other - string
+		"position": position displayed on board (currently 0-39) -1 from excel file - int
+		"ownership": can a player own the tile - boolean
+		"houseCost": cost to build a new level of house on a property - null on non-properties - int
+		"cost": cost to buy tile - null on non-ownable - int
 		"rent":{
-			"0": rent for property with no housing
-			"1": rent for property with 1 house - rent for station with 1 station owned - rent for utility with 1 utility owned
-			"2": rent for property with 2 houses - rent for station with 2 stations owned - rent for utility with 2 utilities owned
-			"3": rent for property with 3 houses - rent for station with 3 stations owned
-			"4": rent for property with 4 houses - rent for station with 4 stations owned
-			"5": rent for property with hotel
+			"0": rent for property with no housing - int
+			"1": rent for property with 1 house - rent for station with 1 station owned - rent for utility with 1 utility owned - int
+			"2": rent for property with 2 houses - rent for station with 2 stations owned - rent for utility with 2 utilities owned - int
+			"3": rent for property with 3 houses - rent for station with 3 stations owned - int
+			"4": rent for property with 4 houses - rent for station with 4 stations owned - int
+			"5": rent for property with hotel - int
 		},
-		"behaviour": "function that is called when landed on/passed through for applicable"
+		"behaviour": "function that is called when landed on/passed through for applicable" - int or string
 	}

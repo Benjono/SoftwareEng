@@ -8,14 +8,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 
-
+/**
+ * Board class, holds an array of tiles on the board
+ * @author Alex
+ */
 public class Board {
     Tile[] tileGrid;
 
     /**
      * constructs the board. Uses the boardTiles.json file, it will generate the appropriate classed tiles
      * and put them into the correct position in the tile grid
-     * @author Alex
      */
     public Board(){
         String filePath = new String("config/test1.json");
@@ -139,7 +141,7 @@ public class Board {
             return tileGrid[tilePos];
         }
         catch(ArrayIndexOutOfBoundsException e){
-
+            return null;
         }
     }
 
