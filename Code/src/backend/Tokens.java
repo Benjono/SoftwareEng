@@ -1,3 +1,5 @@
+package backend;
+
 public enum Tokens {
     HatStand,
     Cat,

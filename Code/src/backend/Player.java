@@ -1,6 +1,8 @@
+package backend;
+
 import java.util.Random;
 /**
- * Player class
+ * backend.Player class
  * Implements what the player does in the game
  * @author Joe C
  */

@@ -1,8 +1,8 @@
+import backend.*;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
@@ -81,7 +81,7 @@ public class BoardTest {
                         tileGrid[Integer.valueOf(embeddedTile.get("position").toString())] = currentTax;
                         break;
 
-                    case "toJail":
+                    case "backend.toJail":
                         toJail currentToJail = new toJail(key);
                         tileGrid[Integer.valueOf(embeddedTile.get("position").toString())] = currentToJail;
                         break;

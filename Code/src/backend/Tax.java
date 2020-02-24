@@ -1,3 +1,5 @@
+package backend;
+
 public class Tax extends Tile{
     private int payment;
     public Tax(String name, int payment){

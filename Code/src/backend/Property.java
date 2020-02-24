@@ -1,3 +1,5 @@
+package backend;
+
 public class Property extends Tile {
     String name;
     Enum colour;

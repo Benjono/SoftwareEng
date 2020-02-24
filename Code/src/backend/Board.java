@@ -1,3 +1,5 @@
+package backend;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -83,7 +85,7 @@ public class Board {
                         tileGrid[Integer.valueOf(embeddedTile.get("position").toString())] = currentTax;
                         break;
 
-                    case "toJail":
+                    case "backend.toJail":
                         toJail currentToJail = new toJail(key);
                         tileGrid[Integer.valueOf(embeddedTile.get("position").toString())] = currentToJail;
                         break;

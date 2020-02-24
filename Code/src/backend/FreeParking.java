@@ -1,3 +1,5 @@
+package backend;
+
 public class FreeParking extends Tile{
     private int currentPenalties;
     public FreeParking(String name){

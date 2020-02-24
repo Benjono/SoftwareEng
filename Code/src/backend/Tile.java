@@ -1,3 +1,5 @@
+package backend;
+
 public class Tile {
     private boolean buyable;
     private String name;

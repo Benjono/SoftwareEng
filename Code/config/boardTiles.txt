@@ -424,7 +424,7 @@
 		"behaviour": null
 	},
 
-	"Brighton Station":{
+	"Brighton backend.Station":{
 		"typeOfTile": "station",
 		"colour": "null",
 		"position": 5,
@@ -442,7 +442,7 @@
 		"behaviour": null
 	},
 
-	"Hove Station":{
+	"Hove backend.Station":{
 		"typeOfTile": "station",
 		"colour": null,
 		"position": 15,
@@ -460,7 +460,7 @@
 		"behaviour": null
 	},
 
-	"Falmer Station":{
+	"Falmer backend.Station":{
 		"typeOfTile": "station",
 		"colour": null,
 		"position": 25,
@@ -478,7 +478,7 @@
 		"behaviour": null
 	},
 
-	"Lewes Station":{
+	"Lewes backend.Station":{
 		"typeOfTile": "station",
 		"colour": null,
 		"position": 35,
@@ -532,7 +532,7 @@
 		"behaviour": null
 	},
 
-	"Income Tax":{
+	"Income backend.Tax":{
 		"typeOfTile": "landOnEvent",
 		"colour": null,
 		"position": 4,
@@ -550,7 +550,7 @@
 		"behaviour": 200
 	},
 
-	"Super Tax":{
+	"Super backend.Tax":{
 		"typeOfTile": "landOnEvent",
 		"colour": null,
 		"position": 38,

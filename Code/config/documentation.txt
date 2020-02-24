@@ -1,5 +1,5 @@
 Tiles:
-"Tile Name":{
+"backend.Tile Name":{
 		"typeOfTile": object being created - all implement tile interface
 		"colour": colour of properties - null on all other
 		"position": position displayed on board (currently 0-39) -1 from excel file
