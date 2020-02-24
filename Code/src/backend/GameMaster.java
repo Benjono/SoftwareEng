@@ -55,9 +55,11 @@ public class GameMaster {
      * @author Jonathan Morris
      */
     public void nextTurn(){
-        canNotTakeTurn();
-        canMove();
-        setCurTurn((getCurTurn()+1)%players.length);
+        if(isCanNextTurn()) {
+            canNotTakeTurn();
+            canMove();
+            setCurTurn((getCurTurn() + 1) % players.length);
+        }
     }
     /******************************
      * Getters and Setters
