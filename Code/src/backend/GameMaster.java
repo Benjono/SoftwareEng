@@ -104,4 +104,7 @@ public class GameMaster {
     public Player[] getPlayers() {
         return players;
     }
+    public Player getPlayer(int player){
+        return players[player];
+    }
 }
