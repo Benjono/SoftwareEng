@@ -42,6 +42,7 @@ public class Gui extends Application {
         hboxPlayerCount.setSpacing(15);
         hboxPlayerCount.setAlignment(Pos.CENTER);
         hboxPlayerCount.getChildren().addAll(playerLabel, playerCombo);
+        dialogNumPlayers.getDialogPane().setContent(hboxPlayerCount);
 
         ButtonType buttonTypeOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
         dialogNumPlayers.getDialogPane().getButtonTypes().add(buttonTypeOk);
