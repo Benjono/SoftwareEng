@@ -57,7 +57,7 @@ public class Gui extends Application {
 
         Scene scene = new Scene(playerLabel, 900, 600);
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        primaryStage.setTitle("Futoshiki");
+        primaryStage.setTitle("Property Tycoon");
         primaryStage.setScene(scene);
         primaryStage.setX(screenBounds.getMinX());
         primaryStage.setY(screenBounds.getMinY());
