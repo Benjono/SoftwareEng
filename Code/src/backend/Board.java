@@ -23,7 +23,7 @@ public class Board {
      */
     public Board(){
         String filePath = new String("config/test1.json");
-        Tile[] tileGrid = new Tile[40];
+        tileGrid = new Tile[40];
         try {
             JSONParser parser = new JSONParser();
             FileReader path =new FileReader(filePath);
