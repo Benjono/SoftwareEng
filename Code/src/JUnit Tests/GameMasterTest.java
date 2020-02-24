@@ -2,6 +2,8 @@ import backend.GameMaster;
 import backend.Tokens;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+import backend.*;
+
 public class GameMasterTest {
     /**
      * This test tests for if the setup correctly assigns tokens.

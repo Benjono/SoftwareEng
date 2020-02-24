@@ -15,7 +15,7 @@ import java.util.Iterator;
  * @author Alex
  */
 public class Board {
-    Tile[] tileGrid;
+    private Tile[] tileGrid;
 
     /**
      * constructs the board. Uses the boardTiles.json file, it will generate the appropriate classed tiles
@@ -23,7 +23,7 @@ public class Board {
      */
     public Board(){
         String filePath = new String("config/test1.json");
-        Tile[] tileGrid = new Tile[40];
+        tileGrid = new Tile[40];
         try {
             JSONParser parser = new JSONParser();
             FileReader path =new FileReader(filePath);
