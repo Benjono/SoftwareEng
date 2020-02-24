@@ -6,7 +6,6 @@ public class GameMaster {
     private int curTurn;
     private boolean canMove;
     private boolean canNextTurn;
-
     /**
      * Constructor
      * @author Jonathan Morris
@@ -15,7 +14,6 @@ public class GameMaster {
         board = new Board();
         setCurTurn(0);
     }
-
     /**
      * This function does the setup for the game.
      * @author Jonathan Morris
@@ -30,28 +28,29 @@ public class GameMaster {
         canMove();
         canNotTakeTurn();
     }
-
     /**
      * This function will move player who's turn it is and then decide, based on the rolls returned, whether
-     * or not to allow them to roll again.
+     * or not to allow them to roll again. Will stop them from rolling if they aren't allowed to roll anymore
      *
-     * @return int array
+     * @return int array of rolls or null if player can't move
      * @author Jonathan Morris
      */
     public int[] moveNextPiece(){
-        int[] rolls = players[curTurn].move(board.getTileGrid().length);
-        canNotMove();
-        canTakeTurn();
-        if (rolls[0]==rolls[1]){
-            canMove();
-            canNotTakeTurn();
+        if(isCanMove()) {
+            int[] rolls = players[curTurn].move(board.getTileGrid().length);
+            canNotMove();
+            canTakeTurn();
+            if (rolls[0] == rolls[1]) {
+                canMove();
+                canNotTakeTurn();
+            }
+            return rolls;
         }
-        return rolls;
+        return null;
     }
 
     /**
-     * This function causes the next turn to happen.
-     *
+     * This function causes the next turn to happen if the player is allowed to
      * @author Jonathan Morris
      */
     public void nextTurn(){
@@ -65,23 +64,19 @@ public class GameMaster {
      * Getters and Setters
      ******************************/
     /**
-     * This function says that the next turn can be taken (so all actions that must be done by a player are done)
-     *
+     * This function says that the next turn can be taken (so all actions that must be done by a player are done
      * @author Jonathan Morris
      */
     public void canTakeTurn(){
         canNextTurn=true;
     }
-
     /**
      * This function says that the next turn can't be taken
-     *
      * @author Jonathan Morris
      */
     public void canNotTakeTurn() {
         canNextTurn=false;
     }
-
     /**
      * This function returns if 'canNextTurn' is true or false
      * @return boolean
@@ -90,22 +85,57 @@ public class GameMaster {
     public boolean isCanNextTurn() {
         return canNextTurn;
     }
-    public void canMove(){
+    /**
+     * Sets whether the player can move to true
+     */
+    private void canMove(){
         canMove=true;
     }
-    public void canNotMove(){
+    /**
+     * Sets canMove to false
+     */
+    private void canNotMove(){
         canMove=false;
     }
+
+    /**
+     * Returns whether or not a player can move
+     * @return boolean
+     */
+    public boolean isCanMove(){
+        return canMove;
+    }
+    /**
+     * Gets the current turn
+     * @return int
+     * @author Jonathan Morris
+     */
     public int getCurTurn() {
         return curTurn;
     }
-    public void setCurTurn(int newCurTurn){
+    /**
+     * Sets the current turn to the integer passed to it
+     * @param newCurTurn
+     * @author Jonathan Morris
+     */
+    private void setCurTurn(int newCurTurn){
         curTurn = newCurTurn;
     }
 
+    /**
+     * Returns the array of players
+     * @return Player[]
+     * @author Jonathan Morris
+     */
     public Player[] getPlayers() {
         return players;
     }
+    /**
+     * Takes an integer and returns the player at that index in the array players
+     * @param player
+     * @return Player
+     * @author Jonathan Morris
+     */
     public Player getPlayer(int player){
         return players[player];
     }
