@@ -15,7 +15,7 @@ import java.util.Iterator;
  * @author Alex
  */
 public class Board {
-    Tile[] tileGrid;
+    private Tile[] tileGrid;
 
     /**
      * constructs the board. Uses the boardTiles.json file, it will generate the appropriate classed tiles
