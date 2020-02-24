@@ -50,7 +50,7 @@ public class GameMaster {
     }
 
     /**
-     * This function causes the next turn to happen if the player is allowed to
+     * This function causes the next turn to happen if the player is allowed to.
      * @author Jonathan Morris
      */
     public void nextTurn(){
@@ -59,6 +59,7 @@ public class GameMaster {
             canMove();
             setCurTurn((getCurTurn() + 1) % players.length);
         }
+
     }
     /******************************
      * Getters and Setters

@@ -20,6 +20,7 @@ public class Board {
     /**
      * constructs the board. Uses the boardTiles.json file, it will generate the appropriate classed tiles
      * and put them into the correct position in the tile grid
+     * @author Alex Homer
      */
     public Board(){
         String filePath = new String("config/test1.json");
