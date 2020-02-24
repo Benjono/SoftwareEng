@@ -1,3 +1,5 @@
+package backend;
+
 public class Station extends Tile{
     int cost;
     int[] rent;

@@ -1,3 +1,5 @@
+package backend;
+
 public enum Owner {
     bank,
     p1,

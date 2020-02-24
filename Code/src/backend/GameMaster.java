@@ -1,3 +1,5 @@
+package backend;
+
 public class GameMaster {
     private Board board;
     private Player[] players;

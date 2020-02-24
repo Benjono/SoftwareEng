@@ -1,3 +1,5 @@
+package backend;
+
 public class CardDraw extends Tile{
     Enum drawTypes;
     public CardDraw(String name, String drawTypes){
