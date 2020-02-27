@@ -10,6 +10,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.scene.layout.GridPane;
 
 /**
  * GUI implementation
@@ -59,6 +60,7 @@ public class Gui extends Application {
 
 
         //start of player selection dialog box
+
         Dialog<Integer[]> dialogPlayerTokens = new Dialog<>();
         dialogPlayerTokens.setTitle("Property Tycoon");
         dialogPlayerTokens.setHeaderText("Select the tokens you want to play with.");
@@ -73,38 +75,38 @@ public class Gui extends Application {
             hboxPlayerCount.setMinHeight(50);
             hboxPlayerCount.setSpacing(15);
             hboxPlayerCount.setAlignment(Pos.CENTER);
-            hboxPlayerCount.getChildren().addAll(playerLabel, playerCombo);
+            //hboxPlayerCount.getChildren().addAll(playerLabel, playerCombo);
             dialogNumPlayers.getDialogPane().setContent(hboxPlayerCount);
 
 
         }
 
-        Label playerLabel = new Label("Player Count: ");
-        ComboBox<Integer> playerCombo = new ComboBox<>();
+        playerLabel = new Label("Player Count: ");
+        ComboBox<Integer> playerCombo2 = new ComboBox<>();
         // change later
-        playerCombo.getItems().addAll(2,3);
-        playerCombo.setValue(2);
-        HBox hboxPlayerCount = new HBox();
+        playerCombo2.getItems().addAll(2,3);
+        playerCombo2.setValue(2);
+        hboxPlayerCount = new HBox();
         HBox.setHgrow(playerLabel, Priority.ALWAYS);
-        HBox.setHgrow(playerCombo, Priority.ALWAYS);
+        HBox.setHgrow(playerCombo2, Priority.ALWAYS);
         hboxPlayerCount.setMaxHeight(50);
         hboxPlayerCount.setMinHeight(50);
         hboxPlayerCount.setSpacing(15);
         hboxPlayerCount.setAlignment(Pos.CENTER);
-        hboxPlayerCount.getChildren().addAll(playerLabel, playerCombo);
+        hboxPlayerCount.getChildren().addAll(playerLabel, playerCombo2);
         dialogNumPlayers.getDialogPane().setContent(hboxPlayerCount);
 
-        ButtonType buttonTypeOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-        dialogNumPlayers.getDialogPane().getButtonTypes().add(buttonTypeOk);
+        //dialogNumPlayers.getDialogPane().getButtonTypes().add(buttonTypeOk);
         dialogNumPlayers.setResultConverter((ButtonType b) -> {
             if (b == buttonTypeOk){
-                return playerCombo.getValue();
+                return playerCombo2.getValue();
             }
             return null;
         });
         dialogNumPlayers.showAndWait();
         // end of player token dialog box
-        Scene scene = new Scene(playerLabel, 900, 600);
+        GridPane gp = new GridPane();
+        Scene scene = new Scene(gp, 900, 600);
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         primaryStage.setTitle("Property Tycoon");
         primaryStage.setScene(scene);
