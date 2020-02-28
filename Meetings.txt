@@ -18,9 +18,14 @@ Where: Library 1.1
 Attending: Alex, Joe C, Ben, Joe L
 Date: 14/02/2020
 Time: 1:30pm
-Where: Library 1.1
+Where: Library 1.7
 
 Attending: Alex, Joe C, Ben, Joe L
 Date: 21/02/2020
 Time: 12:12
 Where: Chichester meeting room 2.
+
+Attending: Alex, Joe L, Ben
+Date: 28/02/2020
+Time: 13:22
+Where: Library 1.1
