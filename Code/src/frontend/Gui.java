@@ -133,7 +133,7 @@ public class Gui extends Application {
         bottom.setPadding(new Insets(20, 0, 20, 0));
 
         //Players tab
-
+        //add active players and maybe highlight current turn player
         VBox playerTab = new VBox();
         gameScreen.setRight(playerTab);
         playerTab.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
@@ -147,6 +147,7 @@ public class Gui extends Application {
         //Game board
         GridPane gp = new GridPane();
         gameScreen.setCenter(gp);
+        //make is 11 x 11 possibly?
 
         Border gameTileBorder = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1)));
         //Top row
@@ -300,7 +301,7 @@ public class Gui extends Application {
         gp.add(sq30, 6, 9);
         gp.add(sq29, 7, 9);
         gp.add(sq28, 8, 9);
-
+        //change rest of squares to be panes
         //Left column
         Pane sq1 = new Pane();
         Label l1 = new Label("Tile" + 1);
@@ -371,7 +372,7 @@ public class Gui extends Application {
 
         //Sprite objects
 
-
+        //probably delete
         Image image1 = new Image("player_boot.png", 30, 30, false, true);
         ImageView player1 = new ImageView(image1);
         Image image2 = new Image("player_cat.png",30, 30, false, true);
@@ -379,6 +380,7 @@ public class Gui extends Application {
 
 
         //Sprite movement
+        //use fixed token list from tom's stuff
         Tokens[] tokList = new Tokens[2];
         tokList[0] = Tokens.Cat;
         tokList[1] = Tokens.Boot;
@@ -398,6 +400,7 @@ public class Gui extends Application {
 
         backend.GameMaster GM = new backend.GameMaster();
         GM.setup(playerCombo.getValue(), tokList);
+        //refactor so sq0 gets the player sprite later
         sq0.getChildren().add(player1);
         sq0.getChildren().add(player2);
 
@@ -418,7 +421,7 @@ public class Gui extends Application {
 
             }
         });
-
+        //display which player's turn it is
         nextTurn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -427,6 +430,7 @@ public class Gui extends Application {
         });
     }
     //gm.getPlayer(gm.getCurTurn()).getPos()
+    //instance of images seperate and use them in if statements to give players a token image
     public ImageView getActivePlayer(int n){
         ImageView activePlayer = null;
         if(n == 0){
@@ -442,6 +446,7 @@ public class Gui extends Application {
     }
 
     // code used from https://stackoverflow.com/questions/20825935/javafx-get-node-by-row-and-column answer 1
+    // try get children on the node returned when calling method outside of this
     public Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
         Node result = null;
         ObservableList<Node> childrens = gridPane.getChildren();
@@ -455,6 +460,7 @@ public class Gui extends Application {
 
         return result;
     }
+    //add switch statements from seperate class
     public int[] coords(int position){
         return new int[]{0,0};
     }
