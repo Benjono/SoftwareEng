@@ -140,4 +140,11 @@ public class GameMaster {
     public Player getPlayer(int player){
         return players[player];
     }
+
+    public Board getBoard(){
+        return board;
+    }
+    public Tile getTile(int theTile){
+        return board.getTile(theTile);
+    }
 }
