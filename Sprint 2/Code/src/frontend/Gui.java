@@ -411,28 +411,7 @@ public class Gui extends Application {
     //gm.getPlayer(gm.getCurTurn()).getPos()
     //instance of images seperate and use them in if statements to give players a token image
     public Player getActivePlayer(int currentRound, Player[] players){
-        Player activePlayer = null;
-        switch (currentRound){
-            case 0:
-                activePlayer = players[0];
-                break;
-            case 1:
-                activePlayer = players[1];
-                break;
-            case 2:
-                activePlayer = players[2];
-                break;
-            case 3:
-                activePlayer = players[3];
-                break;
-            case 4:
-                activePlayer = players[4];
-                break;
-            case 5:
-                activePlayer = players[5];
-                break;
-        }
-        return activePlayer;
+        return players[currentRound];
     }
     //add switch statements from seperate class
     public int[] coords(int position){
