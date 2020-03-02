@@ -349,7 +349,6 @@ public class Gui extends Application {
         diceRoll.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Player activePlayer = getActivePlayer(GM.getCurTurn(), GM.getPlayers());
                 ImageView playerSprite = playerImages[GM.getCurTurn()];
                 int[] oldCoords = coords(GM.getPlayer(GM.getCurTurn()).getPlace());
                 Iterator<Node> children = gp.getChildren().iterator();
