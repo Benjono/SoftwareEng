@@ -12,7 +12,7 @@ public class Player {
     private int place;
     private Random random;
     private Tokens token;
-    private int[] countUtil;
+    private int countUtil;
     private int countTrain;
     private int money;
 
@@ -25,9 +25,7 @@ public class Player {
         place = 0;
         token=thisToken;
         countTrain = 0;
-        countUtil = new int[2];
-        countUtil[0] = 0;
-        countUtil[1] = 0;
+        countUtil = 0;
     }
 
     /**
@@ -68,7 +66,7 @@ public class Player {
      * @return int[]
      * @author Alex Homer
      */
-    public int[] getCountUtil() {
+    public int getCountUtil() {
         return countUtil;
     }
 
@@ -76,7 +74,7 @@ public class Player {
      * Sets the array
      * @param countUtil
      */
-    public void setCountUtil(int[] countUtil) {
+    public void setCountUtil(int countUtil) {
         this.countUtil = countUtil;
     }
 

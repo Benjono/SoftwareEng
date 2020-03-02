@@ -86,6 +86,22 @@ public class Property extends Tile {
     }
 
     /**
+     * cancel mortgage on tile, paying for
+     */
+    public void unMortgageProperty(){
+        mortgage = false;
+        owner.setMoney(owner.getMoney()-(costToBuy/2));
+    }
+
+    /**
+     * returns if the tile is mortgaged
+     * @return mortgage, if the tile is mortgaged
+     */
+    public boolean getMortgage(){
+        return mortgage;
+    }
+
+    /**
      * gets owner
      * @return current owner of the tie
      */

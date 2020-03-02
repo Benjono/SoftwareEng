@@ -87,7 +87,7 @@ public class Board {
                         tileGrid[Integer.valueOf(embeddedTile.get("position").toString())] = currentTax;
                         break;
 
-                    case "backend.toJail":
+                    case "toJail":
                         toJail currentToJail = new toJail(key);
                         tileGrid[Integer.valueOf(embeddedTile.get("position").toString())] = currentToJail;
                         break;
