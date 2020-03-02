@@ -14,6 +14,7 @@ public class Player {
     private Tokens token;
     private int[] countUtil;
     private int countTrain;
+    private int money;
 
     /**
      * Constructor, takes the token to be assigned to the player
@@ -42,6 +43,16 @@ public class Player {
         place = (getPlace() + rolls) % maxBoardTiles;
         return dice;
     }
+
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
 
     /**
      * Returns two randomly generated numbers to represent dice rolls
