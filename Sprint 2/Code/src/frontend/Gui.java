@@ -412,7 +412,12 @@ public class Gui extends Application {
     public Player getActivePlayer(int currentRound, Player[] players){
         return players[currentRound];
     }
-    //add switch statements from seperate class
+
+    /**
+     * returns current position in grid pane
+     * @param position
+     * @return int[]
+     */
     public int[] coords(int position){
         if (position <= 9){ return new int[]{0,10 - position % 10}; }
         else if (position <= 19){ return new int[]{position % 10, 0}; }
