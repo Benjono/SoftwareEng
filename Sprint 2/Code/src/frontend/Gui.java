@@ -349,7 +349,6 @@ public class Gui extends Application {
         diceRoll.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Player activePlayer = getActivePlayer(GM.getCurTurn(), GM.getPlayers());
                 ImageView playerSprite = playerImages[GM.getCurTurn()];
                 int[] oldCoords = coords(GM.getPlayer(GM.getCurTurn()).getPlace());
                 Iterator<Node> children = gp.getChildren().iterator();
@@ -411,183 +410,15 @@ public class Gui extends Application {
     //gm.getPlayer(gm.getCurTurn()).getPos()
     //instance of images seperate and use them in if statements to give players a token image
     public Player getActivePlayer(int currentRound, Player[] players){
-        Player activePlayer = null;
-        switch (currentRound){
-            case 0:
-                activePlayer = players[0];
-                break;
-            case 1:
-                activePlayer = players[1];
-                break;
-            case 2:
-                activePlayer = players[2];
-                break;
-            case 3:
-                activePlayer = players[3];
-                break;
-            case 4:
-                activePlayer = players[4];
-                break;
-            case 5:
-                activePlayer = players[5];
-                break;
-        }
-        return activePlayer;
+        return players[currentRound];
     }
     //add switch statements from seperate class
     public int[] coords(int position){
-        int[] coPos = new int[2];
-        switch(position) {
-            case 0:
-                coPos[0] = 9;
-                coPos[1] = 0;
-                break;
-            case 1:
-                coPos[0] = 8;
-                coPos[1] = 0;
-                break;
-            case 2:
-                coPos[0] = 7;
-                coPos[1] = 0;
-                break;
-            case 3:
-                coPos[0] = 6;
-                coPos[1] = 0;
-                break;
-            case 4:
-                coPos[0] = 5;
-                coPos[1] = 0;
-                break;
-            case 5:
-                coPos[0] = 4;
-                coPos[1] = 0;
-                break;
-            case 6:
-                coPos[0] = 3;
-                coPos[1] = 0;
-                break;
-            case 7:
-                coPos[0] = 2;
-                coPos[1] = 0;
-                break;
-            case 8:
-                coPos[0] = 1;
-                coPos[1] = 0;
-                break;
-            case 9:
-                coPos[0] = 0;
-                coPos[1] = 0;
-                break;
-            case 10:
-                coPos[0] = 0;
-                coPos[1] = 1;
-                break;
-            case 11:
-                coPos[0] = 0;
-                coPos[1] = 2;
-                break;
-            case 12:
-                coPos[0] = 0;
-                coPos[1] = 3;
-                break;
-            case 13:
-                coPos[0] = 0;
-                coPos[1] = 4;
-                break;
-            case 14:
-                coPos[0] = 0;
-                coPos[1] = 5;
-                break;
-            case 15:
-                coPos[0] = 0;
-                coPos[1] = 6;
-                break;
-            case 16:
-                coPos[0] = 0;
-                coPos[1] = 7;
-                break;
-            case 17:
-                coPos[0] = 0;
-                coPos[1] = 8;
-                break;
-            case 18:
-                coPos[0] = 0;
-                coPos[1] = 9;
-                break;
-            case 19:
-                coPos[0] = 1;
-                coPos[1] = 9;
-                break;
-            case 20:
-                coPos[0] = 2;
-                coPos[1] = 9;
-                break;
-            case 21:
-                coPos[0] = 3;
-                coPos[1] = 9;
-                break;
-            case 22:
-                coPos[0] = 4;
-                coPos[1] = 9;
-                break;
-            case 23:
-                coPos[0] = 5;
-                coPos[1] = 9;
-                break;
-            case 24:
-                coPos[0] = 6;
-                coPos[1] = 9;
-                break;
-            case 25:
-                coPos[0] = 7;
-                coPos[1] = 9;
-                break;
-            case 26:
-                coPos[0] = 8;
-                coPos[1] = 9;
-                break;
-            case 27:
-                coPos[0] = 9;
-                coPos[1] = 9;
-                break;
-            case 28:
-                coPos[0] = 9;
-                coPos[1] = 8;
-                break;
-            case 29:
-                coPos[0] = 9;
-                coPos[1] = 7;
-                break;
-            case 30:
-                coPos[0] = 9;
-                coPos[1] = 6;
-                break;
-            case 31:
-                coPos[0] = 9;
-                coPos[1] = 5;
-                break;
-            case 32:
-                coPos[0] = 9;
-                coPos[1] = 4;
-                break;
-            case 33:
-                coPos[0] = 9;
-                coPos[1] = 3;
-                break;
-            case 34:
-                coPos[0] = 9;
-                coPos[1] = 2;
-                break;
-            case 35:
-                coPos[0] = 9;
-                coPos[1] = 1;
-                break;
-            default:
-                coPos[0]=0;
-                coPos[1]=0;
-        }
-        System.out.println(coPos[0]+" "+coPos[1]);
-        return coPos;
+        if (position <= 9){ return new int[]{0,10 - position % 10}; }
+        else if (position <= 19){ return new int[]{position % 10, 0}; }
+        else if (position <= 29){ return new int[]{10, position % 10};}
+        else if (position <= 39){ return new int[]{10 - position % 10, 10};}
+        else {return new int[]{0,0};}
     }
 
     /**

@@ -44,7 +44,6 @@ public class Board {
                             Long convert = (Long) rentConversion.get(rentKey);
                             rentArray[i] = convert.intValue();
                         }
-
                         Property currentProperty = new Property(key, embeddedTile.get("colour").toString(),  Integer.valueOf(embeddedTile.get("cost").toString()), rentArray,  Integer.valueOf(embeddedTile.get("houseCost").toString()));
                         tileGrid[Integer.valueOf(embeddedTile.get("position").toString())] = currentProperty;
                         break;
@@ -105,11 +104,8 @@ public class Board {
                             int currentPos= Integer.valueOf(drawPositionConversion.get(i).toString());
                             CardDraw currentCardDraw = new CardDraw(key, draw);
                             tileGrid[currentPos] = currentCardDraw;
-
-
                         }
                         break;
-
                 }
             }
         }
@@ -122,17 +118,6 @@ public class Board {
         catch(ParseException e){
             System.out.println("Parse failed");
         }
-        for(int i=0 ;i<40;i++){
-            if(tileGrid[i]!= null){
-                System.out.println(tileGrid[i].getName());
-            }
-            else{
-                System.out.println("fail");
-            }
-        }
-
-
-
     }
 
     public Tile[] getTileGrid() {
