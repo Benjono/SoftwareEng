@@ -126,7 +126,7 @@ public class Gui extends Application {
 
         diceRollNextTurn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public synchronized void handle(ActionEvent event) {
                 if(!GM.isCanNextTurn()) {
                     ImageView playerSprite = playerImages[GM.getCurTurn()];
                     int[] oldCoords = coords(GM.getPlayer(GM.getCurTurn()).getPlace());
@@ -135,16 +135,32 @@ public class Gui extends Application {
                         Node n = children.next();
                         if (gp.getRowIndex(n) == oldCoords[1] && gp.getColumnIndex(n) == oldCoords[0]) {
                             ((Pane) n).getChildren().remove(playerSprite);
+                            break;
                         }
                     }
                     GM.moveNextPiece();
-                    children = gp.getChildren().iterator();
                     int[] newCoords = coords(GM.getPlayer(GM.getCurTurn()).getPlace());
                     //Look at each Pane() object within gridPane()
                     while (children.hasNext()) {
                         Node n = children.next();
                         if (gp.getRowIndex(n) == newCoords[1] && gp.getColumnIndex(n) == newCoords[0]) { //
                             ((Pane) n).getChildren().add(playerSprite);
+                            break;
+                        }
+                        else {
+
+                            try {
+                                wait(500);
+                                ((Pane) n).getChildren().add(playerSprite);
+                                wait(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                                System.out.println("ahhh");
+                            }
+                            ((Pane) n).getChildren().remove(playerSprite);
+                        }
+                        if(!children.hasNext()) {
+                            children = gp.getChildren().iterator();
                         }
                     }
                     diceRollNextTurn.setText("Next Turn");
