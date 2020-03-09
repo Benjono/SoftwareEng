@@ -115,7 +115,13 @@ public class Gui extends Application {
         ImageView[] playerImages = new ImageView[numPlayers];
         for(int i = 0; i < numPlayers; i++){
             playerImages[i] = tokenImage(players[i].getToken());
-            gp.add(playerImages[i],coords(0)[0],coords(0)[1]);
+            Iterator<Node> children = gp.getChildren().iterator();
+            while(children.hasNext()){
+                Node n = children.next();
+                if (gp.getRowIndex(n) == coords(0)[1] && gp.getColumnIndex(n) == coords(0)[0]){
+                    ((Pane) n).getChildren().add(playerImages[i]);
+                }
+            }
         }
 
         diceRoll.setOnAction(new EventHandler<ActionEvent>() {
@@ -126,7 +132,7 @@ public class Gui extends Application {
                 Iterator<Node> children = gp.getChildren().iterator();
                 while(children.hasNext()){
                     Node n = children.next();
-                    if (gp.getRowIndex(n) == oldCoords[0] && gp.getColumnIndex(n) == oldCoords[1]){
+                    if (gp.getRowIndex(n) == oldCoords[1] && gp.getColumnIndex(n) == oldCoords[0]){
                         ((Pane) n).getChildren().remove(playerSprite);
                     }
                 }
@@ -136,7 +142,7 @@ public class Gui extends Application {
                 //Look at each Pane() object within gridPane()
                 while(children.hasNext()){
                     Node n = children.next();
-                    if (gp.getRowIndex(n) == newCoords[0] && gp.getColumnIndex(n) == newCoords[1]){ //
+                    if (gp.getRowIndex(n) == newCoords[1] && gp.getColumnIndex(n) == newCoords[0]){ //
                         ((Pane) n).getChildren().add(playerSprite);
                     }
                 }
