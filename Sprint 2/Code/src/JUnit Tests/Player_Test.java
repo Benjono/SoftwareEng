@@ -33,7 +33,6 @@ public class Player_Test {
     public void stationAndUtilCreation(){
         Player p = new Player(Tokens.Cat);
         Assertions.assertTrue(p.getCountTrain() == 0);
-        Assertions.assertTrue(p.getCountUtil()[0] == 0);
-        Assertions.assertTrue(p.getCountUtil()[1] == 0);
+        Assertions.assertTrue(p.getCountUtil() == 0);
     }
 }
