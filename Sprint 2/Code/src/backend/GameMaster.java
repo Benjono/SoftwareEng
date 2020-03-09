@@ -24,6 +24,7 @@ public class GameMaster {
         players = new Player[numPlayers];
         for(int player=0;player<numPlayers;player++){
             players[player]=new Player(playerTokens[player]);
+            players[player].setMoney(1500);
         }
         canMove();
         canNotTakeTurn();
