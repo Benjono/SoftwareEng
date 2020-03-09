@@ -57,11 +57,9 @@ public class Gui extends Application {
         //bottom setup
         HBox bottom = new HBox();
         gameScreen.setBottom(bottom);
-        Button diceRoll = new Button("Roll dice");
-        diceRoll.setPrefSize(220, 120);
-        Button nextTurn = new Button("Next turn");
-        nextTurn.setPrefSize(220, 120);
-        bottom.getChildren().addAll(diceRoll, nextTurn);
+        Button diceRollNextTurn = new Button("Roll dice");
+        diceRollNextTurn.setPrefSize(220, 120);
+        bottom.getChildren().add(diceRollNextTurn);
         bottom.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
         bottom.setAlignment(Pos.CENTER);
         bottom.setSpacing(100);
@@ -125,35 +123,36 @@ public class Gui extends Application {
             }
         }
 
-        diceRoll.setOnAction(new EventHandler<ActionEvent>() {
+        diceRollNextTurn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ImageView playerSprite = playerImages[GM.getCurTurn()];
-                int[] oldCoords = coords(GM.getPlayer(GM.getCurTurn()).getPlace());
-                Iterator<Node> children = gp.getChildren().iterator();
-                while(children.hasNext()){
-                    Node n = children.next();
-                    if (gp.getRowIndex(n) == oldCoords[1] && gp.getColumnIndex(n) == oldCoords[0]){
-                        ((Pane) n).getChildren().remove(playerSprite);
+                if(!GM.isCanNextTurn()) {
+                    ImageView playerSprite = playerImages[GM.getCurTurn()];
+                    int[] oldCoords = coords(GM.getPlayer(GM.getCurTurn()).getPlace());
+                    Iterator<Node> children = gp.getChildren().iterator();
+                    while (children.hasNext()) {
+                        Node n = children.next();
+                        if (gp.getRowIndex(n) == oldCoords[1] && gp.getColumnIndex(n) == oldCoords[0]) {
+                            ((Pane) n).getChildren().remove(playerSprite);
+                        }
                     }
-                }
-                GM.moveNextPiece();
-                children = gp.getChildren().iterator();
-                int[] newCoords = coords(GM.getPlayer(GM.getCurTurn()).getPlace());
-                //Look at each Pane() object within gridPane()
-                while(children.hasNext()){
-                    Node n = children.next();
-                    if (gp.getRowIndex(n) == newCoords[1] && gp.getColumnIndex(n) == newCoords[0]){ //
-                        ((Pane) n).getChildren().add(playerSprite);
+                    GM.moveNextPiece();
+                    children = gp.getChildren().iterator();
+                    int[] newCoords = coords(GM.getPlayer(GM.getCurTurn()).getPlace());
+                    //Look at each Pane() object within gridPane()
+                    while (children.hasNext()) {
+                        Node n = children.next();
+                        if (gp.getRowIndex(n) == newCoords[1] && gp.getColumnIndex(n) == newCoords[0]) { //
+                            ((Pane) n).getChildren().add(playerSprite);
+                        }
                     }
+                    diceRollNextTurn.setText("Next Turn");
                 }
-            }
-        });
-        //display which player's turn it is
-        nextTurn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                GM.nextTurn();
+                else {
+                    GM.nextTurn();
+                    diceRollNextTurn.setText("Roll Dice");
+                }
+
             }
         });
     }
@@ -276,7 +275,6 @@ public class Gui extends Application {
         dialogPlayerTokens.setResizable(false);
         //creating box's for each player
         for (int i =0; i<players ;i++){
-            System.out.println("loop"); //testing print
             playerLabel = new Label("Player " + (i+1));
             hBoxArray[i] = new HBox();
             hBoxArray[i].setMaxHeight(50);
