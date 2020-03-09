@@ -1,13 +1,9 @@
 package backend;
 
-public class Property extends Tile {
+public class Property extends BuyableTile {
     Enum colour;
-    boolean mortgage;
-    int costToBuy;
     int houseCost;
     int currentHouseLevel;
-    int[] rent;
-    Player owner;
 
     /**
      * constructs a property using the given parameters
@@ -22,7 +18,7 @@ public class Property extends Tile {
     public Property(String name, String colour, int costToBuy, int[] rent,int houseCost){
         setBuyable(false);
         setName(name);
-        mortgage = false;
+        mortgaged = false;
         currentHouseLevel = 0;
         this.colour = Colours.valueOf(colour);
         this.costToBuy = costToBuy;
@@ -31,31 +27,17 @@ public class Property extends Tile {
     }
 
     /**
-     * sets a player as the owner of the tile
-     * @param owner - new owner of tile
+     * buys levels of housing dependant on input
+     * @param houseLevel
      */
-    public void setOwner(Player owner){
-        this.owner = owner;
-    }
-
-    /**
-     * sets owner to null - selling property to bank
-     * @return int amount the property is worth to the bank
-     */
-    private void sellBaseProperty(){
-        this.owner = null;
-        if(!mortgage){
-            owner.setMoney(owner.getMoney() + costToBuy);
-        }
-        else{
-            owner.setMoney(owner.getMoney() +(costToBuy/2));
-        }
+    public void buyHouse(int houseLevel){
+        currentHouseLevel += houseLevel;
+        owner.setMoney(owner.getMoney()-(houseLevel*houseCost));
     }
 
     /**
      * sells levels of housing dependent on input
      * @param houseLevel - how many houses to be sold
-     * @return int - money generated from sale
      */
     public void sellHouse(int houseLevel){
         currentHouseLevel -= houseLevel;
@@ -69,65 +51,46 @@ public class Property extends Tile {
     public int getCurrentHouseLevel(){return currentHouseLevel;}
 
     /**
-     * BEN READ THIS
      * mortgages a property, giving the player half of its buy cost if there are no houses present
      *
      * @return money the player made from mortgaging the property
      * @throws InvalidHouseSetupException if houses are present on property
      */
-    public void mortgageProperty() throws InvalidHouseSetupException{
+    @Override
+    public void mortgageTile() throws InvalidHouseSetupException{
+
         if(currentHouseLevel ==0) {
-            mortgage = true;
+            mortgaged = true;
             owner.setMoney(owner.getMoney()+(costToBuy/2));
         }
         else{
             throw new InvalidHouseSetupException("cannot mortgage a property with houses/hotel built on them");
         }
     }
-
-    /**
-     * cancel mortgage on tile, paying for
-     */
-    public void unMortgageProperty(){
-        mortgage = false;
-        owner.setMoney(owner.getMoney()-(costToBuy/2));
-    }
-
-    /**
-     * returns if the tile is mortgaged
-     * @return mortgage, if the tile is mortgaged
-     */
-    public boolean getMortgage(){
-        return mortgage;
-    }
-
-    /**
-     * gets owner
-     * @return current owner of the tie
-     */
-    public Player getOwner (){return owner;}
-
-    /**
-     * finds the highest bidder and makes them the owner of the tile
-     * @param players list of players in the game
-     * @param bids list of player bids
-     */
-    public void auction(Player[] players, int[] bids){
-        int highestBid= 0;
-        for(int i =0; i<bids.length;i++){
-            if(bids[i]> bids[highestBid]){
-                highestBid = bids[i];
+    @Override
+    protected void sellBaseTile() throws InvalidHouseSetupException{
+        if(currentHouseLevel != 0) {
+            this.owner = null;
+            if (!mortgaged) {
+                owner.setMoney(owner.getMoney() + costToBuy);
+            }
+            else {
+                owner.setMoney(owner.getMoney() + (costToBuy / 2));
             }
         }
-        setOwner(players[highestBid]);
+        else{
+            throw new InvalidHouseSetupException("must sell houses first");
+        }
     }
-
     /**
      * player who lands on tile pays the owner of tile the appropriate rent
      * @param debtor - player who lands on property
      */
+    @Override
     public void rent(Player debtor){
         debtor.setMoney(debtor.getMoney() - rent[currentHouseLevel]);
         owner.setMoney(owner.getMoney() - rent[currentHouseLevel]);
     }
+
+
 }

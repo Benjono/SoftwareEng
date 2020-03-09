@@ -23,7 +23,7 @@ public class Board {
      * @author Alex Homer
      */
     public Board(){
-        String filePath = new String("config/test1.json");
+        String filePath = new String("config/tileInfo.json");
         tileGrid = new Tile[40];
         try {
             JSONParser parser = new JSONParser();
