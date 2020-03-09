@@ -64,7 +64,7 @@ public class Gui extends Application {
         bottom.getChildren().addAll(diceRoll, nextTurn);
         bottom.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
         bottom.setAlignment(Pos.CENTER);
-        bottom.setSpacing(1000);
+        bottom.setSpacing(100);
         bottom.setPadding(new Insets(20, 0, 20, 0));
 
         //Players tab
@@ -111,6 +111,7 @@ public class Gui extends Application {
         primaryStage.show();
         Stage stage = primaryStage;
 
+        // Setting initial position of tokens
         Player[] players = GM.getPlayers();
         ImageView[] playerImages = new ImageView[numPlayers];
         for(int i = 0; i < numPlayers; i++){
@@ -284,7 +285,7 @@ public class Gui extends Application {
             hBoxArray[i].setAlignment(Pos.CENTER);
             tokenCombos[i]= new ComboBox<Tokens>();
             tokenCombos[i].getItems().addAll(allTokens);
-            tokenCombos[i].setValue(Tokens.Boot);
+            tokenCombos[i].setValue(allTokens[i]);
             hBoxArray[i].getChildren().addAll(playerLabel, tokenCombos[i]);
         }
         //adding as children
