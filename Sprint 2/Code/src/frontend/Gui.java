@@ -1,6 +1,5 @@
 package frontend;
 
-import backend.GameMaster;
 import backend.Player;
 import backend.Tokens;
 import javafx.application.Application;
@@ -15,7 +14,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.BorderPane;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -26,7 +24,6 @@ import javafx.scene.image.Image;
 import javafx.scene.Node;
 
 import java.util.Iterator;
-import java.util.ListIterator;
 
 /**
  * GUI implementation
@@ -65,31 +62,22 @@ public class Gui extends Application {
         bottom.setSpacing(100);
         bottom.setPadding(new Insets(20, 0, 20, 0));
 
-        //Players tab
-        //add active players and maybe highlight current turn player
-        VBox playerTab = new VBox();
-        gameScreen.setRight(playerTab);
-        playerTab.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
-        playerTab.setPrefWidth(400);
-
-        Label pTabTitle = new Label("Players:");
-        playerTab.getChildren().add(pTabTitle);
-        //playerTab.setAlignment(Pos.CENTER);
-
 
         //Game board
         GridPane gp = new GridPane();
         gameScreen.setCenter(gp);
 
-        //board Tiles
+        //board tiles
         Border gameTileBorder = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1)));
+
         for(int i=0; i<40; i++) {
             Pane square = new Pane();
-            Label label = new Label(GM.getBoard().getTile(i).getName());
+            //System.out.print(GM.getBoard().getTile(i).getName());
+            //Image tileImg = new Image("tile_" + GM.getBoard().getTile(i).getName().toLowerCase().replaceAll("\\s+","") + ".png");
+            //ImageView tile = new ImageView(tileImg);
             square.setPrefSize(100,100);
             square.setBorder(gameTileBorder);
-            label.setAlignment(Pos.CENTER);
-            square.getChildren().add(label);
+            //.getChildren().add(tile);
             gp.add(square, coords(i)[0], coords(i)[1]);
         }
 
@@ -124,6 +112,25 @@ public class Gui extends Application {
             }
         }
 
+        //Players tab
+        //add active players and maybe highlight current turn player
+        VBox playerTab = new VBox();
+        gameScreen.setRight(playerTab);
+        playerTab.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
+        playerTab.setPrefWidth(400);
+
+        Label pTabTitle = new Label("Players:");
+        playerTab.getChildren().add(pTabTitle);
+
+        //Player name display
+        Label[] playerList = new Label[numPlayers];
+        for(int i = 0; i < numPlayers; i++){
+            playerList[i] = new Label("Player " + (i + 1));
+            playerTab.getChildren().add(playerList[i]);
+        }
+
+
+        changeActiveColour(GM.getCurTurn(), playerList); //player 1 will have a highlighted label
         diceRollNextTurn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public synchronized void handle(ActionEvent event) {
@@ -167,6 +174,7 @@ public class Gui extends Application {
                 }
                 else {
                     GM.nextTurn();
+                    changeActiveColour(GM.getCurTurn(), playerList);//the player with the current turn will have a highlighted label
                     diceRollNextTurn.setText("Roll Dice");
                 }
 
@@ -206,6 +214,19 @@ public class Gui extends Application {
     //instance of images seperate and use them in if statements to give players a token image
     public Player getActivePlayer(int currentRound, Player[] players){
         return players[currentRound];
+    }
+
+    /**
+     * adds a highlighted background to the label that represents the currently active player in the player tab
+     * @param playerNum
+     * @param playerList
+     * @author Joe L
+     */
+    private void changeActiveColour(int playerNum, Label[] playerList){
+        for(int i = 0; i < playerList.length; i++){
+            playerList[i].setStyle("-fx-background-color: white; -fx-text-fill: black;");
+        }
+        playerList[playerNum].setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
     }
 
     /**
