@@ -16,7 +16,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.BorderPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -101,11 +100,11 @@ public class Gui extends Application {
             while(children.hasNext()){
                 Node n = children.next();
                 if (gp.getRowIndex(n) == coords(0)[1] && gp.getColumnIndex(n) == coords(0)[0]){
-
                     ((Pane) n).getChildren().add(playerImages[i]);
                 }
             }
         }
+        setBoardRotation();
 
         //Right tab
         //add active players and maybe highlight current turn player
@@ -152,29 +151,26 @@ public class Gui extends Application {
                             break;
                         }
                         else {
-
-                            try {
-                                //wait(500);
-                                ((Pane) n).getChildren().add(playerSprite);
-                                gp = setRotation(gp);
-                                //wait(500);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                System.out.println("ahhh");
-                            }
+                            ((Pane) n).getChildren().add(playerSprite);
+                            waitBetweenMovements();
                             ((Pane) n).getChildren().remove(playerSprite);
                         }
                         if(!children.hasNext()) {
                             children = gp.getChildren().iterator();
                         }
                     }
-                    diceRollNextTurn.setText("Next Turn");
+                    if (GM.isCanNextTurn()){
+                        diceRollNextTurn.setText("Next Turn");
+                    }
+                    else{
+                        setBoardRotation();
+                    }
 
                 }
                 else {
                     GM.nextTurn();
                     changeActiveColour(GM.getCurTurn(), playerList);//the player with the current turn will have a highlighted label
-                    gp = setRotation(gp);
+                    setBoardRotation();
                     diceRollNextTurn.setText("Roll Dice");
                 }
 
@@ -182,13 +178,26 @@ public class Gui extends Application {
         });
     }
 
-    private GridPane setRotation(GridPane gp){
+    private synchronized void waitBetweenMovements(){
+
+        try {
+            wait(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("ahhh");
+        }
+    }
+
+    /**
+     * Implements rotation of the Board
+     * @author Joe C
+     */
+    private void setBoardRotation(){
         int place = GM.getPlayer(GM.getCurTurn()).getPlace();
         if(place < 10){ gp.setRotate(270); }
         else if (place < 20){ gp.setRotate(180);}
         else if (place < 31){ gp.setRotate(90);}
         else{ gp.setRotate(0);}
-        return gp;
     }
 
     /**
@@ -282,7 +291,7 @@ public class Gui extends Application {
         //lambda expressions
         dialogNumPlayers.setResultConverter((ButtonType b) -> {
             if (b == buttonTypeOk){
-                System.out.println(playerCombo.getValue());
+                //System.out.println(playerCombo.getValue());
                 return playerCombo.getValue();
             }
             return null;
