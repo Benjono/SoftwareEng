@@ -622,7 +622,7 @@
 		"behaviour": null
 	},
 
-	"Jail/Just visiting":{
+	"Jail":{
 		"typeOfTile": "doesNothing",
 		"colour": null,
 		"position": 10,

@@ -72,12 +72,14 @@ public class Gui extends Application {
 
         for(int i=0; i<40; i++) {
             Pane square = new Pane();
-            //System.out.print(GM.getBoard().getTile(i).getName());
-            //Image tileImg = new Image("tile_" + GM.getBoard().getTile(i).getName().toLowerCase().replaceAll("\\s+","") + ".png");
-            //ImageView tile = new ImageView(tileImg);
+            //System.out.println(i);
+            //System.out.println(GM.getBoard().getTile(i).getName());
+            //System.out.println("tile_" + GM.getBoard().getTile(i).getName().toLowerCase().replaceAll("\\s+","") + ".png");
+            Image tileImg = new Image("tile_" + GM.getBoard().getTile(i).getName().toLowerCase().replaceAll("\\s+","") + ".png");
+            ImageView tile = new ImageView(tileImg);
             square.setPrefSize(100,100);
             square.setBorder(gameTileBorder);
-            //.getChildren().add(tile);
+            square.getChildren().add(tile);
             gp.add(square, coords(i)[0], coords(i)[1]);
         }
 
@@ -89,7 +91,7 @@ public class Gui extends Application {
         Scene scene = new Scene(gameScreen, 900, 600);
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         primaryStage.setTitle("Property Tycoon");
-        primaryStage.getIcons().add(new Image("tile_go.png"));
+        primaryStage.getIcons().add(new Image("logo.png"));
         primaryStage.setScene(scene);
         primaryStage.setX(screenBounds.getMinX());
         primaryStage.setY(screenBounds.getMinY());
@@ -255,7 +257,7 @@ public class Gui extends Application {
         //Initialization
         Dialog<Integer> dialogNumPlayers = new Dialog<>();
         Stage localStage = (Stage) dialogNumPlayers.getDialogPane().getScene().getWindow();
-        localStage.getIcons().add(new Image("tile_go.png"));
+        localStage.getIcons().add(new Image("logo.png"));
         Label playerLabel = new Label("Player Count: ");
         ComboBox<Integer> playerCombo = new ComboBox<>();
         HBox hboxPlayerCount = new HBox();
@@ -303,7 +305,7 @@ public class Gui extends Application {
         //initializing
         Dialog<Tokens[]> dialogPlayerTokens = new Dialog<>();
         Stage localStage = (Stage) dialogPlayerTokens.getDialogPane().getScene().getWindow();
-        localStage.getIcons().add(new Image("tile_go.png"));
+        localStage.getIcons().add(new Image("logo.png"));
         ButtonType buttonTypeOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
         Label playerLabel;
         Tokens[] allTokens = {Tokens.Boot, Tokens.Cat, Tokens.Goblet, Tokens.HatStand, Tokens.SmartPhone, Tokens.Spoon};
