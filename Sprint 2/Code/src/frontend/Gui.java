@@ -36,6 +36,7 @@ import java.util.Iterator;
 public class Gui extends Application {
 
     backend.GameMaster GM;
+    GridPane gp;
 
     public static void main(String[] args) {
         launch(args);
@@ -51,33 +52,23 @@ public class Gui extends Application {
 
         //Main gameplay screen
         BorderPane gameScreen = new BorderPane();
-        //bottom setup
-        HBox bottom = new HBox();
-        gameScreen.setBottom(bottom);
-        Button diceRollNextTurn = new Button("Roll dice");
-        diceRollNextTurn.setPrefSize(220, 120);
-        bottom.getChildren().add(diceRollNextTurn);
-        bottom.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
-        bottom.setAlignment(Pos.CENTER);
-        bottom.setSpacing(100);
-        bottom.setPadding(new Insets(20, 0, 20, 0));
-
-
         //Game board
-        GridPane gp = new GridPane();
+        gp = new GridPane();
         gameScreen.setCenter(gp);
-
         //board tiles
         Border gameTileBorder = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1)));
 
         for(int i=0; i<40; i++) {
             Pane square = new Pane();
-            //System.out.println(i);
-            //System.out.println(GM.getBoard().getTile(i).getName());
-            //System.out.println("tile_" + GM.getBoard().getTile(i).getName().toLowerCase().replaceAll("\\s+","") + ".png");
             Image tileImg = new Image("tile_" + GM.getBoard().getTile(i).getName().toLowerCase().replaceAll("\\s+","") + ".png");
             ImageView tile = new ImageView(tileImg);
-            square.setPrefSize(100,100);
+            if (i < 11){tile.setRotate(90);}
+            else if (i < 20){tile.setRotate(180);}
+            else if (i < 31){tile.setRotate(270);}
+            tile.setFitHeight(96);
+            tile.setFitWidth(96);
+            tile.setPreserveRatio(true);
+            square.setPrefSize(96,96);
             square.setBorder(gameTileBorder);
             square.getChildren().add(tile);
             gp.add(square, coords(i)[0], coords(i)[1]);
@@ -85,7 +76,8 @@ public class Gui extends Application {
 
         gp.setGridLinesVisible(false);
         gp.setMaxSize(1000, 1000);
-        gp.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
+
+        //gp.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
 
         //Scene
         Scene scene = new Scene(gameScreen, 900, 600);
@@ -109,28 +101,31 @@ public class Gui extends Application {
             while(children.hasNext()){
                 Node n = children.next();
                 if (gp.getRowIndex(n) == coords(0)[1] && gp.getColumnIndex(n) == coords(0)[0]){
+
                     ((Pane) n).getChildren().add(playerImages[i]);
                 }
             }
         }
 
-        //Players tab
+        //Right tab
         //add active players and maybe highlight current turn player
-        VBox playerTab = new VBox();
-        gameScreen.setRight(playerTab);
-        playerTab.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
-        playerTab.setPrefWidth(400);
-
-        Label pTabTitle = new Label("Players:");
-        playerTab.getChildren().add(pTabTitle);
-
+        VBox sideTab = new VBox();
+        gameScreen.setRight(sideTab);
+        sideTab.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
+        sideTab.setPrefWidth(400);
+        //Player title
+        Label pTabTitle = new Label("Current Turn");
+        sideTab.getChildren().add(pTabTitle);
         //Player name display
         Label[] playerList = new Label[numPlayers];
         for(int i = 0; i < numPlayers; i++){
             playerList[i] = new Label("Player " + (i + 1));
-            playerTab.getChildren().add(playerList[i]);
+            sideTab.getChildren().add(playerList[i]);
         }
-
+        //button next turn and roll dice
+        Button diceRollNextTurn = new Button("Roll dice");
+        diceRollNextTurn.setPrefSize(220, 120);
+        sideTab.getChildren().add(diceRollNextTurn);
 
         changeActiveColour(GM.getCurTurn(), playerList); //player 1 will have a highlighted label
         diceRollNextTurn.setOnAction(new EventHandler<ActionEvent>() {
@@ -159,10 +154,11 @@ public class Gui extends Application {
                         else {
 
                             try {
-                                wait(500);
+                                //wait(500);
                                 ((Pane) n).getChildren().add(playerSprite);
-                                wait(500);
-                            } catch (InterruptedException e) {
+                                gp = setRotation(gp);
+                                //wait(500);
+                            } catch (Exception e) {
                                 e.printStackTrace();
                                 System.out.println("ahhh");
                             }
@@ -173,10 +169,12 @@ public class Gui extends Application {
                         }
                     }
                     diceRollNextTurn.setText("Next Turn");
+
                 }
                 else {
                     GM.nextTurn();
                     changeActiveColour(GM.getCurTurn(), playerList);//the player with the current turn will have a highlighted label
+                    gp = setRotation(gp);
                     diceRollNextTurn.setText("Roll Dice");
                 }
 
@@ -184,11 +182,20 @@ public class Gui extends Application {
         });
     }
 
+    private GridPane setRotation(GridPane gp){
+        int place = GM.getPlayer(GM.getCurTurn()).getPlace();
+        if(place < 10){ gp.setRotate(270); }
+        else if (place < 20){ gp.setRotate(180);}
+        else if (place < 31){ gp.setRotate(90);}
+        else{ gp.setRotate(0);}
+        return gp;
+    }
+
     /**
      * Takes the player token and returns an ImageView for that Token
      * @param playerToken
      */
-    public ImageView tokenImage(Tokens playerToken){
+    private ImageView tokenImage(Tokens playerToken){
         ImageView out = null;
         if(playerToken.equals(Tokens.Boot)){
             Image img = new Image("player_boot.png", 30, 30, false, true);
@@ -212,12 +219,6 @@ public class Gui extends Application {
         return out;
     }
 
-    //gm.getPlayer(gm.getCurTurn()).getPos()
-    //instance of images seperate and use them in if statements to give players a token image
-    public Player getActivePlayer(int currentRound, Player[] players){
-        return players[currentRound];
-    }
-
     /**
      * adds a highlighted background to the label that represents the currently active player in the player tab
      * @param playerNum
@@ -238,7 +239,7 @@ public class Gui extends Application {
      * @author Joe C
      * @author Joe L
      */
-    public int[] coords(int position){
+    private int[] coords(int position){
         if (position <= 9){ return new int[]{0,10 - position % 10}; }
         else if (position <= 19){ return new int[]{position % 10, 0}; }
         else if (position <= 29){ return new int[]{10, position % 10};}
