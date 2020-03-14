@@ -139,11 +139,13 @@ public class Gui extends Application {
                     while (children.hasNext()) {
                         Node n = children.next();
                         if (GridPane.getRowIndex(n) == newCoords[1] && GridPane.getColumnIndex(n) == newCoords[0]) { //
+                            playerSprite = m.setSpriteRotation(GM,playerSprite);
                             ((Pane) n).getChildren().add(playerSprite);
                             break;
                         } else {
+                            playerSprite = m.setSpriteRotation(GM,playerSprite);
                             ((Pane) n).getChildren().add(playerSprite);
-                            m.waitBetweenMovements();
+                            //m.waitBetweenMovements();
                             ((Pane) n).getChildren().remove(playerSprite);
                         }
                         if (!children.hasNext()) {

@@ -146,6 +146,22 @@ public class Methods {
     }
 
     /**
+     * Implements rotation of the Player sprite (same as above I know...)
+     * @param GM
+     * @param  imageView
+     * @author Joe C
+     */
+    public ImageView setSpriteRotation(GameMaster GM, ImageView imageView){
+        int place = GM.getPlayer(GM.getCurTurn()).getPlace();
+        if(place < 10){ imageView.setRotate(90); }
+        else if (place < 20){ imageView.setRotate(180);}
+        else if (place < 31){ imageView.setRotate(270);}
+        else{ imageView.setRotate(0);}
+        return imageView;
+
+    }
+
+    /**
      * Takes the player token and returns an ImageView for that Token
      * @param playerToken
      */
