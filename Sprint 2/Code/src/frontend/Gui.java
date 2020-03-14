@@ -50,15 +50,17 @@ public class Gui extends Application {
         GM.setup(numPlayers, playerTokens);
 
         //Main gameplay screen
-        BorderPane gameScreen = new BorderPane();
+        HBox gameScreen = new HBox();
+        gameScreen.setAlignment(Pos.CENTER);
+
         //Game board
         gp = new GridPane();
-        gameScreen.setCenter(gp);
+        gameScreen.getChildren().add(gp);
         //board tiles
-        //Border gameTileBorder = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1)));
         //setting correct sizes for screen
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        System.out.println(screenBounds.getHeight());
+        //System.out.println(screenBounds.getHeight());
+        int tileSize = 64;
 
         for(int i=0; i<40; i++) {
             Pane square = new Pane();
@@ -67,11 +69,10 @@ public class Gui extends Application {
             if (i < 11){tile.setRotate(90);}
             else if (i < 20){tile.setRotate(180);}
             else if (i < 31){tile.setRotate(270);}
-            tile.setFitHeight(64);
-            tile.setFitWidth(64);
+            tile.setFitHeight(tileSize);
+            tile.setFitWidth(tileSize);
             tile.setPreserveRatio(true);
-            square.setMinSize(64,64);
-            //square.setBorder(gameTileBorder);
+            square.setMinSize(tileSize,tileSize);
             square.getChildren().add(tile);
 
             gp.add(square, coords(i)[0], coords(i)[1]);
@@ -80,17 +81,16 @@ public class Gui extends Application {
         gp.setGridLinesVisible(false);
         gp.setMaxSize(1000, 1000);
 
-        //gp.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
-
         //Scene
-        Scene scene = new Scene(gameScreen, 900, 600);
+        Scene scene = new Scene(gameScreen, 1280, 768);
         primaryStage.setTitle("Property Tycoon");
         primaryStage.getIcons().add(new Image("logo.png"));
         primaryStage.setScene(scene);
-        primaryStage.setX(screenBounds.getMinX());
-        primaryStage.setY(screenBounds.getMinY());
-        primaryStage.setWidth(screenBounds.getWidth());
-        primaryStage.setHeight(screenBounds.getHeight());
+        //primaryStage.setX(screenBounds.getMinX());
+        //primaryStage.setY(screenBounds.getMinY());
+        primaryStage.setWidth(1280);
+        primaryStage.setHeight(768);
+        primaryStage.setResizable(false);
         primaryStage.show();
         Stage stage = primaryStage;
 
@@ -112,7 +112,7 @@ public class Gui extends Application {
         //Right tab
         //add active players and maybe highlight current turn player
         VBox sideTab = new VBox();
-        gameScreen.setRight(sideTab);
+        gameScreen.getChildren().add(sideTab);
         sideTab.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
         sideTab.setPrefWidth(400);
         //Player title
