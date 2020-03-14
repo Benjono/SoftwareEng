@@ -54,13 +54,49 @@ public class GameMaster {
      * This function causes the next turn to happen if the player is allowed to.
      * @author Jonathan Morris
      */
-    public void nextTurn(){
-        if(isCanNextTurn()) {
+    public void nextTurn() {
+        if (isCanNextTurn()) {
             canNotTakeTurn();
             canMove();
             setCurTurn((getCurTurn() + 1) % players.length);
         }
 
+    }
+
+    /**
+     * THis function takes the tile number and returns whether or not that tile can be bought
+     * @param tileNum the tile number the player is on
+     * @return whether the tile can be bought
+     */
+    public int getBuyable(int tileNum){
+        if(this.getBoard().getTile(tileNum) instanceof BuyableTile){
+            if(((BuyableTile) this.getBoard().getTile(tileNum)).owner==null){
+                return 2;
+            } else {
+                return 1;
+            }
+        }
+        return 2;
+    }
+    public void applyTileEffect(){
+        Tile curTile = this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace());
+        if (curTile instanceof BuyableTile){
+            ((BuyableTile) curTile).rent(this.getPlayer(this.getCurTurn()));
+        } else if (curTile instanceof Tax){
+            ((Tax) curTile).payTax(this.getPlayer(this.getCurTurn()));
+        } else if (curTile instanceof toJail){
+            //none
+        } else if (curTile instanceof FreeParking){
+            //none
+        } else if (curTile instanceof CardDraw){
+            //none
+        }
+    }
+    public void applyTileEffect(Player newOwner){
+        ((BuyableTile)this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).buyTile(newOwner);
+    }
+    public void applyTileEffect(int[] money){
+        ((BuyableTile)this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).auction(this.getPlayers(),money);
     }
     /******************************
      * Getters and Setters
