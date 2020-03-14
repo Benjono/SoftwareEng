@@ -55,7 +55,10 @@ public class Gui extends Application {
         gp = new GridPane();
         gameScreen.setCenter(gp);
         //board tiles
-        Border gameTileBorder = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1)));
+        //Border gameTileBorder = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1)));
+        //setting correct sizes for screen
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        System.out.println(screenBounds.getHeight());
 
         for(int i=0; i<40; i++) {
             Pane square = new Pane();
@@ -64,12 +67,13 @@ public class Gui extends Application {
             if (i < 11){tile.setRotate(90);}
             else if (i < 20){tile.setRotate(180);}
             else if (i < 31){tile.setRotate(270);}
-            tile.setFitHeight(96);
-            tile.setFitWidth(96);
+            tile.setFitHeight(32);
+            tile.setFitWidth(32);
             tile.setPreserveRatio(true);
-            square.setPrefSize(96,96);
-            square.setBorder(gameTileBorder);
+            square.setMinSize(32,32);
+            //square.setBorder(gameTileBorder);
             square.getChildren().add(tile);
+
             gp.add(square, coords(i)[0], coords(i)[1]);
         }
 
@@ -80,7 +84,6 @@ public class Gui extends Application {
 
         //Scene
         Scene scene = new Scene(gameScreen, 900, 600);
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         primaryStage.setTitle("Property Tycoon");
         primaryStage.getIcons().add(new Image("logo.png"));
         primaryStage.setScene(scene);
