@@ -67,10 +67,10 @@ public class Gui extends Application {
             if (i < 11){tile.setRotate(90);}
             else if (i < 20){tile.setRotate(180);}
             else if (i < 31){tile.setRotate(270);}
-            tile.setFitHeight(32);
-            tile.setFitWidth(32);
+            tile.setFitHeight(64);
+            tile.setFitWidth(64);
             tile.setPreserveRatio(true);
-            square.setMinSize(32,32);
+            square.setMinSize(64,64);
             //square.setBorder(gameTileBorder);
             square.getChildren().add(tile);
 
