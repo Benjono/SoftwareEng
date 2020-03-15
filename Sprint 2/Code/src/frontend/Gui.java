@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.GameMaster;
 import backend.Player;
 import backend.Tokens;
 import javafx.application.Application;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -30,6 +32,7 @@ public class Gui extends Application {
 
     backend.GameMaster GM;
     GridPane gp;
+    VBox sideTab;
     Methods m;
 
     public static void main(String[] args) {
@@ -58,6 +61,9 @@ public class Gui extends Application {
 
         for(int i=0; i<40; i++) {
             Pane square = new Pane();
+            int finalI = i;
+            // too be setup
+            square.setOnMouseClicked(mouseEvent -> m.showTileInfo(finalI));
             Image tileImg = new Image("tile_" + GM.getBoard().getTile(i).getName().toLowerCase().replaceAll("\\s+","") + ".png");
             ImageView tile = new ImageView(tileImg);
             if (i < 11){tile.setRotate(90);}
@@ -92,6 +98,7 @@ public class Gui extends Application {
             playerImages[i] = m.tokenImage(players[i].getToken());
             for (Node n : gp.getChildren()) {
                 if (GridPane.getRowIndex(n) == m.coords(0)[1] && GridPane.getColumnIndex(n) == m.coords(0)[0]) {
+                    m.setSpriteRotation(GM, playerImages[i]);
                     ((Pane) n).getChildren().add(playerImages[i]);
                 }
             }
@@ -100,58 +107,34 @@ public class Gui extends Application {
 
         //Right tab
         //add active players and maybe highlight current turn player
-        VBox sideTab = new VBox();
+        sideTab = new VBox();
         gameScreen.getChildren().add(sideTab);
         sideTab.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
-        sideTab.setPrefWidth(400);
+        sideTab.setPrefWidth(200);
         //Player title
         Label pTabTitle = new Label("Current Turn");
         sideTab.getChildren().add(pTabTitle);
         //Player name display
         Label[] playerList = new Label[numPlayers];
+        Label[] playerMoney = new Label[numPlayers];
         for(int i = 0; i < numPlayers; i++){
             playerList[i] = new Label("Player " + (i + 1));
             sideTab.getChildren().add(playerList[i]);
+            playerMoney[i] = new Label("    Money: " + GM.getPlayer(i).getMoney());
+            sideTab.getChildren().add(playerMoney[i]);
         }
         //button next turn and roll dice
         Button diceRollNextTurn = new Button("Roll dice");
-        diceRollNextTurn.setPrefSize(220, 120);
+        diceRollNextTurn.setPrefSize(100, 100);
         sideTab.getChildren().add(diceRollNextTurn);
+
 
         m.changeActiveColour(GM.getCurTurn(), playerList); //player 1 will have a highlighted label
         diceRollNextTurn.setOnAction(new EventHandler<>() {
             @Override
             public synchronized void handle(ActionEvent event) {
                 if (!GM.isCanNextTurn()) {
-                    ImageView playerSprite = playerImages[GM.getCurTurn()];
-                    int[] oldCoords = m.coords(GM.getPlayer(GM.getCurTurn()).getPlace());
-                    Iterator<Node> children = gp.getChildren().iterator();
-                    while (children.hasNext()) {
-                        Node n = children.next();
-                        if (GridPane.getRowIndex(n) == oldCoords[1] && GridPane.getColumnIndex(n) == oldCoords[0]) {
-                            ((Pane) n).getChildren().remove(playerSprite);
-                            break;
-                        }
-                    }
-                    GM.moveNextPiece();
-                    int[] newCoords = m.coords(GM.getPlayer(GM.getCurTurn()).getPlace());
-                    //Look at each Pane() object within gridPane()
-                    while (children.hasNext()) {
-                        Node n = children.next();
-                        if (GridPane.getRowIndex(n) == newCoords[1] && GridPane.getColumnIndex(n) == newCoords[0]) { //
-                            playerSprite = m.setSpriteRotation(GM,playerSprite);
-                            ((Pane) n).getChildren().add(playerSprite);
-                            break;
-                        } else {
-                            playerSprite = m.setSpriteRotation(GM,playerSprite);
-                            ((Pane) n).getChildren().add(playerSprite);
-                            //m.waitBetweenMovements();
-                            ((Pane) n).getChildren().remove(playerSprite);
-                        }
-                        if (!children.hasNext()) {
-                            children = gp.getChildren().iterator();
-                        }
-                    }
+                    gp =m.movePlayer(GM,playerImages,gp);
                     if (GM.isCanNextTurn()) {
                         diceRollNextTurn.setText("Next Turn");
                     } else {

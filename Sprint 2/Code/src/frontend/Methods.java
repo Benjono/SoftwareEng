@@ -1,16 +1,17 @@
 package frontend;
 
 import backend.GameMaster;
+import backend.Player;
 import backend.Tokens;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
+import java.util.Iterator;
 
 public class Methods {
 
@@ -120,6 +121,36 @@ public class Methods {
         // end of player token dialog box
     }
 
+    public Boolean landOnBrought(GameMaster GM){
+        Dialog<Boolean> landed = new Dialog<Boolean>();
+        Stage localStage = (Stage) landed.getDialogPane().getScene().getWindow();
+        localStage.getIcons().add(new Image("logo.png"));
+        landed.setTitle("Property Tycoon");
+        landed.setResizable(false);
+        landed.setHeaderText("You Landed on " + GM.getTile(GM.getPlayer(GM.getCurTurn()).getPlace()).getName());
+        //Label amount = new Label("Buy for " + (GM.getBoard().getTileGrid())[GM.getPlayer(GM.getCurTurn()).getPlace()]
+        //Label auction =
+        ButtonType buyButton = new ButtonType("BUY", ButtonBar.ButtonData.YES);
+        ButtonType auctionButton = new ButtonType("AUCTION", ButtonBar.ButtonData.NO);
+        landed.getDialogPane().getButtonTypes().addAll(buyButton,auctionButton);
+        landed.setResultConverter((ButtonType b) -> {
+            if (b == buyButton){
+                return true;
+            }
+            return false;
+        });
+        //wait for return
+        landed.showAndWait();
+        //return value
+        return landed.getResult();
+        // end of player number dialog box
+
+    }
+
+    public void showTileInfo(int i){
+        //Dialog<>
+    }
+
     public synchronized void waitBetweenMovements(){
 
         try {
@@ -216,4 +247,61 @@ public class Methods {
         else if (position <= 39){ return new int[]{10 - position % 10, 10};}
         else {return new int[]{0,0};}
     }
+
+    public GridPane movePlayer(GameMaster GM, ImageView[] playerImages, GridPane gp){
+        ImageView playerSprite = playerImages[GM.getCurTurn()];
+        int[] oldCoords = coords(GM.getPlayer(GM.getCurTurn()).getPlace());
+        Iterator<Node> children = gp.getChildren().iterator();
+        while (children.hasNext()) {
+            Node n = children.next();
+            if (GridPane.getRowIndex(n) == oldCoords[1] && GridPane.getColumnIndex(n) == oldCoords[0]) {
+                //((Pane) n).getChildren().remove(playerSprite);
+                break;
+            }
+        }
+        GM.moveNextPiece();
+        int[] newCoords = coords(GM.getPlayer(GM.getCurTurn()).getPlace());
+        //Look at each Pane() object within gridPane()
+        while (children.hasNext()) {
+            Node n = children.next();
+            if (GridPane.getRowIndex(n) == newCoords[1] && GridPane.getColumnIndex(n) == newCoords[0]) { //
+                //System.out.println("ok");
+                playerSprite = setSpriteRotation(GM,playerSprite);
+                ((Pane) n).getChildren().add(playerSprite);
+                landedTileAction(GM);
+                break;
+            } else {
+                //System.out.println("err");
+                playerSprite = setSpriteRotation(GM,playerSprite);
+                ((Pane) n).getChildren().add(playerSprite);
+                //m.waitBetweenMovements();
+                //((Pane) n).getChildren().remove(playerSprite);
+            }
+            if (!children.hasNext()) {
+                children = gp.getChildren().iterator();
+            }
+        }
+
+        return gp;
+    }
+
+    private void landedTileAction(GameMaster GM) {
+        if (GM.getBuyable(GM.getPlayer(GM.getCurTurn()).getPlace()) == 2){
+            //can buy/auction time
+            if(!landOnBrought(GM)){
+                // auction
+
+                // dialog
+
+                //GM.applyTileEffect();
+            }
+            else {
+                GM.applyTileEffect(GM.getPlayer(GM.getCurTurn()));
+            }
+        }
+        else{
+            //rent time
+        }
+    }
+
 }
