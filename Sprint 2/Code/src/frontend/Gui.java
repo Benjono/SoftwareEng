@@ -1,7 +1,6 @@
 package frontend;
 
 import backend.GameMaster;
-import backend.Player;
 import backend.Tokens;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -13,12 +12,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-import java.util.Iterator;
 
 /**
  * GUI implementation
@@ -30,7 +26,7 @@ import java.util.Iterator;
  */
 public class Gui extends Application {
 
-    backend.GameMaster GM;
+    GameMaster GM;
     GridPane gp;
     VBox sideTab;
     Methods m;
@@ -45,7 +41,7 @@ public class Gui extends Application {
         m = new Methods();
         int numPlayers = m.doDialoguePlayers();
         Tokens[] playerTokens = m.doPlayerTokens(numPlayers);
-        GM = new backend.GameMaster();
+        GM = new GameMaster();
         GM.setup(numPlayers, playerTokens);
 
         //Main gameplay screen
@@ -75,7 +71,7 @@ public class Gui extends Application {
             square.setMinSize(tileSize,tileSize);
             square.getChildren().add(tile);
 
-            gp.add(square, m.coords(i)[0], m.coords(i)[1]);
+            gp.add(square, m.coordinates(i)[0], m.coordinates(i)[1]);
         }
 
         gp.setGridLinesVisible(false);
@@ -92,12 +88,11 @@ public class Gui extends Application {
         primaryStage.show();
 
         // Setting initial position of tokens
-        Player[] players = GM.getPlayers();
         ImageView[] playerImages = new ImageView[numPlayers];
         for(int i = 0; i < numPlayers; i++){
-            playerImages[i] = m.tokenImage(players[i].getToken());
+            playerImages[i] = m.tokenImage(GM.getPlayer(i).getToken());
             for (Node n : gp.getChildren()) {
-                if (GridPane.getRowIndex(n) == m.coords(0)[1] && GridPane.getColumnIndex(n) == m.coords(0)[0]) {
+                if (GridPane.getRowIndex(n) == m.coordinates(0)[1] && GridPane.getColumnIndex(n) == m.coordinates(0)[0]) {
                     m.setSpriteRotation(GM, playerImages[i]);
                     ((Pane) n).getChildren().add(playerImages[i]);
                 }
@@ -118,18 +113,17 @@ public class Gui extends Application {
         Label[] playerList = new Label[numPlayers];
         Label[] playerMoney = new Label[numPlayers];
         for(int i = 0; i < numPlayers; i++){
-            playerList[i] = new Label("Player " + (i + 1));
-            sideTab.getChildren().add(playerList[i]);
+            playerList[i] = new Label("Player " + (i+1));
+            Label token = new Label("   Token: " + GM.getPlayer(i).getToken().name());
             playerMoney[i] = new Label("    Money: " + GM.getPlayer(i).getMoney());
-            sideTab.getChildren().add(playerMoney[i]);
+            sideTab.getChildren().addAll(playerList[i], token, playerMoney[i]);
         }
         //button next turn and roll dice
         Button diceRollNextTurn = new Button("Roll dice");
         diceRollNextTurn.setPrefSize(100, 100);
         sideTab.getChildren().add(diceRollNextTurn);
 
-
-        m.changeActiveColour(GM.getCurTurn(), playerList); //player 1 will have a highlighted label
+        m.updateSideTab(GM, sideTab); //player 1 will have a highlighted label
         diceRollNextTurn.setOnAction(new EventHandler<>() {
             @Override
             public synchronized void handle(ActionEvent event) {
@@ -143,7 +137,7 @@ public class Gui extends Application {
 
                 } else {
                     GM.nextTurn();
-                    m.changeActiveColour(GM.getCurTurn(), playerList);//the player with the current turn will have a highlighted label
+                    m.updateSideTab(GM,sideTab);//the player with the current turn will have a highlighted label
                     gp = m.setBoardRotation(GM, gp);
                     diceRollNextTurn.setText("Roll Dice");
                 }

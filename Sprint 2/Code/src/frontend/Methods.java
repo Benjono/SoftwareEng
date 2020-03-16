@@ -1,11 +1,13 @@
 package frontend;
 
+import backend.BuyableTile;
 import backend.GameMaster;
-import backend.Player;
 import backend.Tokens;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -16,6 +18,20 @@ import java.util.Iterator;
 public class Methods {
 
     /**
+     * Sets up the dialogs with header text the logo and not being able to be resized
+     * @param d
+     * @return d
+     * @author Joe C
+     */
+    public Dialog setupDialog(Dialog d){
+        Stage localStage = (Stage) d.getDialogPane().getScene().getWindow();
+        localStage.getIcons().add(new Image("logo.png"));
+        d.setTitle("Property Tycoon");
+        d.setResizable(false);
+        return d;
+    }
+
+    /**
      * This is the first screen of the game. Returns the number of players
      * @return int
      * @author Jonathan Morris
@@ -24,18 +40,14 @@ public class Methods {
      */
     public int doDialoguePlayers(){
         //Initialization
-        Dialog<Integer> dialogNumPlayers = new Dialog<>();
-        Stage localStage = (Stage) dialogNumPlayers.getDialogPane().getScene().getWindow();
-        localStage.getIcons().add(new Image("logo.png"));
+        Dialog<Integer> dialogNumPlayers = setupDialog(new Dialog<>());
         Label playerLabel = new Label("Player Count: ");
         ComboBox<Integer> playerCombo = new ComboBox<>();
         HBox hboxPlayerCount = new HBox();
         ButtonType buttonTypeOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
 
         //modifying of initialized variables
-        dialogNumPlayers.setTitle("Property Tycoon");
         dialogNumPlayers.setHeaderText("Select the number of players.");
-        dialogNumPlayers.setResizable(false);
         playerCombo.getItems().addAll(2,3, 4, 5, 6);
         playerCombo.setValue(2);
         HBox.setHgrow(playerLabel, Priority.ALWAYS);
@@ -50,7 +62,6 @@ public class Methods {
         //lambda expressions
         dialogNumPlayers.setResultConverter((ButtonType b) -> {
             if (b == buttonTypeOk){
-                //System.out.println(playerCombo.getValue());
                 return playerCombo.getValue();
             }
             return null;
@@ -64,6 +75,7 @@ public class Methods {
 
     /**
      * Takes an integer and creates a dialogue box for assigning tokens to players
+     * GridPane could be used instead of HBox VBox combination
      * @param players
      * @return Token array
      * @author Jonathan Morris
@@ -72,20 +84,14 @@ public class Methods {
      */
     public Tokens[] doPlayerTokens(int players){
         //initializing
-        Dialog<Tokens[]> dialogPlayerTokens = new Dialog<>();
-        Stage localStage = (Stage) dialogPlayerTokens.getDialogPane().getScene().getWindow();
-        localStage.getIcons().add(new Image("logo.png"));
+        Dialog<Tokens[]> dialogPlayerTokens = setupDialog(new Dialog<>());
         ButtonType buttonTypeOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
         Label playerLabel;
         Tokens[] allTokens = {Tokens.Boot, Tokens.Cat, Tokens.Goblet, Tokens.HatStand, Tokens.SmartPhone, Tokens.Spoon};
         VBox hBoxHolder = new VBox();
         HBox[] hBoxArray = new HBox[players];
         ComboBox[] tokenCombos = new ComboBox[players];
-
-        //modifying initialized variables
-        dialogPlayerTokens.setTitle("Property Tycoon");
         dialogPlayerTokens.setHeaderText("Select the tokens you want to play with.");
-        dialogPlayerTokens.setResizable(false);
         //creating box's for each player
         for (int i =0; i<players ;i++){
             playerLabel = new Label("Player " + (i+1));
@@ -121,15 +127,15 @@ public class Methods {
         // end of player token dialog box
     }
 
+    /**
+     * Implements landing on an unowned tile, with options to buy or auction
+     * @param GM
+     * @return
+     */
     public Boolean landOnBrought(GameMaster GM){
-        Dialog<Boolean> landed = new Dialog<Boolean>();
-        Stage localStage = (Stage) landed.getDialogPane().getScene().getWindow();
-        localStage.getIcons().add(new Image("logo.png"));
-        landed.setTitle("Property Tycoon");
-        landed.setResizable(false);
+        Dialog<Boolean> landed = setupDialog(new Dialog<>());
         landed.setHeaderText("You Landed on " + GM.getTile(GM.getPlayer(GM.getCurTurn()).getPlace()).getName());
-        //Label amount = new Label("Buy for " + (GM.getBoard().getTileGrid())[GM.getPlayer(GM.getCurTurn()).getPlace()]
-        //Label auction =
+        landed.setContentText("Buy for " + ((BuyableTile)(GM.getBoard().getTileGrid())[GM.getPlayer(GM.getCurTurn()).getPlace()]).getCostToBuy());
         ButtonType buyButton = new ButtonType("BUY", ButtonBar.ButtonData.YES);
         ButtonType auctionButton = new ButtonType("AUCTION", ButtonBar.ButtonData.NO);
         landed.getDialogPane().getButtonTypes().addAll(buyButton,auctionButton);
@@ -144,6 +150,55 @@ public class Methods {
         //return value
         return landed.getResult();
         // end of player number dialog box
+
+    }
+
+    /**
+     * Implements auction dialog
+     * GridPane could be used instead of HBox VBox combination
+     * @param GM
+     * @return
+     */
+    public int[] doAuction(GameMaster GM){
+        Dialog<int[]> auction = setupDialog(new Dialog<>());
+        auction.setHeaderText("Auction of " + GM.getTile(GM.getPlayer(GM.getCurTurn()).getPlace()).getName());
+        Label playerLabel = new Label("Enter amount in box, put 0 to not participate");
+        VBox hBoxHolder = new VBox();
+        hBoxHolder.getChildren().add(playerLabel);
+        HBox[] hBoxArray = new HBox[GM.getPlayers().length];
+        NumField[] bets = new NumField[GM.getPlayers().length];
+        //creating box's for each player
+        for (int i =0; i<GM.getPlayers().length ;i++){
+            playerLabel = new Label("Player " + (i+1) + " Amount:");
+            hBoxArray[i] = new HBox();
+            hBoxArray[i].setMaxHeight(50);
+            hBoxArray[i].setMinHeight(50);
+            hBoxArray[i].setSpacing(15);
+            hBoxArray[i].setAlignment(Pos.CENTER);
+            bets[i] = new NumField();
+            hBoxArray[i].getChildren().addAll(playerLabel, bets[i]);
+        }
+        //adding as children
+        hBoxHolder.getChildren().addAll(hBoxArray);
+        auction.getDialogPane().setContent(hBoxHolder);
+        ButtonType buttonTypeOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        auction.getDialogPane().getButtonTypes().add(buttonTypeOk);
+
+        auction.setResultConverter((ButtonType b) -> {
+            if (b == buttonTypeOk){
+                int[] moneyBets = new int[GM.getPlayers().length];
+                for (int i =0; i<GM.getPlayers().length-1 ;i++){
+                    moneyBets[i] = Integer.parseInt(bets[i].getCharacters().toString());
+                }
+                return moneyBets;
+            }
+            return null;
+        });
+        // show dialog
+        auction.showAndWait();
+
+        // get array of bets
+        return auction.getResult();
 
     }
 
@@ -222,15 +277,25 @@ public class Methods {
 
     /**
      * adds a highlighted background to the label that represents the currently active player in the player tab
-     * @param playerNum
-     * @param playerList
+     * updates player's money
+     * @param GM
+     * @param sideTab
      * @author Joe L
+     * @author Joe C
      */
-    public void changeActiveColour(int playerNum, Label[] playerList){
-        for(int i = 0; i < playerList.length; i++){
-            playerList[i].setStyle("-fx-background-color: white; -fx-text-fill: black;");
+
+    public void updateSideTab(GameMaster GM, VBox sideTab){
+        int playerNumber = 0;
+        for(int i = 1; i < sideTab.getChildren().size()-2; i += 3){
+            if (playerNumber == GM.getCurTurn()){
+                sideTab.getChildren().get(i).setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
+            }
+            else{
+                sideTab.getChildren().get(i).setStyle("");
+            }
+            sideTab.getChildren().set(i+2, new Label("  Money: " + GM.getPlayer(playerNumber).getMoney()));
+            playerNumber++;
         }
-        playerList[playerNum].setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
     }
 
     /**
@@ -240,7 +305,7 @@ public class Methods {
      * @author Joe C
      * @author Joe L
      */
-    public int[] coords(int position){
+    public int[] coordinates(int position){
         if (position <= 9){ return new int[]{0,10 - position % 10}; }
         else if (position <= 19){ return new int[]{position % 10, 0}; }
         else if (position <= 29){ return new int[]{10, position % 10};}
@@ -250,21 +315,21 @@ public class Methods {
 
     public GridPane movePlayer(GameMaster GM, ImageView[] playerImages, GridPane gp){
         ImageView playerSprite = playerImages[GM.getCurTurn()];
-        int[] oldCoords = coords(GM.getPlayer(GM.getCurTurn()).getPlace());
+        int[] oldCoordinates = coordinates(GM.getPlayer(GM.getCurTurn()).getPlace());
         Iterator<Node> children = gp.getChildren().iterator();
         while (children.hasNext()) {
             Node n = children.next();
-            if (GridPane.getRowIndex(n) == oldCoords[1] && GridPane.getColumnIndex(n) == oldCoords[0]) {
+            if (GridPane.getRowIndex(n) == oldCoordinates[1] && GridPane.getColumnIndex(n) == oldCoordinates[0]) {
                 //((Pane) n).getChildren().remove(playerSprite);
                 break;
             }
         }
         GM.moveNextPiece();
-        int[] newCoords = coords(GM.getPlayer(GM.getCurTurn()).getPlace());
+        int[] newCoordinates = coordinates(GM.getPlayer(GM.getCurTurn()).getPlace());
         //Look at each Pane() object within gridPane()
         while (children.hasNext()) {
             Node n = children.next();
-            if (GridPane.getRowIndex(n) == newCoords[1] && GridPane.getColumnIndex(n) == newCoords[0]) { //
+            if (GridPane.getRowIndex(n) == newCoordinates[1] && GridPane.getColumnIndex(n) == newCoordinates[0]) { //
                 //System.out.println("ok");
                 playerSprite = setSpriteRotation(GM,playerSprite);
                 ((Pane) n).getChildren().add(playerSprite);
@@ -290,12 +355,14 @@ public class Methods {
             //can buy/auction time
             if(!landOnBrought(GM)){
                 // auction
+                GM.applyTileEffect(doAuction(GM));
+                // winner dialog
+                System.out.println(((BuyableTile)GM.getBoard().getTileGrid()[GM.getPlayer(GM.getCurTurn()).getPlace()]).getPlayer().getToken());
 
-                // dialog
-
-                //GM.applyTileEffect();
+                //needs winner dialog here
             }
             else {
+                // player buys tile
                 GM.applyTileEffect(GM.getPlayer(GM.getCurTurn()));
             }
         }
