@@ -68,16 +68,17 @@ public class GameMaster {
      * @param tileNum the tile number the player is on
      * @return whether the tile can be bought
      */
-    public int getBuyable(int tileNum){
+    public boolean getBuyable(int tileNum){
         if(this.getBoard().getTile(tileNum) instanceof BuyableTile){
             if(((BuyableTile) this.getBoard().getTile(tileNum)).owner==null){
-                return 2;
+                return true;
             } else {
-                return 1;
+                return false;
             }
         }
-        return 2;
+        return false;
     }
+
     public void applyTileEffect(){
         Tile curTile = this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace());
         if (curTile instanceof BuyableTile){

@@ -286,7 +286,7 @@ public class Methods {
     }
 
     private void landedTileAction(GameMaster GM) {
-        if (GM.getBuyable(GM.getPlayer(GM.getCurTurn()).getPlace()) == 2){
+        if (GM.getBuyable(GM.getPlayer(GM.getCurTurn()).getPlace())){
             //can buy/auction time
             if(!landOnBrought(GM)){
                 // auction
