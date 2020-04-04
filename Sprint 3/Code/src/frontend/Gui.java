@@ -128,7 +128,7 @@ public class Gui extends Application {
             @Override
             public synchronized void handle(ActionEvent event) {
                 if (!GM.isCanNextTurn()) {
-                    gp =m.movePlayer(GM,playerImages,gp);
+                    m.movePlayer(GM,playerImages,gp);
                     if (GM.isCanNextTurn()) {
                         diceRollNextTurn.setText("Next Turn");
                     } else {

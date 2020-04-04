@@ -202,6 +202,16 @@ public class Methods {
 
     }
 
+    private void showRoll(int[] roll, GameMaster GM){
+        Dialog rollDialog = setupDialog(new Dialog());
+        rollDialog.setHeaderText("Dice Roll");
+        rollDialog.setContentText("Player " + (GM.getCurTurn()+1) + " just rolled a " + roll[0] + " and a " + roll[1] + "!");
+        ButtonType ok = new ButtonType("OK",ButtonBar.ButtonData.OK_DONE);
+        rollDialog.getDialogPane().getButtonTypes().add(ok);
+        rollDialog.showAndWait();
+
+    }
+
     public void showTileInfo(int i){
         //Dialog<>
     }
@@ -313,7 +323,7 @@ public class Methods {
         else {return new int[]{0,0};}
     }
 
-    public GridPane movePlayer(GameMaster GM, ImageView[] playerImages, GridPane gp){
+    public void movePlayer(GameMaster GM, ImageView[] playerImages, GridPane gp){
         ImageView playerSprite = playerImages[GM.getCurTurn()];
         int[] oldCoordinates = coordinates(GM.getPlayer(GM.getCurTurn()).getPlace());
         Iterator<Node> children = gp.getChildren().iterator();
@@ -324,7 +334,7 @@ public class Methods {
                 break;
             }
         }
-        GM.moveNextPiece();
+        showRoll(GM.moveNextPiece(),GM);
         int[] newCoordinates = coordinates(GM.getPlayer(GM.getCurTurn()).getPlace());
         //Look at each Pane() object within gridPane()
         while (children.hasNext()) {
@@ -333,6 +343,7 @@ public class Methods {
                 //System.out.println("ok");
                 playerSprite = setSpriteRotation(GM,playerSprite);
                 ((Pane) n).getChildren().add(playerSprite);
+
                 landedTileAction(GM);
                 break;
             } else {
@@ -346,8 +357,6 @@ public class Methods {
                 children = gp.getChildren().iterator();
             }
         }
-
-        return gp;
     }
 
     private void landedTileAction(GameMaster GM) {
