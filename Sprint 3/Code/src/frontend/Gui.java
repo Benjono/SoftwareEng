@@ -116,7 +116,8 @@ public class Gui extends Application {
             playerList[i] = new Label("Player " + (i+1));
             Label token = new Label("   Token: " + GM.getPlayer(i).getToken().name());
             playerMoney[i] = new Label("    Money: " + GM.getPlayer(i).getMoney());
-            sideTab.getChildren().addAll(playerList[i], token, playerMoney[i]);
+            Label place = new Label("   Place: " + GM.getBoard().getTile(GM.getPlayer(i).getPlace()).getName());
+            sideTab.getChildren().addAll(playerList[i], token, playerMoney[i], place);
         }
         //button next turn and roll dice
         Button diceRollNextTurn = new Button("Roll dice");

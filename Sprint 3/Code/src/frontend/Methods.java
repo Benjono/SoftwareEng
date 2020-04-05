@@ -287,7 +287,7 @@ public class Methods {
 
     /**
      * adds a highlighted background to the label that represents the currently active player in the player tab
-     * updates player's money
+     * updates player's money, i here relates to the ith row in the list
      * @param GM
      * @param sideTab
      * @author Joe L
@@ -296,7 +296,7 @@ public class Methods {
 
     public void updateSideTab(GameMaster GM, VBox sideTab){
         int playerNumber = 0;
-        for(int i = 1; i < sideTab.getChildren().size()-2; i += 3){
+        for(int i = 1; i < sideTab.getChildren().size()-2; i += 4){
             if (playerNumber == GM.getCurTurn()){
                 sideTab.getChildren().get(i).setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
             }
@@ -304,6 +304,7 @@ public class Methods {
                 sideTab.getChildren().get(i).setStyle("");
             }
             sideTab.getChildren().set(i+2, new Label("  Money: " + GM.getPlayer(playerNumber).getMoney()));
+            sideTab.getChildren().set(i+3, new Label("  Place: " + GM.getBoard().getTile(GM.getPlayer(playerNumber).getPlace()).getName()));
             playerNumber++;
         }
     }
