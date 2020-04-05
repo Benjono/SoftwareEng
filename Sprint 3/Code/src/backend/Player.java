@@ -15,17 +15,27 @@ public class Player {
     private int countUtil;
     private int countTrain;
     private int money;
+    private int jailTime;
+    private int turnsTaken;
+    private int outOfJailFreePotLuck;
+    private int outOfJailFreeOpportunity;
+    private int jail;
 
     /**
      * Constructor, takes the token to be assigned to the player
      * @param thisToken
      */
-    public Player(Tokens thisToken){
+    public Player(Tokens thisToken, int jailAt){
         random = new Random();
         place = 0;
         token=thisToken;
         countTrain = 0;
         countUtil = 0;
+        jailTime=0;
+        outOfJailFreeOpportunity=0;
+        outOfJailFreePotLuck=0;
+        turnsTaken=0;
+        jail=jailAt;
     }
 
     /**
@@ -38,8 +48,17 @@ public class Player {
     public int[] move(int maxBoardTiles){
         int[] dice = roll();
         int rolls = dice[0] + dice[1];
+        if((getPlace() + rolls) % maxBoardTiles!=(getPlace() + rolls)){
+            this.setMoney(this.getMoney()+200);
+        }
         place = (getPlace() + rolls) % maxBoardTiles;
+
         return dice;
+    }
+
+    public void jail(){
+        this.setPlace(jail);
+        this.setJailTime(2);
     }
 
 
@@ -124,5 +143,37 @@ public class Player {
      */
     public Tokens getToken() {
         return token;
+    }
+
+    public int getJailTime() {
+        return jailTime;
+    }
+
+    public int getOutOfJailFreePotLuck() {
+        return outOfJailFreePotLuck;
+    }
+
+    public int getOutOfJailFreeOpportunity() {
+        return outOfJailFreeOpportunity;
+    }
+
+    public void setJailTime(int jailTime) {
+        this.jailTime = jailTime;
+    }
+
+    public void setOutOfJailFreePotLuck(int outOfJailFreePotLuck) {
+        this.outOfJailFreePotLuck = outOfJailFreePotLuck;
+    }
+
+    public void setOutOfJailFreeOpportunity(int outOfJailFreeOpportunity) {
+        this.outOfJailFreeOpportunity = outOfJailFreeOpportunity;
+    }
+
+    public int getTurnsTaken() {
+        return turnsTaken;
+    }
+
+    public void setTurnsTaken(int turnsTaken) {
+        this.turnsTaken = turnsTaken;
     }
 }
