@@ -20,6 +20,7 @@ public class Player {
     private int outOfJailFreePotLuck;
     private int outOfJailFreeOpportunity;
     private int jail;
+    private boolean passedGo;
 
     /**
      * Constructor, takes the token to be assigned to the player
@@ -36,6 +37,7 @@ public class Player {
         outOfJailFreePotLuck=0;
         turnsTaken=0;
         jail=jailAt;
+        passedGo=false;
     }
 
     /**
@@ -50,6 +52,7 @@ public class Player {
         int rolls = dice[0] + dice[1];
         if((getPlace() + rolls) % maxBoardTiles!=(getPlace() + rolls)){
             this.setMoney(this.getMoney()+200);
+            passedGo=true;
         }
         place = (getPlace() + rolls) % maxBoardTiles;
 

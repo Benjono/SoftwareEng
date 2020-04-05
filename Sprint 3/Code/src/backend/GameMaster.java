@@ -48,9 +48,13 @@ public class GameMaster {
             canNotMove();
             canTakeTurn();
             if (rolls[0] == rolls[1]) { //if a double is rolled
-                canMove(); //can move
-                players[curTurn].setTurnsTaken(players[curTurn].getTurnsTaken()+1); //increment number of turns taken in a row
-                canNotTakeTurn(); //can't pass turn
+                if(players[curTurn].getTurnsTaken()==2){
+                    players[curTurn].jail();
+                } else {
+                    canMove(); //can move
+                    players[curTurn].setTurnsTaken(players[curTurn].getTurnsTaken() + 1); //increment number of turns taken in a row
+                    canNotTakeTurn(); //can't pass turn
+                }
             }
             return rolls;
         } else if (isCanMove() && players[curTurn].getJailTime()>0){ //if in jail
