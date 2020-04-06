@@ -16,7 +16,7 @@ public class Property extends BuyableTile {
      * @author Alex
      */
     public Property(String name, String colour, int costToBuy, int[] rent,int houseCost){
-        setBuyable(false);
+        setBuyable(true);
         setName(name);
         mortgaged = false;
         currentHouseLevel = 0;

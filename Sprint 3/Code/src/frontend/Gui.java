@@ -57,9 +57,12 @@ public class Gui extends Application {
 
         for(int i=0; i<40; i++) {
             Pane square = new Pane();
-            int finalI = i;
-            // too be setup
-            square.setOnMouseClicked(mouseEvent -> m.showTileInfo(finalI));
+            //System.out.println(GM.getBoard().getTile(i).getClass());
+            if (GM.getTile(i).getBuyable()){
+                //System.out.println(GM.getBoard().getTile(i).getName());
+                int currentTile = i;
+                square.setOnMouseClicked(mouseEvent -> m.showTileInfo(currentTile,GM));
+            }
             Image tileImg = new Image("tile_" + GM.getBoard().getTile(i).getName().toLowerCase().replaceAll("\\s+","") + ".png");
             ImageView tile = new ImageView(tileImg);
             if (i < 11){tile.setRotate(90);}

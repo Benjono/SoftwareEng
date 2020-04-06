@@ -1,8 +1,7 @@
 package frontend;
 
-import backend.BuyableTile;
-import backend.GameMaster;
-import backend.Tokens;
+import backend.*;
+import com.sun.media.jfxmedia.events.NewFrameEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -212,8 +211,45 @@ public class Methods {
 
     }
 
-    public void showTileInfo(int i){
-        //Dialog<>
+    public void showTileInfo(int tileNumber, GameMaster GM){
+        Dialog tileInfoDialog = setupDialog(new Dialog());
+        tileInfoDialog.setHeaderText("Tile Information for " + GM.getBoard().getTile(tileNumber).getName());
+        VBox vBox = new VBox();
+        Label ownedBy;
+        if(((BuyableTile)(GM.getBoard().getTile(tileNumber))).getPlayer() != null){
+            ownedBy = new Label("Owned by: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getPlayer().getToken());
+        }
+        else{
+            ownedBy = new Label("Owned by: nobody");
+        }
+        Label currentRate;
+        if(((BuyableTile)(GM.getBoard().getTile(tileNumber))).getClass() == Property.class){
+            currentRate = new Label("Rate: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getRent()[((Property)(GM.getBoard().getTile(tileNumber))).getCurrentHouseLevel()]);
+        }
+        else if(((BuyableTile)(GM.getBoard().getTile(tileNumber))).getClass() == Station.class){
+            if (((BuyableTile)(GM.getBoard().getTile(tileNumber))).getPlayer() != null){
+                currentRate = new Label("Rate: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getRent()[((BuyableTile)(GM.getBoard().getTile(tileNumber))).getPlayer().getCountTrain()]);
+            }
+            else {
+                currentRate = new Label("Rate: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getRent()[0]);
+            }
+
+        }
+        else{
+            // utility's
+            if (((BuyableTile)(GM.getBoard().getTile(tileNumber))).getPlayer() != null) {
+                currentRate = new Label("Rate: " + ((BuyableTile) (GM.getBoard().getTile(tileNumber))).getRent()[((BuyableTile)(GM.getBoard().getTile(tileNumber))).getPlayer().getCountUtil()]);
+            }
+            else {
+                currentRate = new Label("Rate: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getRent()[0]);
+            }
+        }
+        Label costToBuy = new Label("Cost to buy: "+((BuyableTile)(GM.getBoard().getTile(tileNumber))).getCostToBuy());
+        vBox.getChildren().addAll(ownedBy,costToBuy,currentRate);
+        tileInfoDialog.getDialogPane().setContent(vBox);
+        ButtonType ok = new ButtonType("OK",ButtonBar.ButtonData.OK_DONE);
+        tileInfoDialog.getDialogPane().getButtonTypes().add(ok);
+        tileInfoDialog.showAndWait();
     }
 
     public synchronized void waitBetweenMovements(){
