@@ -12,6 +12,7 @@ public class Utility extends BuyableTile {
         setBuyable(true);
         setName(name);
         this.rent = rent;
+        this.costToBuy = cost;
     }
 
     public void buyUtility(Player newOwner){

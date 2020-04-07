@@ -214,44 +214,75 @@ public class Methods {
     public void showTileInfo(int tileNumber, GameMaster GM){
         Dialog tileInfoDialog = setupDialog(new Dialog());
         tileInfoDialog.setHeaderText("Tile Information for " + GM.getBoard().getTile(tileNumber).getName());
+        ButtonType ok = new ButtonType("OK",ButtonBar.ButtonData.CANCEL_CLOSE);
+        tileInfoDialog.getDialogPane().getButtonTypes().add(ok);
         VBox vBox = new VBox();
-        Label ownedBy;
         if(((BuyableTile)(GM.getBoard().getTile(tileNumber))).getPlayer() != null){
-            ownedBy = new Label("Owned by: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getPlayer().getToken());
+            Label ownedBy = new Label("Owned by: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getPlayer().getToken());
+            vBox.getChildren().add(ownedBy);
+            showTileInfoIfOwner(tileInfoDialog,tileNumber,GM);
         }
         else{
-            ownedBy = new Label("Owned by: nobody");
-        }
-        Label currentRate;
-        if(((BuyableTile)(GM.getBoard().getTile(tileNumber))).getClass() == Property.class){
-            currentRate = new Label("Rate: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getRent()[((Property)(GM.getBoard().getTile(tileNumber))).getCurrentHouseLevel()]);
-        }
-        else if(((BuyableTile)(GM.getBoard().getTile(tileNumber))).getClass() == Station.class){
-            if (((BuyableTile)(GM.getBoard().getTile(tileNumber))).getPlayer() != null){
-                currentRate = new Label("Rate: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getRent()[((BuyableTile)(GM.getBoard().getTile(tileNumber))).getPlayer().getCountTrain()]);
-            }
-            else {
-                currentRate = new Label("Rate: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getRent()[0]);
-            }
-
-        }
-        else{
-            // utility's
-            if (((BuyableTile)(GM.getBoard().getTile(tileNumber))).getPlayer() != null) {
-                currentRate = new Label("Rate: " + ((BuyableTile) (GM.getBoard().getTile(tileNumber))).getRent()[((BuyableTile)(GM.getBoard().getTile(tileNumber))).getPlayer().getCountUtil()]);
-            }
-            else {
-                currentRate = new Label("Rate: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getRent()[0]);
-            }
+            Label ownedBy = new Label("Owned by: nobody");
+            vBox.getChildren().add(ownedBy);
         }
         Label costToBuy = new Label("Cost to buy: "+((BuyableTile)(GM.getBoard().getTile(tileNumber))).getCostToBuy());
-        vBox.getChildren().addAll(ownedBy,costToBuy,currentRate);
+        vBox.getChildren().add(costToBuy);
+        if(((BuyableTile)(GM.getBoard().getTile(tileNumber))).getClass() == Property.class){
+            Label rate = new Label("Base Rate: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getRent()[0]);
+            Label levelOne = new Label("1 House: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getRent()[1]);
+            Label levelTwo = new Label("2 Houses: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getRent()[2]);
+            Label levelThree = new Label("3 Houses: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getRent()[3]);
+            Label levelFour = new Label("4 Houses: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getRent()[4]);
+            Label hotel = new Label("Hotel: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getRent()[5]);
+            vBox.getChildren().addAll(rate,levelOne,levelTwo,levelThree,levelFour,hotel);
+        }
+        else if(((BuyableTile)(GM.getBoard().getTile(tileNumber))).getClass() == Station.class){
+            Label oneOwned = new Label("1 station owned: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getRent()[1]);
+            Label twoOwned = new Label("2 stations owned: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getRent()[2]);
+            Label threeOwned = new Label("3 stations owned: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getRent()[3]);
+            Label fourOwned = new Label("4 stations owned: " + ((BuyableTile)(GM.getBoard().getTile(tileNumber))).getRent()[4]);
+            vBox.getChildren().addAll(oneOwned,twoOwned,threeOwned,fourOwned);
+        }
+        else {
+            // utility's
+            Label oneOwned = new Label("One utility owned: " + ((BuyableTile) (GM.getBoard().getTile(tileNumber))).getRent()[1] + " times dice roll");
+            Label twoOwned = new Label("Two utility owned: " + ((BuyableTile) (GM.getBoard().getTile(tileNumber))).getRent()[2] + " times dice roll");
+            vBox.getChildren().addAll(oneOwned, twoOwned);
+        }
         tileInfoDialog.getDialogPane().setContent(vBox);
-        ButtonType ok = new ButtonType("OK",ButtonBar.ButtonData.OK_DONE);
-        tileInfoDialog.getDialogPane().getButtonTypes().add(ok);
-        tileInfoDialog.showAndWait();
+        tileInfoDialog.showAndWait().
     }
 
+    private void showTileInfoIfOwner(Dialog tileDialog, int tileNumber, GameMaster GM) {
+        if(GM.getPlayers()[GM.getCurTurn()].equals(((BuyableTile)(GM.getBoard().getTile(tileNumber))).getPlayer())){ 
+            if(((BuyableTile)GM.getBoard().getTile(tileNumber)).getMortgaged()){
+                ButtonType unmortgage = new ButtonType("Unmortgage",ButtonBar.ButtonData.BACK_PREVIOUS);
+                tileDialog.getDialogPane().getButtonTypes().add(unmortgage);
+                // if pressed set mortgaged to false
+            }
+            else{
+                ButtonType mortgage = new ButtonType("Mortgage",ButtonBar.ButtonData.APPLY);
+                tileDialog.getDialogPane().getButtonTypes().add(mortgage);
+                // if pressed set mortgaged to true
+            }
+            ButtonType sell = new ButtonType("sell", ButtonBar.ButtonData.NO);
+            tileDialog.getDialogPane().getButtonTypes().add(sell);
+            // if pressed call sellBaseTile()
+            tileDialog.getDialogPane().lookupButton(sell);
+            //tileDialog.setResultConverter((ButtonType b) ->{
+              //  if(b == ButtonType.NO){
+
+                //    return 0;
+                //}
+
+                //return null;
+            //});
+        }
+    }
+
+    /*
+    UNUSED MAY BE NEEDED IN FUTURE
     public synchronized void waitBetweenMovements(){
 
         try {
@@ -261,6 +292,7 @@ public class Methods {
             System.out.println("ahhh");
         }
     }
+     */
 
     /**
      * Implements rotation of the Board
