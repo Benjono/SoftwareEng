@@ -96,9 +96,9 @@ public class Property extends BuyableTile {
     /**
      * sells all the houses on the property, and then the property
      */
-    public void sellTile(){
+    public void sellTile() throws InvalidHouseSetupException{
         sellHouse(currentHouseLevel);
-        sellTile();
+            sellBaseTile();
     }
 
 
