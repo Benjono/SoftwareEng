@@ -93,4 +93,13 @@ public class Property extends BuyableTile {
     }
 
 
+    /**
+     * sells all the houses on the property, and then the property
+     */
+    public void sellTile(){
+        sellHouse(currentHouseLevel);
+        sellTile();
+    }
+
+
 }
