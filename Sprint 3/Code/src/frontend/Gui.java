@@ -1,6 +1,7 @@
 package frontend;
 
 import backend.GameMaster;
+import backend.InvalidHouseSetupException;
 import backend.Tokens;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -61,7 +62,13 @@ public class Gui extends Application {
             if (GM.getTile(i).getBuyable()){
                 //System.out.println(GM.getBoard().getTile(i).getName());
                 int currentTile = i;
-                square.setOnMouseClicked(mouseEvent -> m.showTileInfo(currentTile,GM));
+                square.setOnMouseClicked(mouseEvent -> {
+                    try {
+                        m.showTileInfo(currentTile,GM);
+                    } catch (InvalidHouseSetupException e) {
+                        e.printStackTrace();
+                    }
+                });
             }
             Image tileImg = new Image("tile_" + GM.getBoard().getTile(i).getName().toLowerCase().replaceAll("\\s+","") + ".png");
             ImageView tile = new ImageView(tileImg);
