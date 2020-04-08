@@ -51,14 +51,14 @@ public class Property extends BuyableTile {
     public int getCurrentHouseLevel(){return currentHouseLevel;}
 
     /**
-     * mortgages a property, giving the player half of its buy cost if there are no houses present
+     * mortgages a property, giving the player half of its buy cost. Sells all houses in the process
      *
      * @return money the player made from mortgaging the property
      * @throws InvalidHouseSetupException if houses are present on property
      */
     @Override
     public void mortgageTile() throws InvalidHouseSetupException{
-
+        sellHouse(currentHouseLevel);
         if(currentHouseLevel ==0) {
             mortgaged = true;
             owner.setMoney(owner.getMoney()+(costToBuy/2));
