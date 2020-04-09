@@ -46,12 +46,13 @@ public class Gui extends Application {
         GM.setup(numPlayers, playerTokens);
 
         //Main gameplay screen
-        HBox gameScreen = new HBox();
-        gameScreen.setAlignment(Pos.CENTER);
+        BorderPane gameScreen = new BorderPane();
+        //gameScreen.setAlignment(Pos.CENTER);
 
         //Game board
         gp = new GridPane();
-        gameScreen.getChildren().add(gp);
+        BorderPane.setAlignment(gp,Pos.TOP_LEFT);
+        gameScreen.setCenter(gp);
         //board tiles
         //setting correct sizes for screen
         int tileSize = 64;
@@ -113,7 +114,7 @@ public class Gui extends Application {
         //Right tab
         //add active players and maybe highlight current turn player
         sideTab = new VBox();
-        gameScreen.getChildren().add(sideTab);
+        gameScreen.setRight(sideTab);
         sideTab.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
         sideTab.setPrefWidth(200);
         //Player title
