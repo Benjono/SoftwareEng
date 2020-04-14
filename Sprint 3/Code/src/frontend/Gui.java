@@ -48,11 +48,15 @@ public class Gui extends Application {
         //Main gameplay screen
         BorderPane gameScreen = new BorderPane();
         //gameScreen.setAlignment(Pos.CENTER);
-
+        VBox alignV = new VBox();
+        HBox alignH = new HBox();
+        alignV.setAlignment(Pos.CENTER);
+        alignH.setAlignment(Pos.CENTER);
+        alignV.getChildren().add(alignH);
+        gameScreen.setCenter(alignV);
         //Game board
         gp = new GridPane();
-        BorderPane.setAlignment(gp,Pos.TOP_LEFT);
-        gameScreen.setCenter(gp);
+        alignH.getChildren().add(gp);
         //board tiles
         //setting correct sizes for screen
         int tileSize = 64;
