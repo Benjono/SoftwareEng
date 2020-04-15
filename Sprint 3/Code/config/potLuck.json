@@ -1,0 +1,131 @@
+{
+	"1":{
+		"text":"You inherit £100",
+		"method":"gainMoney",
+		"inputs":{
+			"1":100,
+			"2":null
+		}
+	},
+	"2":{
+		"text":"You have won 2nd prize in a beauty contest, collect £20",
+		"method":"gainMoney",
+		"inputs":{
+			"1":20,
+			"2":null
+		}
+	},
+	"3":{
+		"text":"Go back to Crapper Street",
+		"method":"moveTo",
+		"inputs":{
+			"1":"Crapper Street",
+			"2":"false"
+		}
+	},
+	"4":{
+		"text":"Student loan refund. Collect £20",
+		"method":"gainMoney",
+		"inputs":{
+			"1":20,
+			"2":null
+		}
+	},
+	"5":{
+		"text":"Bank error in your favour. Collect £200",
+		"method":"gainMoney",
+		"inputs":{
+			"1":200,
+			"2":null
+		}
+	},
+	"6":{
+		"text":"Pay bill for text books of £100",
+		"method":"payMoney",
+		"inputs":{
+			"1":100,
+			"2":null
+		}
+	},
+	"7":{
+		"text":"Mega late night taxi bill pay £50",
+		"method":"payMoney",
+		"inputs":{
+			"1":50,
+			"2":null
+		}
+	},
+	"8":{
+		"text":"Advance to go",
+		"method":"moveTo",
+		"inputs":{
+			"1":"Go",
+			"2":"true"
+		}
+	},
+	"9":{
+		"text":"From sale of Bitcoin you get £50",
+		"method":"gainMoney",
+		"inputs":{
+			"1":"50",
+			"2":null
+		}
+	},
+	"10":{
+		"text":"Pay a £10 fine or take opportunity knocks",
+		"method":"throw",
+		"inputs":{
+			"1":null,
+			"2":null
+		}
+	},
+	"11":{
+		"text":"Pay insurance fee of £50",
+		"method":freeParkingFine,
+		"inputs":{
+			"1":50,
+			"2":null
+		}
+	},
+
+	"12":{
+		"text":"Savings bond matures, collect £100",
+		"method":gainMoney,
+		"inputs":{
+			"1":100,
+			"2":null
+		}
+	},
+	"13":{
+		"text":"Go to jail. Do not pass GO, do not collect £200",
+		"method":"toJail",
+		"inputs":{
+			"1":null,
+			"2":null
+		}
+	},
+	"14":{
+		"text":"Received interest on shares of £25",
+		"method":"gainMoney",
+		"inputs":{
+			"1":25,
+			"2":null
+		}
+	},
+	"15":{
+		"text":"It's your birthday. Collect £10 from each player",
+		"method":"transferMoney",
+		"inputs":{
+			"1":10,
+			"2":null
+		}
+	},
+	"16":{
+		"text":"Get out of jail free",
+		"method":"getOutOfJail",
+		"inputs":{
+			"1":null,
+			"2":null
+		}
+	}
+}

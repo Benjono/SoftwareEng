@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.ArrayList;
 
 /**
  * Board class, holds an array of tiles on the board
@@ -16,13 +17,98 @@ import java.util.Iterator;
  */
 public class Board {
     private Tile[] tileGrid;
+    private ArrayList potLuck;
+    private ArrayList opportunityKnocks;
+    private GameMaster gameMaster;
 
     /**
      * constructs the board. Uses the boardTiles.json file, it will generate the appropriate classed tiles
      * and put them into the correct position in the tile grid
      * @author Alex Homer
      */
-    public Board(){
+    public Board(GameMaster gameMaster){
+        this.gameMaster = gameMaster;
+        generateTiles();
+        generateCard("potLuck");
+        generateCard("OpportunityKnocks");
+    }
+
+    private void generateCard(String cardType){
+        String filePath = new String("config/"+cardType+".json");
+        potLuck = new ArrayList<Card>();
+        try {
+            JSONParser parser = new JSONParser();
+            FileReader path =new FileReader(filePath);
+            JSONObject dictionary = (JSONObject) parser.parse(path);
+            Iterator<String> keys = dictionary.keySet().iterator();
+            JSONObject embeddedCard;
+            while (keys.hasNext()){
+                String key = keys.next();
+                embeddedCard = (JSONObject) dictionary.get(key);
+                Object[] paramArray= new Object[2];
+                JSONObject cardConversion = (JSONObject) embeddedCard.get("inputs");
+                for (int i =0; i<2; i++){
+                    String paramKey= Integer.toString(i);
+                    if(cardConversion.get(paramKey)!=null) {
+                        if(cardConversion.get(paramKey) instanceof  String){
+                            if(cardConversion.get(paramKey) == "true"){
+                                boolean input = true;
+                                paramArray[i] = input;
+                            }
+                            else if(cardConversion.get(paramKey) == "false"){
+                                boolean input = false;
+                                paramArray[i] = input;
+                            }
+                            else {
+                                String input = cardConversion.get(paramKey).toString();
+                                paramArray[i] = input;
+                            }
+
+                        }
+                        else {
+                            paramArray[i] = Integer.valueOf(embeddedCard.get(paramKey).toString());
+                        }
+                    }
+                    else {
+                        paramArray[i] = null;
+                    }
+
+                }
+                Card currentCard = new Card(embeddedCard.get("text").toString(),cardType,embeddedCard.get("method").toString(),gameMaster,paramArray);
+                if(cardType == "potLuck") {
+                    potLuck.add(currentCard);
+                }
+                else {
+                    opportunityKnocks.add(currentCard);
+                }
+            }
+        }
+        catch(FileNotFoundException e){
+            System.out.println("File cannot be found");
+        }
+        catch(IOException e){
+            System.out.println("don't know why you seeing this tbh");
+        }
+        catch(ParseException e){
+            System.out.println("Parse failed");
+        }
+    }
+
+    public Tile[] getTileGrid() {
+        return tileGrid;
+    }
+
+    public Tile getTile(int tilePos){
+        try{
+            return tileGrid[tilePos];
+        }
+        catch(ArrayIndexOutOfBoundsException e){
+            return null;
+        }
+    }
+
+
+    private void generateTiles(){
         String filePath = new String("config/tileInfo.json");
         tileGrid = new Tile[40];
         try {
@@ -120,17 +206,5 @@ public class Board {
         }
     }
 
-    public Tile[] getTileGrid() {
-        return tileGrid;
-    }
-
-    public Tile getTile(int tilePos){
-        try{
-            return tileGrid[tilePos];
-        }
-        catch(ArrayIndexOutOfBoundsException e){
-            return null;
-        }
-    }
 
 }
