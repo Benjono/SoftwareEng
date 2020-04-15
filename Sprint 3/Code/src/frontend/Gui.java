@@ -1,6 +1,7 @@
 package frontend;
 
 import backend.GameMaster;
+import backend.InvalidHouseSetupException;
 import backend.Tokens;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -45,12 +46,17 @@ public class Gui extends Application {
         GM.setup(numPlayers, playerTokens);
 
         //Main gameplay screen
-        HBox gameScreen = new HBox();
-        gameScreen.setAlignment(Pos.CENTER);
-
+        BorderPane gameScreen = new BorderPane();
+        //gameScreen.setAlignment(Pos.CENTER);
+        VBox alignV = new VBox();
+        HBox alignH = new HBox();
+        alignV.setAlignment(Pos.CENTER);
+        alignH.setAlignment(Pos.CENTER);
+        alignV.getChildren().add(alignH);
+        gameScreen.setCenter(alignV);
         //Game board
         gp = new GridPane();
-        gameScreen.getChildren().add(gp);
+        alignH.getChildren().add(gp);
         //board tiles
         //setting correct sizes for screen
         int tileSize = 64;
@@ -61,7 +67,13 @@ public class Gui extends Application {
             if (GM.getTile(i).getBuyable()){
                 //System.out.println(GM.getBoard().getTile(i).getName());
                 int currentTile = i;
-                square.setOnMouseClicked(mouseEvent -> m.showTileInfo(currentTile,GM));
+                square.setOnMouseClicked(mouseEvent -> {
+                    try {
+                        m.showTileInfo(currentTile,GM);
+                    } catch (InvalidHouseSetupException e) {
+                        e.printStackTrace();
+                    }
+                });
             }
             Image tileImg = new Image("tile_" + GM.getBoard().getTile(i).getName().toLowerCase().replaceAll("\\s+","") + ".png");
             ImageView tile = new ImageView(tileImg);
@@ -106,7 +118,7 @@ public class Gui extends Application {
         //Right tab
         //add active players and maybe highlight current turn player
         sideTab = new VBox();
-        gameScreen.getChildren().add(sideTab);
+        gameScreen.setRight(sideTab);
         sideTab.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
         sideTab.setPrefWidth(200);
         //Player title

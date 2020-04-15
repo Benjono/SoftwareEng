@@ -13,6 +13,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.Iterator;
+import java.util.Optional;
 
 public class Methods {
 
@@ -211,7 +212,7 @@ public class Methods {
 
     }
 
-    public void showTileInfo(int tileNumber, GameMaster GM){
+    public void showTileInfo(int tileNumber, GameMaster GM) throws InvalidHouseSetupException {
         Dialog tileInfoDialog = setupDialog(new Dialog());
         tileInfoDialog.setHeaderText("Tile Information for " + GM.getBoard().getTile(tileNumber).getName());
         ButtonType ok = new ButtonType("OK",ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -251,7 +252,36 @@ public class Methods {
             vBox.getChildren().addAll(oneOwned, twoOwned);
         }
         tileInfoDialog.getDialogPane().setContent(vBox);
-        tileInfoDialog.showAndWait().
+        Optional<ButtonType> result = tileInfoDialog.showAndWait();
+        getTileInfoResult(result, tileNumber, GM);
+    }
+
+    private void getTileInfoResult(Optional<ButtonType> result, int tileNumber, GameMaster GM) throws InvalidHouseSetupException {
+        if (result.get() == ButtonType.PREVIOUS){
+            //unmortgage
+            //
+            ((BuyableTile)GM.getBoard().getTile(tileNumber)).unMortgageTile();
+        }
+        else if (result.get() == ButtonType.APPLY){
+            //mortgage throws invalid house exception
+            ((BuyableTile)GM.getBoard().getTile(tileNumber)).mortgageTile();
+        }
+        else if(result.get() == ButtonType.NO) {
+            //sell
+            if (((BuyableTile) (GM.getBoard().getTile(tileNumber))).getClass() == Property.class) {
+                ((Property) GM.getBoard().getTile(tileNumber)).sellTile();
+            } else if (((BuyableTile) (GM.getBoard().getTile(tileNumber))).getClass() == Utility.class) {
+                ((Utility) GM.getBoard().getTile(tileNumber)).sellUtility();
+            } else if (((BuyableTile) (GM.getBoard().getTile(tileNumber))).getClass() == Station.class) {
+                ((Station) GM.getBoard().getTile(tileNumber)).sellStation();
+            }
+            else {
+                System.out.println("Buyable tile not found");
+            }
+        }
+        else {
+            //ok
+        }
     }
 
     private void showTileInfoIfOwner(Dialog tileDialog, int tileNumber, GameMaster GM) {
@@ -266,18 +296,10 @@ public class Methods {
                 tileDialog.getDialogPane().getButtonTypes().add(mortgage);
                 // if pressed set mortgaged to true
             }
-            ButtonType sell = new ButtonType("sell", ButtonBar.ButtonData.NO);
+            ButtonType sell = new ButtonType("Sell", ButtonBar.ButtonData.NO);
             tileDialog.getDialogPane().getButtonTypes().add(sell);
-            // if pressed call sellBaseTile()
-            tileDialog.getDialogPane().lookupButton(sell);
-            //tileDialog.setResultConverter((ButtonType b) ->{
-              //  if(b == ButtonType.NO){
+            //if called sell base tile
 
-                //    return 0;
-                //}
-
-                //return null;
-            //});
         }
     }
 
