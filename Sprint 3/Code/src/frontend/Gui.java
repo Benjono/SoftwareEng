@@ -40,14 +40,13 @@ public class Gui extends Application {
     public void start(Stage primaryStage) {
         //setup dialogues
         m = new Methods();
-        int numPlayers = m.doDialoguePlayers();
-        Tokens[] playerTokens = m.doPlayerTokens(numPlayers);
+        int numPlayers = (int) (new NumberOfPlayersDialog()).getR();
+        Tokens[] playerTokens = (Tokens[]) (new SelectingTokensDialog(numPlayers)).getR();
         GM = new GameMaster();
         GM.setup(numPlayers, playerTokens);
 
         //Main gameplay screen
         BorderPane gameScreen = new BorderPane();
-        //gameScreen.setAlignment(Pos.CENTER);
         VBox alignV = new VBox();
         HBox alignH = new HBox();
         alignV.setAlignment(Pos.CENTER);
@@ -69,7 +68,7 @@ public class Gui extends Application {
                 int currentTile = i;
                 square.setOnMouseClicked(mouseEvent -> {
                     try {
-                        m.showTileInfo(currentTile,GM);
+                        new ShowTileInfoDialog(currentTile,GM);
                     } catch (InvalidHouseSetupException e) {
                         e.printStackTrace();
                     }
