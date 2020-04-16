@@ -11,7 +11,7 @@ public class GameMaster {
      * @author Jonathan Morris
      */
     public GameMaster(){
-        board = new Board();
+        board = new Board(this);
         setCurTurn(0);
     }
     /**
