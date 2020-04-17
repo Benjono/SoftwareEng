@@ -1,20 +1,13 @@
 package frontend;
 
-import backend.GameMaster;
-import backend.InvalidHouseSetupException;
 import backend.Tokens;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -57,7 +50,8 @@ public class Gui extends Application {
         primaryStage.setTitle("Property Tycoon");
         primaryStage.getIcons().add(new Image("logo.png"));
         primaryStage.setScene(scene);
-        primaryStage.setWidth(1280);
+        // XGA screen size 1024 x 768
+        primaryStage.setWidth(1024);
         primaryStage.setHeight(768);
         primaryStage.setResizable(false);
         primaryStage.show();

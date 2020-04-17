@@ -53,16 +53,16 @@ public class ShowTileInfoDialog extends MonopolyDialog {
     }
 
     private void getTileInfoResult(Optional<Object> result, int tileNumber, GameMaster GM) throws InvalidHouseSetupException {
-        if (result.get() == ButtonType.PREVIOUS){
+        if (((ButtonType) result.get()).getButtonData() == ButtonBar.ButtonData.BACK_PREVIOUS){
             //unmortgage
             //
             ((BuyableTile)GM.getBoard().getTile(tileNumber)).unMortgageTile();
         }
-        else if (result.get() == ButtonType.APPLY){
+        else if (((ButtonType) result.get()).getButtonData() == ButtonBar.ButtonData.APPLY){
             //mortgage throws invalid house exception
             ((BuyableTile)GM.getBoard().getTile(tileNumber)).mortgageTile();
         }
-        else if(result.get() == ButtonType.NO) {
+        else if(((ButtonType) result.get()).getButtonData() == ButtonBar.ButtonData.NO) {
             //sell
             if (((BuyableTile) (GM.getBoard().getTile(tileNumber))).getClass() == Property.class) {
                 ((Property) GM.getBoard().getTile(tileNumber)).sellTile();
@@ -77,6 +77,7 @@ public class ShowTileInfoDialog extends MonopolyDialog {
         }
         else {
             //ok
+            System.out.println("ok");
         }
     }
 
