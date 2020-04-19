@@ -69,7 +69,7 @@ public class Property extends BuyableTile {
     }
     @Override
     protected void sellBaseTile() throws InvalidHouseSetupException{
-        if(currentHouseLevel != 0) {
+        if(currentHouseLevel == 0) {
             this.owner = null;
             if (!mortgaged) {
                 owner.setMoney(owner.getMoney() + costToBuy);

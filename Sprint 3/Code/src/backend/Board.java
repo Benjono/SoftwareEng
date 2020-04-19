@@ -36,6 +36,7 @@ public class Board {
     private void generateCard(String cardType){
         String filePath = new String("config/"+cardType+".json");
         potLuck = new ArrayList<Card>();
+        opportunityKnocks = new ArrayList<Card>();
         try {
             JSONParser parser = new JSONParser();
             FileReader path =new FileReader(filePath);

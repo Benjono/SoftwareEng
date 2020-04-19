@@ -114,6 +114,7 @@ public class Card {
 
     }
     public void getOutOfJail(Player player){
+
     }
     public void toJail(Player player){
         player.jail();

@@ -94,7 +94,31 @@ public class GameMaster {
         }
         return false;
     }
+    public Tile[] getPlayerProperties(Player p){
+        Tile[] playerProperties = new Tile[40];
+        int count = 0;
+        for(Tile t: board.getTileGrid()){
+            if(t instanceof BuyableTile){
+                if(((BuyableTile) t).getPlayer().equals(p)){
+                    playerProperties[count]=t;
+                    count++;
+                }
+            }
+        }
+        return playerProperties;
+    }
 
+    public int getNumPlayerProperties(Player p){
+        int count=0;
+        for(Tile t: board.getTileGrid()){
+            if(t instanceof BuyableTile){
+                if(((BuyableTile) t).getPlayer().equals(p)){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
     /**
      * Used for tiles that have been bought or have other effects
      */
