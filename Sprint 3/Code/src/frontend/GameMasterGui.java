@@ -3,8 +3,13 @@ package frontend;
 import backend.*;
 
 public class GameMasterGui extends GameMaster {
+    private int plNum;
+    private int okNum;
+
     public GameMasterGui(int numPlayers, Tokens[] playerTokens){
         this.setup(numPlayers, playerTokens);
+        this.okNum = 0;
+        this.plNum = 0;
     }
 
     public void landedTileAction() {
@@ -40,10 +45,15 @@ public class GameMasterGui extends GameMaster {
 
     private void cardDraw() {
         // OK or Potluck?
-        //if (((Card)this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).)
+        if (((CardDraw) this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).getDrawType() == DrawTypes.opportunityKnocks) {
             // get method effect potluck
-        //else{
+            ((Card)this.getBoard().getOpportunityKnocks().get(okNum)).cardEffect(this.getPlayer(this.getCurTurn()));
+            new CardDrawDialog(this.getTile(this.getPlayer(this.getCurTurn()).getPlace()),(Card) this.getBoard().getOpportunityKnocks().get(okNum));
+            okNum++;
+        }
+        else{
             // get method effect ok
-        //}
+
+        }
     }
 }
