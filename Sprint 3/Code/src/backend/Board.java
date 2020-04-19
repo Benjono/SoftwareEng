@@ -29,14 +29,14 @@ public class Board {
     public Board(GameMaster gameMaster){
         this.gameMaster = gameMaster;
         generateTiles();
+        potLuck = new ArrayList<Card>();
+        opportunityKnocks = new ArrayList<Card>();
         generateCard("potLuck");
         generateCard("OpportunityKnocks");
     }
 
     private void generateCard(String cardType){
         String filePath = new String("config/"+cardType+".json");
-        potLuck = new ArrayList<Card>();
-        opportunityKnocks = new ArrayList<Card>();
         try {
             JSONParser parser = new JSONParser();
             FileReader path =new FileReader(filePath);
