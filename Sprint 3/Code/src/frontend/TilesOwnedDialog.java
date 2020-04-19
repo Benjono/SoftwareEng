@@ -2,8 +2,6 @@ package frontend;
 
 import backend.BuyableTile;
 import backend.InvalidHouseSetupException;
-import backend.Tile;
-import javafx.scene.Node;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -16,7 +14,7 @@ public class TilesOwnedDialog extends MonopolyDialog {
     public TilesOwnedDialog(GameMasterGui GM, int playerNumber) {
         this.GM = GM;
         this.playerNumber = playerNumber;
-        this.setHeaderText("Player " + playerNumber+1 + "'s owned properties");
+        this.setHeaderText("Player " + (playerNumber+1) + "'s owned properties");
         this.getDialogPane().setContent(getProperties());
 
         ButtonType buttonTypeOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
