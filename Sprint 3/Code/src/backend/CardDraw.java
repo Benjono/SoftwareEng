@@ -1,10 +1,13 @@
 package backend;
 
 public class CardDraw extends Tile{
-    Enum drawTypes;
+    DrawTypes drawType;
     public CardDraw(String name, String drawTypes){
         setBuyable(false);
         setName(name);
-        this.drawTypes = DrawTypes.valueOf(drawTypes);
+        this.drawType = DrawTypes.valueOf(drawTypes);
+    }
+    public DrawTypes getDrawType(){
+        return drawType;
     }
 }
