@@ -119,6 +119,8 @@ public class Card {
     public void toJail(Player player){
         player.jail();
     }
-
+    public String getCardType(){
+        return type;
+    }
 
 }
