@@ -122,5 +122,7 @@ public class Card {
     public String getCardType(){
         return type;
     }
-
+    public String getCardText(){
+        return cardText;
+    }
 }
