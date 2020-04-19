@@ -35,6 +35,14 @@ public class Board {
         generateCard("OpportunityKnocks");
     }
 
+    public ArrayList getPotLuck(){
+        return potLuck;
+    }
+
+    public ArrayList getOpportunityKnocks(){
+        return opportunityKnocks;
+    }
+
     private void generateCard(String cardType){
         String filePath = new String("config/"+cardType+".json");
         try {
