@@ -17,8 +17,8 @@ import java.util.ArrayList;
  */
 public class Board {
     private Tile[] tileGrid;
-    private ArrayList potLuck;
-    private ArrayList opportunityKnocks;
+    private ArrayList<Card> potLuck;
+    private ArrayList<Card> opportunityKnocks;
     private GameMaster gameMaster;
 
     /**
@@ -31,8 +31,8 @@ public class Board {
         generateTiles();
         potLuck = new ArrayList<Card>();
         opportunityKnocks = new ArrayList<Card>();
-        generateCard("potLuck");
-        generateCard("OpportunityKnocks");
+        deckConstructor();
+
     }
 
     public ArrayList getPotLuck(){
@@ -42,6 +42,12 @@ public class Board {
     public ArrayList getOpportunityKnocks(){
         return opportunityKnocks;
     }
+
+    public void deckConstructor(){
+        generateCard("opportunityKnocks");
+        System.out.println("got here" + opportunityKnocks.size());
+        generateCard("potLuck");
+    };
 
     private void generateCard(String cardType){
         String filePath = new String("config/"+cardType+".json");
@@ -54,32 +60,33 @@ public class Board {
             while (keys.hasNext()){
                 String key = keys.next();
                 embeddedCard = (JSONObject) dictionary.get(key);
-                Object[] paramArray= new Object[2];
+                ArrayList<Object> param = new ArrayList();
+
                 JSONObject cardConversion = (JSONObject) embeddedCard.get("inputs");
                 for (int i =0; i<2; i++){
                     String paramKey= Integer.toString(i);
                     if(cardConversion.get(paramKey)!=null) {
 
                         try {
-                            paramArray[i] = Integer.valueOf(embeddedCard.get(paramKey).toString());
+                            param.add(Integer.valueOf(embeddedCard.get(paramKey).toString()));
                         } catch (Exception e) {
                             if (cardConversion.get(paramKey) == "true") {
                                 boolean input = true;
-                                paramArray[i] = input;
+                                param.add(input);
                             } else if (cardConversion.get(paramKey) == "false") {
                                 boolean input = false;
-                                paramArray[i] = input;
+                                param.add(input);
                             } else {
                                 String input = cardConversion.get(paramKey).toString();
-                                paramArray[i] = input;
+                                param.add(input);
                             }
                         }
 
                     }
-                    else {
-                        paramArray[i] = null;
-                    }
-
+                }
+                Object[] paramArray= new Object[param.size()];
+                for(int i =0; i<param.size() ;i++){
+                    paramArray[i] = param.get(i);
                 }
                 Card currentCard = new Card(embeddedCard.get("text").toString(),cardType,embeddedCard.get("method").toString(),gameMaster,paramArray);
                 if(cardType == "potLuck") {
@@ -97,7 +104,11 @@ public class Board {
             System.out.println("don't know why you seeing this tbh");
         }
         catch(ParseException e){
-            System.out.println("parse bad");
+            System.out.println("parse bad"+cardType);
+            for(int i =0; i<e.getStackTrace().length; i++) {
+                System.out.println(e.getStackTrace()[i].toString());
+            }
+            System.out.println("dfiuIUFD");
         }
     }
 

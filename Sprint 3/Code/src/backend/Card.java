@@ -22,7 +22,7 @@ public class Card {
         paramTypes = new Class[params.length+1];
         paramTypes[0] = Player.class;
         for(int i=1; i<params.length+1;i++){
-            paramTypes[i]=params[i].getClass();
+            paramTypes[i]=params[i-1].getClass();
         }
         gameMaster=gm;
     }
