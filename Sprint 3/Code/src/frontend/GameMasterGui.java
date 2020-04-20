@@ -46,14 +46,16 @@ public class GameMasterGui extends GameMaster {
     private void cardDraw() {
         // OK or Potluck?
         if (((CardDraw) this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).getDrawType() == DrawTypes.opportunityKnocks) {
-            // get method effect potluck
+            // get method effect opportunity knocks
             ((Card)this.getBoard().getOpportunityKnocks().get(okNum)).cardEffect(this.getPlayer(this.getCurTurn()));
             new CardDrawDialog(this.getTile(this.getPlayer(this.getCurTurn()).getPlace()),(Card) this.getBoard().getOpportunityKnocks().get(okNum));
             okNum++;
         }
         else{
-            // get method effect ok
-
+            // get method effect potluck
+            ((Card)this.getBoard().getPotLuck().get(plNum)).cardEffect(this.getPlayer(this.getCurTurn()));
+            new CardDrawDialog(this.getTile(this.getPlayer(this.getCurTurn()).getPlace()),(Card) this.getBoard().getPotLuck().get(plNum));
+            plNum++;
         }
     }
 }

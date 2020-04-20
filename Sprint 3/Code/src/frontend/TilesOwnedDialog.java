@@ -2,6 +2,7 @@ package frontend;
 
 import backend.BuyableTile;
 import backend.InvalidHouseSetupException;
+import backend.Tile;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -24,22 +25,16 @@ public class TilesOwnedDialog extends MonopolyDialog {
 
     private VBox getProperties() {
         VBox list = new VBox();
-        for(int i = 0; i < GM.getBoard().getTileGrid().length; i++){
-            if(GM.getBoard().getTile(i).getBuyable()){
-                if (((BuyableTile)GM.getBoard().getTile(i)).getPlayer() != null){
-                    if(((BuyableTile) GM.getBoard().getTile(i)).getPlayer().equals(GM.getPlayer(playerNumber))){
-                        list.getChildren().add(getProperty(i));
-                    }
-                }
-            }
+        for(Tile tile : GM.getPlayerProperties(GM.getPlayer(playerNumber))){
+            list.getChildren().add(getProperty(tile));
         }
         return list;
     }
-    private Label getProperty(int tileNumber) {
-        Label property = new Label(GM.getBoard().getTile(tileNumber).getName());
+    private Label getProperty(Tile tile) {
+        Label property = new Label(tile.getName());
         property.setOnMouseClicked(mouseEvent -> {
             try {
-                new ShowTileInfoDialog(tileNumber, GM);
+                new ShowTileInfoDialog((BuyableTile)tile, GM);
             } catch (InvalidHouseSetupException e) {
                 e.printStackTrace();
             }

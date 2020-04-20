@@ -46,7 +46,7 @@ public class Gui extends Application {
         gameScreen.setRight(new SideTabGui(GM,boardGui, numPlayers));
 
         //Scene
-        Scene scene = new Scene(gameScreen, 1280, 768);
+        Scene scene = new Scene(gameScreen, 1024, 768);
         primaryStage.setTitle("Property Tycoon");
         primaryStage.getIcons().add(new Image("logo.png"));
         primaryStage.setScene(scene);

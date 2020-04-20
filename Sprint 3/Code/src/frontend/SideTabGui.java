@@ -60,7 +60,7 @@ public class SideTabGui extends VBox {
     }
 
     private Label propertiesLabelSetup(int playerNumber) {
-        Label numProperties = new Label("   Properties owned: implement!!");
+        Label numProperties = new Label("   Properties owned: " + GM.getNumPlayerProperties(GM.getPlayer(playerNumber)));
         numProperties.setStyle("-fx-background-color: dimgray; -fx-text-fill: snow;");
         numProperties.setOnMouseClicked(mouseEvent -> {new TilesOwnedDialog(GM, playerNumber);});
         return numProperties;

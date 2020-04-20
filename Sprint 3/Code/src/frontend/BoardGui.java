@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.BuyableTile;
 import backend.InvalidHouseSetupException;
 import backend.Tokens;
 import javafx.scene.Node;
@@ -45,7 +46,7 @@ public class BoardGui extends GridPane {
                 int currentTile = i;
                 square.setOnMouseClicked(mouseEvent -> {
                     try {
-                        new ShowTileInfoDialog(currentTile,GM);
+                        new ShowTileInfoDialog((BuyableTile)GM.getTile(currentTile),GM);
                     } catch (InvalidHouseSetupException e) {
                         e.printStackTrace();
                     }
