@@ -98,7 +98,7 @@ public class GameMaster {
         Tile[] playerProperties = new Tile[40];
         int count = 0;
         for(Tile t: board.getTileGrid()){
-            if(t instanceof BuyableTile){
+            if(t instanceof BuyableTile && ((BuyableTile) t).getPlayer()!=null){
                 if(((BuyableTile) t).getPlayer().equals(p)){
                     playerProperties[count]=t;
                     count++;
@@ -111,7 +111,7 @@ public class GameMaster {
     public int getNumPlayerProperties(Player p){
         int count=0;
         for(Tile t: board.getTileGrid()){
-            if(t instanceof BuyableTile){
+            if(t instanceof BuyableTile && ((BuyableTile) t).getPlayer()!=null){
                 if(((BuyableTile) t).getPlayer().equals(p)){
                     count++;
                 }
