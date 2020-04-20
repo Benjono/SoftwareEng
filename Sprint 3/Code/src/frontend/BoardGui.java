@@ -86,39 +86,32 @@ public class BoardGui extends GridPane {
     }
 
     public void movePlayer(){
+        removePlayer();
+        new ShowRollDialog(GM.moveNextPiece(),GM);
+        GM.landedTileAction();
+        addPlayer();
+    }
+
+    public void removePlayer(){
         ImageView playerSprite = playerImages[GM.getCurTurn()];
-        int[] oldCoordinates = boardCoordinates(GM.getPlayer(GM.getCurTurn()).getPlace());
+        findPane(boardCoordinates(GM.getPlayer(GM.getCurTurn()).getPlace())).getChildren().remove(playerSprite);
+    }
+
+    public void addPlayer(){
+        ImageView playerSprite = playerImages[GM.getCurTurn()];
+        playerSprite = setSpriteRotation(playerSprite);
+        findPane(boardCoordinates(GM.getPlayer(GM.getCurTurn()).getPlace())).getChildren().add(playerSprite);
+
+    }
+    private Pane findPane(int[] coordinates){
         Iterator<Node> children = this.getChildren().iterator();
         while (children.hasNext()) {
             Node n = children.next();
-            if (GridPane.getRowIndex(n) == oldCoordinates[1] && GridPane.getColumnIndex(n) == oldCoordinates[0]) {
-                //((Pane) n).getChildren().remove(playerSprite);
-                break;
+            if (GridPane.getRowIndex(n) == coordinates[1] && GridPane.getColumnIndex(n) == coordinates[0]) {
+                return (Pane) n;
             }
         }
-        new ShowRollDialog(GM.moveNextPiece(),GM);
-        int[] newCoordinates = boardCoordinates(GM.getPlayer(GM.getCurTurn()).getPlace());
-        //Look at each Pane() object within gridPane()
-        while (children.hasNext()) {
-            Node n = children.next();
-            if (GridPane.getRowIndex(n) == newCoordinates[1] && GridPane.getColumnIndex(n) == newCoordinates[0]) { //
-                //System.out.println("ok");
-                playerSprite = setSpriteRotation(playerSprite);
-                ((Pane) n).getChildren().add(playerSprite);
-
-                GM.landedTileAction();
-                break;
-            } else {
-                //System.out.println("err");
-                playerSprite = setSpriteRotation(playerSprite);
-                ((Pane) n).getChildren().add(playerSprite);
-                //m.waitBetweenMovements();
-                //((Pane) n).getChildren().remove(playerSprite);
-            }
-            if (!children.hasNext()) {
-                children = this.getChildren().iterator();
-            }
-        }
+        return null;
     }
 
     /**

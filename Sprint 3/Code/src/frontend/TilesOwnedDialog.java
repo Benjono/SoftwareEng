@@ -2,11 +2,14 @@ package frontend;
 
 import backend.BuyableTile;
 import backend.InvalidHouseSetupException;
+import backend.Property;
 import backend.Tile;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+
+import java.util.Arrays;
 
 public class TilesOwnedDialog extends MonopolyDialog {
     private final int playerNumber;
@@ -26,7 +29,9 @@ public class TilesOwnedDialog extends MonopolyDialog {
     private VBox getProperties() {
         VBox list = new VBox();
         for(Tile tile : GM.getPlayerProperties(GM.getPlayer(playerNumber))){
-            list.getChildren().add(getProperty(tile));
+            if (tile != null){
+                list.getChildren().add(getProperty(tile));
+            }
         }
         return list;
     }

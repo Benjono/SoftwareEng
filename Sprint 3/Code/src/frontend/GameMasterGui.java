@@ -17,9 +17,12 @@ public class GameMasterGui extends GameMaster {
             //can buy/auction time
             buyingTile();
         }
-        else if (this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace()).getClass() == CardDraw.class){
+        else if (this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof CardDraw){
             //card draw
             cardDraw();
+        }
+        else if (this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof toJail){
+
         }
         // free parking
         // go to jail
@@ -50,12 +53,14 @@ public class GameMasterGui extends GameMaster {
             ((Card)this.getBoard().getOpportunityKnocks().get(okNum)).cardEffect(this.getPlayer(this.getCurTurn()));
             new CardDrawDialog(this.getTile(this.getPlayer(this.getCurTurn()).getPlace()),(Card) this.getBoard().getOpportunityKnocks().get(okNum));
             okNum++;
+            if (okNum >= 16){okNum = 0;}
         }
         else{
             // get method effect potluck
             ((Card)this.getBoard().getPotLuck().get(plNum)).cardEffect(this.getPlayer(this.getCurTurn()));
             new CardDrawDialog(this.getTile(this.getPlayer(this.getCurTurn()).getPlace()),(Card) this.getBoard().getPotLuck().get(plNum));
             plNum++;
+            if (plNum >= 16){plNum = 0;}
         }
     }
 }
