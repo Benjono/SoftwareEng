@@ -59,24 +59,22 @@ public class Board {
                 for (int i =0; i<2; i++){
                     String paramKey= Integer.toString(i);
                     if(cardConversion.get(paramKey)!=null) {
-                        if(cardConversion.get(paramKey) instanceof  String){
-                            if(cardConversion.get(paramKey) == "true"){
+
+                        try {
+                            paramArray[i] = Integer.valueOf(embeddedCard.get(paramKey).toString());
+                        } catch (Exception e) {
+                            if (cardConversion.get(paramKey) == "true") {
                                 boolean input = true;
                                 paramArray[i] = input;
-                            }
-                            else if(cardConversion.get(paramKey) == "false"){
+                            } else if (cardConversion.get(paramKey) == "false") {
                                 boolean input = false;
                                 paramArray[i] = input;
-                            }
-                            else {
+                            } else {
                                 String input = cardConversion.get(paramKey).toString();
                                 paramArray[i] = input;
                             }
+                        }
 
-                        }
-                        else {
-                            paramArray[i] = Integer.valueOf(embeddedCard.get(paramKey).toString());
-                        }
                     }
                     else {
                         paramArray[i] = null;
@@ -99,7 +97,7 @@ public class Board {
             System.out.println("don't know why you seeing this tbh");
         }
         catch(ParseException e){
-            System.out.println("Parse failed");
+            System.out.println("parse bad");
         }
     }
 

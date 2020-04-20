@@ -1,4 +1,4 @@
-{
+﻿{
 	"1":{
 		"text":"You inherit £100",
 		"method":"gainMoney",
@@ -81,7 +81,7 @@
 	},
 	"11":{
 		"text":"Pay insurance fee of £50",
-		"method":freeParkingFine,
+		"method":"freeParkingFine",
 		"inputs":{
 			"1":50,
 			"2":null
@@ -90,7 +90,7 @@
 
 	"12":{
 		"text":"Savings bond matures, collect £100",
-		"method":gainMoney,
+		"method":"gainMoney",
 		"inputs":{
 			"1":100,
 			"2":null
