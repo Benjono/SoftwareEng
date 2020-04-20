@@ -45,9 +45,7 @@ public class Board {
 
     public void deckConstructor(){
         generateCard("opportunityKnocks");
-        System.out.println("got here" + opportunityKnocks.size());
         generateCard("potLuck");
-        System.out.println("got here" + potLuck.size());
     };
 
     private void generateCard(String cardType){
