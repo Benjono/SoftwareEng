@@ -41,4 +41,17 @@ public class GameMasterTest {
         }
         Assertions.assertEquals(0,gm.getCurTurn());
     }
+
+    @Test
+    public void nextTurnTest(){
+        GameMaster gm = new GameMaster();
+        Tokens[] tk = new Tokens[]{Tokens.Boot, Tokens.Cat, Tokens.Goblet};
+        gm.setup(3,tk);
+        //Turn should be 0 as start of the game
+        Assertions.assertEquals(0, gm.getCurTurn());
+        gm.canTakeTurn();
+        gm.nextTurn();
+        Assertions.assertEquals(1, gm.getCurTurn());
+        //If nextTurn works, the above line should work
+    }
 }
