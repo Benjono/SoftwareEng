@@ -94,6 +94,12 @@ public class GameMaster {
         }
         return false;
     }
+
+    /**
+     * Gets the players properties
+     * @param p
+     * @return
+     */
     public Tile[] getPlayerProperties(Player p){
         Tile[] playerProperties = new Tile[40];
         int count = 0;
@@ -108,6 +114,11 @@ public class GameMaster {
         return playerProperties;
     }
 
+    /**
+     * gets the number of properties a player has
+     * @param p
+     * @return
+     */
     public int getNumPlayerProperties(Player p){
         int count=0;
         for(Tile t: board.getTileGrid()){
@@ -233,9 +244,19 @@ public class GameMaster {
         return players[player];
     }
 
+    /**
+     * Getter for the board
+     * @return
+     */
     public Board getBoard(){
         return board;
     }
+
+    /**
+     * Gets the tile in the tile array with theTile as the index
+     * @param theTile
+     * @return
+     */
     public Tile getTile(int theTile){
         return board.getTile(theTile);
     }

@@ -41,9 +41,9 @@ public class Player {
     }
 
     /**
-     *
-     * @param maxBoardTiles
-     * @return int[]
+     * Moves the player a number of spaces equal to the dice roll
+     * @param maxBoardTiles the maximum number of board tiles
+     * @return int[] the rolls of the player
      * @author Jonathan Morris
      * @author Joseph Corbett
      */
@@ -59,16 +59,26 @@ public class Player {
         return dice;
     }
 
+    /**
+     * Jails the player
+     */
     public void jail(){
         this.setPlace(jail);
         this.setJailTime(2);
     }
 
-
+    /**
+     * Getter for the amount of money the player has
+     * @return
+     */
     public int getMoney() {
         return money;
     }
 
+    /**
+     * Setter for the amount of money the player has
+     * @param money
+     */
     public void setMoney(int money) {
         this.money = money;
     }
@@ -148,34 +158,63 @@ public class Player {
         return token;
     }
 
+    /**
+     * Getter for the amount of jail time the player has
+     * @return
+     */
     public int getJailTime() {
         return jailTime;
     }
 
+    /**
+     * Getter for if the player has one (or more) out of jail free cards from pot luck
+     * @return
+     */
     public int getOutOfJailFreePotLuck() {
         return outOfJailFreePotLuck;
     }
 
+    /**
+     * Getter for if the player has one (or more) out of jail free cards from opportunity knocks
+     * @return
+     */
     public int getOutOfJailFreeOpportunity() {
         return outOfJailFreeOpportunity;
     }
 
+    /**
+     * setter for the jail time
+     * @param jailTime
+     */
     public void setJailTime(int jailTime) {
         this.jailTime = jailTime;
     }
-
+    /**
+     * Setter for if the player has one (or more) out of jail free cards from opportunity knocks
+     * @return
+     */
     public void setOutOfJailFreePotLuck(int outOfJailFreePotLuck) {
         this.outOfJailFreePotLuck = outOfJailFreePotLuck;
     }
-
+    /**
+     * Setter for if the player has one (or more) out of jail free cards from opportunity knocks
+     * @return
+     */
     public void setOutOfJailFreeOpportunity(int outOfJailFreeOpportunity) {
         this.outOfJailFreeOpportunity = outOfJailFreeOpportunity;
     }
-
+    /**
+     * Getter for the number of turns the player has had
+     * @return
+     */
     public int getTurnsTaken() {
         return turnsTaken;
     }
 
+    /**
+     * Setter for the number of turns the player has had
+     * @param turnsTaken
+     */
     public void setTurnsTaken(int turnsTaken) {
         this.turnsTaken = turnsTaken;
     }
