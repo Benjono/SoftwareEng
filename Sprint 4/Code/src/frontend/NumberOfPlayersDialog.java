@@ -9,7 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 /**
- * This is the first screen of the game. Returns the number of players
+ * This is the first screen of the game. Returns the number of players after selected by the players.
  * @author Jonathan Morris
  * @author Alex Homer
  * @author Joe Corbett
@@ -33,6 +33,10 @@ public class NumberOfPlayersDialog extends MonopolyDialog{
         // end of player number dialog box
     }
 
+    /**
+     * Sets up the Hbox in the Dialog with Labels
+     * @return HBox
+     */
     private HBox settingUpHBox(){
         Label playerLabel = new Label("Player Count: ");
         HBox hboxPlayerCount = new HBox();
@@ -45,6 +49,10 @@ public class NumberOfPlayersDialog extends MonopolyDialog{
         return hboxPlayerCount;
     }
 
+    /**
+     * Sets up the ComboBox in the Dialog in order for the players to choose the number of players they'd like
+     * @return ComboBox
+     */
     private ComboBox settingUpComboBox() {
         ComboBox<Integer> playerCombo = new ComboBox<>();
         playerCombo.getItems().addAll(2, 3, 4, 5, 6);

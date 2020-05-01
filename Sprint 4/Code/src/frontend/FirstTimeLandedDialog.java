@@ -8,6 +8,7 @@ import javafx.scene.control.ButtonType;
 
 /**
  * Implements landing on an unowned tile, with options to buy or auction
+ * Dependant on which button is pressed returns a different boolean value to the called class.
  * @author Joe C
  */
 public class FirstTimeLandedDialog extends MonopolyDialog {

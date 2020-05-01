@@ -11,7 +11,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * GUI implementation
+ * GUI implementation; starts initial process for GUI,
+ * calls all necessary methods and classes relating to the GUi
  * @author Joe C
  * @author Alex
  * @author Tom
@@ -55,7 +56,5 @@ public class Gui extends Application {
         primaryStage.setHeight(768);
         primaryStage.setResizable(false);
         primaryStage.show();
-
     }
-
 }

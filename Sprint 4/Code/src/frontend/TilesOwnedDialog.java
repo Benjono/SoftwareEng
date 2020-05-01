@@ -11,6 +11,10 @@ import javafx.scene.layout.VBox;
 
 import java.util.Arrays;
 
+/**
+ * Displays all the names of the properties that a player owns when clicked on
+ * @author Joe C
+ */
 public class TilesOwnedDialog extends MonopolyDialog {
     private final int playerNumber;
     private final GameMasterGui GM;
@@ -26,6 +30,10 @@ public class TilesOwnedDialog extends MonopolyDialog {
         this.showAndWait();
     }
 
+    /**
+     * Gets the list of properties a player owns and returns a VBox of them
+     * @return A list of all properties
+     */
     private VBox getProperties() {
         VBox list = new VBox();
         for(Tile tile : GM.getPlayerProperties(GM.getPlayer(playerNumber))){
@@ -35,6 +43,13 @@ public class TilesOwnedDialog extends MonopolyDialog {
         }
         return list;
     }
+
+    /**
+     * Returns a property label that reads the name of the property requested by the tile inputted.
+     * Also makes the label clickable in order to see the tile's info.
+     * @param tile
+     * @return Label for the property in question
+     */
     private Label getProperty(Tile tile) {
         Label property = new Label(tile.getName());
         property.setOnMouseClicked(mouseEvent -> {

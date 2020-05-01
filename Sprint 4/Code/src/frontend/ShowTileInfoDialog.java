@@ -8,6 +8,10 @@ import javafx.scene.layout.VBox;
 
 import java.util.Optional;
 
+/**
+ * When a tile is clicked this is called to display all the tile info rent, cost to buy who its owned by etc.
+ * @author Joe C
+ */
 public class ShowTileInfoDialog extends MonopolyDialog {
     public ShowTileInfoDialog(BuyableTile tile, GameMaster GM) throws InvalidHouseSetupException {
         this.setHeaderText("Tile Information for " + tile.getName());
@@ -52,6 +56,14 @@ public class ShowTileInfoDialog extends MonopolyDialog {
         getTileInfoResult(result, tile, GM);
     }
 
+    /**
+     * Returns the correct implementation depending on which button is pressed; unmortgage, mortgage, sell, ok
+     * @param result
+     * @param tile
+     * @param GM
+     * @throws InvalidHouseSetupException
+     * @author Joe C
+     */
     private void getTileInfoResult(Optional<Object> result, BuyableTile tile, GameMaster GM) throws InvalidHouseSetupException {
         if (((ButtonType) result.get()).getButtonData() == ButtonBar.ButtonData.BACK_PREVIOUS){
             //unmortgage
@@ -80,6 +92,13 @@ public class ShowTileInfoDialog extends MonopolyDialog {
         }
     }
 
+    /**
+     * If clicked by the owner of the tile then these addition buttons are displayed to the user;
+     * these being mortgage unmortgage and sell.
+     * @param tile
+     * @param GM
+     * @author Joe C
+     */
     private void showTileInfoIfOwner(BuyableTile tile, GameMaster GM) {
         if(GM.getPlayers()[GM.getCurTurn()].equals(tile.getPlayer())){
             if(tile.getMortgaged()){

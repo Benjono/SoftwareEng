@@ -2,6 +2,11 @@ package frontend;
 
 import backend.*;
 
+/**
+ * Extends the backend GameMaster in order to easily implement on the frontend. This when called sets up the game,
+ * It has methods for when landing on a tile, buying a tile and drawing a card.
+ * @author Joe C
+ */
 public class GameMasterGui extends GameMaster {
     private int plNum;
     private int okNum;
@@ -12,6 +17,9 @@ public class GameMasterGui extends GameMaster {
         this.plNum = 0;
     }
 
+    /**
+     * Works out what to do when a player lands on a specific tile. buy it, draw a card, etc.
+     */
     public void landedTileAction() {
         if (this.getBuyable(this.getPlayer(this.getCurTurn()).getPlace())){
             //can buy/auction time
@@ -31,6 +39,10 @@ public class GameMasterGui extends GameMaster {
         }
     }
 
+    /**
+     * Implements the first time buying a property by working out whether it is being auctioned or brought for base price,
+     * it then implements this.
+     */
     private void buyingTile(){
         if(!(Boolean) (new FirstTimeLandedDialog(this)).getR()){
             // auction
@@ -46,6 +58,9 @@ public class GameMasterGui extends GameMaster {
         }
     }
 
+    /**
+     * Implements the card draw effects and determines the next card that will be drawn.
+     */
     private void cardDraw() {
         // OK or Potluck?
         if (((CardDraw) this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).getDrawType() == DrawTypes.opportunityKnocks) {

@@ -9,18 +9,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- * Implements auction dialog
+ * Implements auction dialog, that allows players to auction a property in order to own it
  * GridPane could be used instead of HBox VBox combination
  * @author Joe C
  */
 public class AuctionDialog extends MonopolyDialog {
     public AuctionDialog(GameMaster GM){
         this.setHeaderText("Auction of " + GM.getTile(GM.getPlayer(GM.getCurTurn()).getPlace()).getName());
-
         this.getDialogPane().setContent(getContents(GM));
         ButtonType buttonTypeOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
         this.getDialogPane().getButtonTypes().add(buttonTypeOk);
-
         this.setResultConverter((ButtonType b) -> {
             if (b == buttonTypeOk){
                 int[] moneyBets = new int[GM.getPlayers().length];
@@ -35,6 +33,11 @@ public class AuctionDialog extends MonopolyDialog {
         this.showAndWait();
     }
 
+    /**
+     * Gets the contents for the Dialog
+     * @param GM
+     * @return VBox with contents of Dialog
+     */
     private VBox getContents(GameMaster GM){
         Label playerLabel = new Label("Enter amount in box, put 0 to not participate");
         VBox hBoxHolder = new VBox();

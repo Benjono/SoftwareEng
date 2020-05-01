@@ -39,6 +39,11 @@ public class SelectingTokensDialog extends MonopolyDialog {
         //return values
     }
 
+    /**
+     * Sets the contents of the Dialog with HBox and VBox combination along with a ComboBox inorder for the players to pick
+     * @param players
+     * @return VBox contains contents of Dialog
+     */
     private VBox setContents(int players){
         Label playerLabel;
         Tokens[] allTokens = {Tokens.Boot, Tokens.Cat, Tokens.Goblet, Tokens.HatStand, Tokens.SmartPhone, Tokens.Spoon};

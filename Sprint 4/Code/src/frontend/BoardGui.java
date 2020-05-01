@@ -11,6 +11,12 @@ import javafx.scene.layout.Pane;
 
 import java.util.Iterator;
 
+/**
+ * The code for controlling how the board works, extends GridPane in order to correctly setup board and tokens
+ * when created in the Gui class.
+ * @author Joe C
+ */
+
 public class BoardGui extends GridPane {
 
     GameMasterGui GM;
@@ -22,27 +28,18 @@ public class BoardGui extends GridPane {
         setupTokens(numPlayers);
     }
 
-        /*
-    UNUSED MAY BE NEEDED IN FUTURE
-    public synchronized void waitBetweenMovements(){
-
-        try {
-            wait(1000);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("ahhh");
-        }
-    }
+    /**
+     * Setup the board with all tiles images and panes
+     * @author Joe C
+     * @author Alex
+     * @author Joe L
      */
-
     private void setupBoard(){
         int tileSize = 64;
 
         for(int i=0; i<40; i++) {
             Pane square = new Pane();
-            //System.out.println(GM.getBoard().getTile(i).getClass());
             if (GM.getTile(i).getBuyable()){
-                //System.out.println(GM.getBoard().getTile(i).getName());
                 int currentTile = i;
                 square.setOnMouseClicked(mouseEvent -> {
                     try {
@@ -70,6 +67,12 @@ public class BoardGui extends GridPane {
         this.setMaxSize(1000, 1000);
     }
 
+    /**
+     * Adds the inital Token Images to the board at GO
+     * @param numPlayers
+     * @author Joe C
+     * @author Ben
+     */
     private void setupTokens(int numPlayers) {
         // Setting initial position of tokens
         playerImages = new ImageView[numPlayers];
@@ -85,6 +88,11 @@ public class BoardGui extends GridPane {
         setBoardRotation();
     }
 
+    /**
+     * Moves a player in the Gridpane
+     * @author Joe C
+     * @author Ben
+     */
     public void movePlayer(){
         removePlayer();
         new ShowRollDialog(GM.moveNextPiece(),GM);
@@ -92,17 +100,34 @@ public class BoardGui extends GridPane {
         addPlayer();
     }
 
+    /**
+     * Removes a player in the Gridpane
+     * @author Joe C
+     * @author Ben
+     */
     public void removePlayer(){
         ImageView playerSprite = playerImages[GM.getCurTurn()];
         findPane(boardCoordinates(GM.getPlayer(GM.getCurTurn()).getPlace())).getChildren().remove(playerSprite);
     }
 
+    /**
+     * Adds a player to the Gridpane
+     * @author Joe C
+     * @author Ben
+     */
     public void addPlayer(){
         ImageView playerSprite = playerImages[GM.getCurTurn()];
         playerSprite = setSpriteRotation(playerSprite);
         findPane(boardCoordinates(GM.getPlayer(GM.getCurTurn()).getPlace())).getChildren().add(playerSprite);
 
     }
+
+    /**
+     * Given coordinates in integers it returns the correct Pane in the GridPane
+     * @param coordinates
+     * @return
+     * @author Joe C
+     */
     private Pane findPane(int[] coordinates){
         Iterator<Node> children = this.getChildren().iterator();
         while (children.hasNext()) {

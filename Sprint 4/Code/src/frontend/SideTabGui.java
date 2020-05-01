@@ -7,6 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+/**
+ * Sets up the SideTab seen in game and adds the appropriate Labels and Buttons to it, using functions given in Backend.
+ * @author Joe C
+ */
 public class SideTabGui extends VBox {
 
     GameMasterGui GM;
@@ -59,6 +63,11 @@ public class SideTabGui extends VBox {
         });
     }
 
+    /**
+     * Setups the property label with appropriate styles
+     * @param playerNumber
+     * @return the new property label
+     */
     private Label propertiesLabelSetup(int playerNumber) {
         Label numProperties = new Label("   Properties owned: " + GM.getNumPlayerProperties(GM.getPlayer(playerNumber)));
         numProperties.setStyle("-fx-background-color: dimgray; -fx-text-fill: snow;");
@@ -68,11 +77,11 @@ public class SideTabGui extends VBox {
 
     /**
      * adds a highlighted background to the label that represents the currently active player in the player tab
-     * updates player's money, i here relates to the ith row in the list
+     * updates player's money, updates the place, and how many Get out of jail free cards,
+     * i here relates to the ith row in the list
      * @author Joe L
      * @author Joe C
      */
-
     public void updateSideTab(){
         int playerNumber = 0;
         for(int i = 1; i < this.getChildren().size()-2; i += 6){
