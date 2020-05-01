@@ -8,6 +8,7 @@ import org.json.simple.parser.ParseException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.ArrayList;
 
@@ -33,6 +34,7 @@ public class Board {
         opportunityKnocks = new ArrayList<Card>();
         deckConstructor();
 
+
     }
 
     /**
@@ -57,6 +59,8 @@ public class Board {
     private void deckConstructor(){
         generateCard("opportunityKnocks");
         generateCard("potLuck");
+        Collections.shuffle(potLuck);
+        Collections.shuffle(opportunityKnocks);
     };
 
     /**
