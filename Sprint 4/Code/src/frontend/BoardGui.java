@@ -42,11 +42,7 @@ public class BoardGui extends GridPane {
             if (GM.getTile(i).getBuyable()){
                 int currentTile = i;
                 square.setOnMouseClicked(mouseEvent -> {
-                    try {
-                        new ShowTileInfoDialog((BuyableTile)GM.getTile(currentTile),GM);
-                    } catch (InvalidHouseSetupException e) {
-                        e.printStackTrace();
-                    }
+                    new ShowTileInfoDialog((BuyableTile)GM.getTile(currentTile),GM, currentTile, this);
                 });
             }
             Image tileImg = new Image("tile_" + GM.getBoard().getTile(i).getName().toLowerCase().replaceAll("\\s+","") + ".png");
@@ -128,10 +124,8 @@ public class BoardGui extends GridPane {
      * @return
      * @author Joe C
      */
-    private Pane findPane(int[] coordinates){
-        Iterator<Node> children = this.getChildren().iterator();
-        while (children.hasNext()) {
-            Node n = children.next();
+    public Pane findPane(int[] coordinates){
+        for (Node n : this.getChildren()) {
             if (GridPane.getRowIndex(n) == coordinates[1] && GridPane.getColumnIndex(n) == coordinates[0]) {
                 return (Pane) n;
             }
@@ -146,7 +140,7 @@ public class BoardGui extends GridPane {
      * @author Joe C
      * @author Joe L
      */
-    private int[] boardCoordinates(int position){
+    public int[] boardCoordinates(int position){
         if (position <= 9){ return new int[]{0,10 - position % 10}; }
         else if (position <= 19){ return new int[]{position % 10, 0}; }
         else if (position <= 29){ return new int[]{10, position % 10};}
@@ -171,7 +165,7 @@ public class BoardGui extends GridPane {
      * @param  imageView
      * @author Joe C
      */
-    public ImageView setSpriteRotation(ImageView imageView){
+    private ImageView setSpriteRotation(ImageView imageView){
         int place = GM.getPlayer(GM.getCurTurn()).getPlace();
         if(place < 10){ imageView.setRotate(90); }
         else if (place < 20){ imageView.setRotate(180);}
@@ -186,7 +180,7 @@ public class BoardGui extends GridPane {
      * @param playerToken
      * @author Joe L
      */
-    public ImageView tokenImage(Tokens playerToken){
+    private ImageView tokenImage(Tokens playerToken){
         ImageView out = null;
         if(playerToken.equals(Tokens.Boot)){
             Image img = new Image("player_boot.png", 30, 30, false, true);

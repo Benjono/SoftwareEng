@@ -18,10 +18,12 @@ import java.util.Arrays;
 public class TilesOwnedDialog extends MonopolyDialog {
     private final int playerNumber;
     private final GameMasterGui GM;
+    private final BoardGui boardGui;
 
-    public TilesOwnedDialog(GameMasterGui GM, int playerNumber) {
+    public TilesOwnedDialog(GameMasterGui GM, int playerNumber,BoardGui boardGui) {
         this.GM = GM;
         this.playerNumber = playerNumber;
+        this.boardGui = boardGui;
         this.setHeaderText("Player " + (playerNumber+1) + "'s owned properties");
         this.getDialogPane().setContent(getProperties());
 
@@ -53,12 +55,17 @@ public class TilesOwnedDialog extends MonopolyDialog {
     private Label getProperty(Tile tile) {
         Label property = new Label(tile.getName());
         property.setOnMouseClicked(mouseEvent -> {
-            try {
-                new ShowTileInfoDialog((BuyableTile)tile, GM);
-            } catch (InvalidHouseSetupException e) {
-                e.printStackTrace();
-            }
+            new ShowTileInfoDialog((BuyableTile)tile, GM, getTilePicked(tile),boardGui);
         });
         return property;
+    }
+
+    private int getTilePicked(Tile tile){
+        for(int i = 0; i < GM.getBoard().getTileGrid().length; i++){
+            if(tile.equals(GM.getTile(i))){
+                return i;
+            }
+        }
+        return 0;
     }
 }

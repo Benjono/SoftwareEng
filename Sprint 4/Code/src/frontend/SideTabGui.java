@@ -2,8 +2,11 @@ package frontend;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -15,15 +18,23 @@ public class SideTabGui extends VBox {
 
     GameMasterGui GM;
     BoardGui boardGui;
+    ImageView[] buttonImages;
 
     public SideTabGui(GameMasterGui GM, BoardGui boardGui, int numPlayers){
         this.GM = GM;
         this.boardGui = boardGui;
         this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
         this.setPrefWidth(200);
+        this.buttonImages = new ImageView[2];
+        buttonImages[0] = new ImageView(new Image("rolldice.png"));
+        buttonImages[0].setFitHeight(64);
+        buttonImages[0].setFitWidth(64);
+        buttonImages[1] = new ImageView(new Image("skipturn.png"));
+        buttonImages[1].setFitHeight(64);
+        buttonImages[1].setFitWidth(64);
         //Player title
-        Label pTabTitle = new Label("Current Turn");
-        this.getChildren().add(pTabTitle);
+        //Label pTabTitle = new Label("Current Turn");
+        //this.getChildren().add(pTabTitle);
         //Player name display
 
         for(int i = 0; i < numPlayers; i++){
@@ -35,19 +46,25 @@ public class SideTabGui extends VBox {
             Label place = new Label("  Place: " + GM.getBoard().getTile(GM.getPlayer(i).getPlace()).getName());
             this.getChildren().addAll(playerList, token, playerMoney, outOfJail, numProperties, place);
         }
+        Label blank = new Label(" ");
         //button next turn and roll dice
-        Button diceRollNextTurn = new Button("Roll dice");
-        diceRollNextTurn.setPrefSize(100, 100);
-        this.getChildren().add(diceRollNextTurn);
+        Button diceRollNextTurn = new Button();
+        diceRollNextTurn.setGraphic(buttonImages[0]);
+        diceRollNextTurn.setStyle("-fx-focus-color: transparent; -fx-background-color: transparent;");
+        HBox containterForButton = new HBox();
+        containterForButton.setAlignment(Pos.BOTTOM_CENTER);
+        containterForButton.getChildren().add(diceRollNextTurn);
+        this.getChildren().addAll(blank,containterForButton);
 
         updateSideTab(); //player 1 will have a highlighted label
+
         diceRollNextTurn.setOnAction(new EventHandler<>() {
             @Override
             public synchronized void handle(ActionEvent event) {
                 if (!GM.isCanNextTurn()) {
                     boardGui.movePlayer();
                     if (GM.isCanNextTurn()) {
-                        diceRollNextTurn.setText("Next Turn");
+                        diceRollNextTurn.setGraphic(buttonImages[1]);
                     } else {
                         boardGui.setBoardRotation();
                     }
@@ -56,7 +73,7 @@ public class SideTabGui extends VBox {
                     GM.nextTurn();
                     updateSideTab();//the player with the current turn will have a highlighted label
                     boardGui.setBoardRotation();
-                    diceRollNextTurn.setText("Roll Dice");
+                    diceRollNextTurn.setGraphic(buttonImages[0]);
                 }
 
             }
@@ -71,7 +88,7 @@ public class SideTabGui extends VBox {
     private Label propertiesLabelSetup(int playerNumber) {
         Label numProperties = new Label("   Properties owned: " + GM.getNumPlayerProperties(GM.getPlayer(playerNumber)));
         numProperties.setStyle("-fx-background-color: dimgray; -fx-text-fill: snow;");
-        numProperties.setOnMouseClicked(mouseEvent -> {new TilesOwnedDialog(GM, playerNumber);});
+        numProperties.setOnMouseClicked(mouseEvent -> {new TilesOwnedDialog(GM, playerNumber,boardGui);});
         return numProperties;
     }
 
@@ -84,7 +101,7 @@ public class SideTabGui extends VBox {
      */
     public void updateSideTab(){
         int playerNumber = 0;
-        for(int i = 1; i < this.getChildren().size()-2; i += 6){
+        for(int i = 0; i < this.getChildren().size()-3; i += 6){
             if (playerNumber == GM.getCurTurn()){
                 this.getChildren().get(i).setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
             }

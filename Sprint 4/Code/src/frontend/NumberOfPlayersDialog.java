@@ -22,6 +22,7 @@ public class NumberOfPlayersDialog extends MonopolyDialog{
         ButtonType buttonTypeOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
         this.getDialogPane().getButtonTypes().add(buttonTypeOk);
         //lambda expressions
+
         this.setResultConverter((ButtonType b) -> {
             if (b == buttonTypeOk){
                 return ((ComboBox)((HBox) this.getDialogPane().getContent()).getChildren().get(1)).getValue();

@@ -29,13 +29,12 @@ public class GameMasterGui extends GameMaster {
             //card draw
             cardDraw();
         }
-        else if (this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof toJail){
-
-        }
-        // free parking
-        // go to jail
         else{
             //rent time
+            // free parking
+            // go to jail
+            this.applyTileEffect();
+            new TileEffectDialog(this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
         }
     }
 

@@ -12,7 +12,8 @@ import javafx.stage.Stage;
 
 /**
  * GUI implementation; starts initial process for GUI,
- * calls all necessary methods and classes relating to the GUi
+ * calls all necessary methods and classes relating to the GUI
+ * also displays the overall screen to the player.
  * @author Joe C
  * @author Alex
  * @author Tom

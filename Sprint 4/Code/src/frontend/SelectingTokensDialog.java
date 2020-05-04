@@ -2,10 +2,7 @@ package frontend;
 
 import backend.Tokens;
 import javafx.geometry.Pos;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -62,6 +59,7 @@ public class SelectingTokensDialog extends MonopolyDialog {
             tokenCombos[i]= new ComboBox<Tokens>();
             tokenCombos[i].getItems().addAll(allTokens);
             tokenCombos[i].setValue(allTokens[i]);
+            //tokenCombos[i].getItems().addListener();
             hBoxArray[i].getChildren().addAll(playerLabel, tokenCombos[i]);
         }
         //adding as children
