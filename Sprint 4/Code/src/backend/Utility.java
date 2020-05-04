@@ -29,7 +29,7 @@ public class Utility extends BuyableTile {
         }
     }
 
-    public void rent(Player debtor, int diceRoll){
+    public int rent(Player debtor, int diceRoll){
         int rentOwed;
         if(owner.getCountUtil() == 1){
             rentOwed= 4*diceRoll;
@@ -39,5 +39,6 @@ public class Utility extends BuyableTile {
         }
         debtor.setMoney(debtor.getMoney() - rentOwed);
         owner.setMoney(owner.getMoney() - rentOwed);
+        return rentOwed;
     }
 }

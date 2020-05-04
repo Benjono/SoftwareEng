@@ -127,8 +127,9 @@ public class BuyableTile extends Tile {
      * player pays rent to another player
      * @param debtor player who owes rent to the owner of tile
      */
-    public void rent(Player debtor){
+    public int rent(Player debtor){
         //here to be overridden
         System.out.println("BEN YOU HAD ONE JOB WHY THIS PRINTING");
+        return 0;
     }
 }

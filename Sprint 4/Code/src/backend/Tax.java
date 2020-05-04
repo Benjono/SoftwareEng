@@ -27,4 +27,7 @@ public class Tax extends Tile{
     public void payTax(Player debtor){
         debtor.setMoney(debtor.getMoney() - payment);
     }
+    public int getTax(){
+        return payment;
+    }
 }

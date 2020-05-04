@@ -87,9 +87,10 @@ public class Property extends BuyableTile {
      * @param debtor - player who lands on property
      */
     @Override
-    public void rent(Player debtor){
+    public int rent(Player debtor){
         debtor.setMoney(debtor.getMoney() - rent[currentHouseLevel]);
         owner.setMoney(owner.getMoney() - rent[currentHouseLevel]);
+        return rent[currentHouseLevel];
     }
 
 

@@ -79,6 +79,29 @@ public class GameMaster {
 
     }
 
+    public boolean canBuyHouse(Property tileToBuyHouseOn, Player player){
+        Tile[] tiles = board.getTileGrid();
+        int numOwnedByPlayer = 0;
+        int numOnBoard = 0;
+        int min=50;
+
+        for (Tile t: tiles){
+            if(t instanceof Property){
+                if(((Property) t).colour==tileToBuyHouseOn.colour){
+                    numOnBoard++;
+                    if(player.equals(((Property) t).owner)){
+                        numOwnedByPlayer++;
+                        if(((Property) t).getCurrentHouseLevel()<min){
+                            min=((Property) t).getCurrentHouseLevel();
+                        }
+                    }
+                }
+            }
+        }
+
+        return numOwnedByPlayer==numOnBoard&&min+2>tileToBuyHouseOn.currentHouseLevel+1;
+    }
+
     /**
      * THis function takes the tile number and returns whether or not that tile can be bought
      * @param tileNum the tile number the player is on
@@ -133,20 +156,24 @@ public class GameMaster {
     /**
      * Used for tiles that have been bought or have other effects
      */
-    public void applyTileEffect(){
+    public int applyTileEffect(){
         Tile curTile = this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace());
         if (curTile instanceof BuyableTile){
-            ((BuyableTile) curTile).rent(this.getPlayer(this.getCurTurn()));
+            return ((BuyableTile) curTile).rent(this.getPlayer(this.getCurTurn()));
         } else if (curTile instanceof Tax){
             ((Tax) curTile).payTax(this.getPlayer(this.getCurTurn()));
+            return ((Tax) curTile).getTax();
         } else if (curTile instanceof toJail){
             players[getCurTurn()].jail();
         } else if (curTile instanceof FreeParking){
             players[getCurTurn()].setMoney(players[getCurTurn()].getMoney()+((FreeParking)curTile).getCurrentPenalties());
+            int penalties = ((FreeParking)curTile).getCurrentPenalties();
             ((FreeParking)curTile).setCurrentPenalties(0);
+            return penalties;
         } else if (curTile instanceof CardDraw){
             //none
         }
+        return 0;
     }
 
     /**
