@@ -47,7 +47,7 @@ public class Board {
 
     /**
      *Getter for the card deck of pot Luck
-     * @return the ArrayList opportunityKnocks
+     *@return the ArrayList opportunityKnocks
      */
     public ArrayList getOpportunityKnocks(){
         return opportunityKnocks;
