@@ -7,7 +7,7 @@ Sprint 4
 >Code //full code base
 >>config //configuration files for setting up the board
 >>src //code files
->>>Junit Tests //junit tests files
+>>>Junit Tests //junit tests files \n
 >>>backend //backend code
 >>>frontend //frontend code
 >>>graphics //image sprites
