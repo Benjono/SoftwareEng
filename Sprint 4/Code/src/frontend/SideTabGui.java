@@ -70,6 +70,9 @@ public class SideTabGui extends VBox {
                     }
 
                 } else {
+                    if(GM.getPlayer(GM.getCurTurn()).getJailTime() > 0){
+                        new TileEffectDialog(GM,false,0,null,null);
+                    }
                     GM.nextTurn();
                     updateSideTab();//the player with the current turn will have a highlighted label
                     boardGui.setBoardRotation();

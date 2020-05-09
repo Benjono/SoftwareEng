@@ -81,14 +81,18 @@ public class ShowTileInfoDialog extends MonopolyDialog {
         if(tile instanceof Property){
             Button buyHouse = new Button();
             Button sellHouse = new Button();
-            currentHouseLevelChecks((Property) tile,sellHouse,buyHouse);
+            currentHouseLevelChecks(GM,(Property) tile,sellHouse,buyHouse);
             buyHouse.setOnAction(actionEvent -> {
-                ((Property) tile).buyHouse(1);
-                currentHouseLevelChecks((Property) tile,sellHouse,buyHouse);
+                try {
+                    ((Property) tile).buyHouse(1);
+                } catch (NotEnoughMoneyException e) {
+                    e.printStackTrace();
+                }
+                currentHouseLevelChecks(GM,(Property) tile,sellHouse,buyHouse);
             });
             sellHouse.setOnAction(actionEvent -> {
                 ((Property) tile).sellHouse(1);
-                currentHouseLevelChecks((Property) tile,sellHouse,buyHouse);
+                currentHouseLevelChecks(GM,(Property) tile,sellHouse,buyHouse);
             });
             container[0].getChildren().addAll(buyHouse,sellHouse);
         }
@@ -101,7 +105,11 @@ public class ShowTileInfoDialog extends MonopolyDialog {
         }
         mortgage.setOnAction(actionEvent -> {
             if(tile.getMortgaged()){
-                tile.unMortgageTile();
+                try {
+                    tile.unMortgageTile();
+                } catch (NotEnoughMoneyException e) {
+                    e.printStackTrace();
+                }
                 mortgage.setText("mortgage");
             }
             else {
@@ -163,7 +171,7 @@ public class ShowTileInfoDialog extends MonopolyDialog {
      * @param sellHouse
      * @param buyHouse
      */
-    private void currentHouseLevelChecks(Property property, Button sellHouse, Button buyHouse){
+    private void currentHouseLevelChecks(GameMasterGui GM, Property property, Button sellHouse, Button buyHouse){
         sellHouse.setText("Sell House");
         buyHouse.setText("Buy House");
         buyHouse.setVisible(true);
@@ -189,6 +197,9 @@ public class ShowTileInfoDialog extends MonopolyDialog {
             sellHouse.setText("Sell Hotel");
             buyHouse.setVisible(false);
             tileGui.getChildren().add(houses[4]);
+        }
+        if (!GM.canBuyHouse(property,GM.getPlayer(GM.getCurTurn()))){
+            buyHouse.setVisible(false);
         }
     }
 

@@ -23,18 +23,24 @@ public class GameMasterGui extends GameMaster {
     public void landedTileAction() {
         if (this.getBuyable(this.getPlayer(this.getCurTurn()).getPlace())){
             //can buy/auction time
-            buyingTile();
+            if (this.getPlayer(this.getCurTurn()).isPassedGo()){
+                buyingTile();
+            }
         }
         else if (this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof CardDraw){
             //card draw
+            this.applyTileEffect();
             cardDraw();
+        }
+        else if (this.getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof  InstructionOnCross ||
+                this.getPlayer(this.getCurTurn()).getPlace() == this.getPlayer(this.getCurTurn()).getJail()){
+            // go and jail do nothing as dialogs already called
         }
         else{
             //rent time
             // free parking
             // go to jail
-            this.applyTileEffect();
-            new TileEffectDialog(this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+            new TileEffectDialog(this,false, this.applyTileEffect(), null, this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
         }
     }
 
@@ -53,7 +59,11 @@ public class GameMasterGui extends GameMaster {
         }
         else {
             // player buys tile
-            this.applyTileEffect(this.getPlayer(this.getCurTurn()));
+            try {
+                this.applyTileEffect(this.getPlayer(this.getCurTurn()));
+            } catch (NotEnoughMoneyException e) {
+                this.applyTileEffect((int[]) (new AuctionDialog(this)).getR());
+            }
         }
     }
 
@@ -64,15 +74,13 @@ public class GameMasterGui extends GameMaster {
         // OK or Potluck?
         if (((CardDraw) this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).getDrawType() == DrawTypes.opportunityKnocks) {
             // get method effect opportunity knocks
-            ((Card)this.getBoard().getOpportunityKnocks().get(okNum)).cardEffect(this.getPlayer(this.getCurTurn()));
-            new CardDrawDialog(this.getTile(this.getPlayer(this.getCurTurn()).getPlace()),(Card) this.getBoard().getOpportunityKnocks().get(okNum));
+            new TileEffectDialog(this,false,0,(Card) this.getBoard().getOpportunityKnocks().get(okNum),this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
             okNum++;
             if (okNum >= 16){okNum = 0;}
         }
         else{
             // get method effect potluck
-            ((Card)this.getBoard().getPotLuck().get(plNum)).cardEffect(this.getPlayer(this.getCurTurn()));
-            new CardDrawDialog(this.getTile(this.getPlayer(this.getCurTurn()).getPlace()),(Card) this.getBoard().getPotLuck().get(plNum));
+            new TileEffectDialog(this,false, 0,(Card) this.getBoard().getPotLuck().get(plNum), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
             plNum++;
             if (plNum >= 16){plNum = 0;}
         }
