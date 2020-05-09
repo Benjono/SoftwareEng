@@ -134,7 +134,7 @@ public class ShowTileInfoDialog extends MonopolyDialog {
                     System.out.println("sellTileFailed");
                 }
             } else if (tile instanceof Utility) {
-                ((Utility) tile).sellUtility();
+                ((Utility) tile).sellTile();
                 setButtonsInvisible(container);
             } else if (tile instanceof Station) {
                 ((Station) tile).sellStation();

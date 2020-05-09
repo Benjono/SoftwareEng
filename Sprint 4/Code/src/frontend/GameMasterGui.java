@@ -8,13 +8,9 @@ import backend.*;
  * @author Joe C
  */
 public class GameMasterGui extends GameMaster {
-    private int plNum;
-    private int okNum;
 
     public GameMasterGui(int numPlayers, Tokens[] playerTokens){
         this.setup(numPlayers, playerTokens);
-        this.okNum = 0;
-        this.plNum = 0;
     }
 
     /**
@@ -29,8 +25,15 @@ public class GameMasterGui extends GameMaster {
         }
         else if (this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof CardDraw){
             //card draw
+            if (((CardDraw) this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).getDrawType() == DrawTypes.opportunityKnocks) {
+                // get method effect opportunity knocks
+                new TileEffectDialog(this,false,0,(Card) this.getBoard().getOpportunityKnocks().get(0),this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+            }
+            else{
+                // get method effect potluck
+                new TileEffectDialog(this,false, 0,(Card) this.getBoard().getPotLuck().get(0), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+            }
             this.applyTileEffect();
-            cardDraw();
         }
         else if (this.getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof  InstructionOnCross ||
                 this.getPlayer(this.getCurTurn()).getPlace() == this.getPlayer(this.getCurTurn()).getJail()){
@@ -67,22 +70,4 @@ public class GameMasterGui extends GameMaster {
         }
     }
 
-    /**
-     * Implements the card draw effects and determines the next card that will be drawn.
-     */
-    private void cardDraw() {
-        // OK or Potluck?
-        if (((CardDraw) this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).getDrawType() == DrawTypes.opportunityKnocks) {
-            // get method effect opportunity knocks
-            new TileEffectDialog(this,false,0,(Card) this.getBoard().getOpportunityKnocks().get(okNum),this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
-            okNum++;
-            if (okNum >= 16){okNum = 0;}
-        }
-        else{
-            // get method effect potluck
-            new TileEffectDialog(this,false, 0,(Card) this.getBoard().getPotLuck().get(plNum), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
-            plNum++;
-            if (plNum >= 16){plNum = 0;}
-        }
-    }
 }
