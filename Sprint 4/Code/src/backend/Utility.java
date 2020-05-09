@@ -14,12 +14,12 @@ public class Utility extends BuyableTile {
         this.rent = rent;
         this.costToBuy = cost;
     }
-
-    public void buyUtility(Player newOwner){
-        buyTile(newOwner);
+    @Override
+    public void buyTile(Player newOwner) throws NotEnoughMoneyException{
+        super.buyTile(newOwner);
         owner.setCountUtil(owner.getCountUtil()+1);
     }
-    public void sellUtility(){
+    public void sellTile(){
         owner.setCountUtil(owner.getCountUtil()-1);
         try {
             sellBaseTile();

@@ -17,9 +17,9 @@ public class Station extends BuyableTile{
         this.rent = rent;
     }
 
-
-    public void buyStation(Player newOwner){
-        buyTile(newOwner);
+    @Override
+    public void buyTile(Player newOwner) throws NotEnoughMoneyException{
+        super.buyTile(newOwner);
         owner.setCountTrain(owner.getCountTrain()+1);
     }
 
