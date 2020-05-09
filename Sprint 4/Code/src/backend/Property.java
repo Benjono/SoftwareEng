@@ -15,12 +15,12 @@ public class Property extends BuyableTile {
      * @param houseCost - cost to buy house/ hotel
      * @author Alex
      */
-    public Property(String name, String colour, int costToBuy, int[] rent,int houseCost){
+    public Property(String name, Colours colour, int costToBuy, int[] rent,int houseCost){
         setBuyable(true);
         setName(name);
         mortgaged = false;
         currentHouseLevel = 0;
-        this.colour = Colours.valueOf(colour);
+        this.colour = colour;
         this.costToBuy = costToBuy;
         this.rent = rent;
         this.houseCost = houseCost;
@@ -33,6 +33,10 @@ public class Property extends BuyableTile {
     public void buyHouse(int houseLevel){
         currentHouseLevel += houseLevel;
         owner.setMoney(owner.getMoney()-(houseLevel*houseCost));
+    }
+
+    public Colours getColour(){
+        return (Colours) colour;
     }
 
     /**

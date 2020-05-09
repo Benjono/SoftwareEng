@@ -218,4 +218,84 @@ public class Player {
     public void setTurnsTaken(int turnsTaken) {
         this.turnsTaken = turnsTaken;
     }
+
+    /**
+     * checks to see which color sets, if any, are fully owned by the player (for house buying purposes), in the form of a boolean array
+     * @author Alex
+     * @param board - board in use
+     * @return boolean array indicating whether a set is fully owned
+     */
+    public boolean[] fullyOwnedSets(Board board){
+        int[] totalNumberPerColour = new int[]{0,0,0,0,0,0,0,0};
+        int[] ownedPropertiesByColour = new int[]{0,0,0,0,0,0,0,0};
+
+        //case statement to find owned
+        Property currentProperty;
+        for(int i =0; i<board.getTileGrid().length;i++){
+            if(board.getTileGrid()[i] instanceof Property){
+                currentProperty = (Property) board.getTileGrid()[i];
+                switch(currentProperty.getColour()){
+                    case brown:
+                    totalNumberPerColour[0]+=1;
+                    if(currentProperty.getPlayer().equals(this)){
+                        ownedPropertiesByColour[0]+=1;
+                    }
+                    break;
+                    case cyan:
+                        totalNumberPerColour[1]+=1;
+                        if(currentProperty.getPlayer().equals(this)){
+                            ownedPropertiesByColour[1]+=1;
+                        }
+                        break;
+                    case purple:
+                        totalNumberPerColour[2]+=1;
+                        if(currentProperty.getPlayer().equals(this)){
+                            ownedPropertiesByColour[2]+=1;
+                        }
+                        break;
+                    case orange:
+                        totalNumberPerColour[3]+=1;
+                        if(currentProperty.getPlayer().equals(this)){
+                            ownedPropertiesByColour[3]+=1;
+                        }
+                        break;
+                    case red:
+                        totalNumberPerColour[4]+=1;
+                        if(currentProperty.getPlayer().equals(this)){
+                            ownedPropertiesByColour[4]+=1;
+                        }
+                        break;
+                    case yellow:
+                        totalNumberPerColour[5]+=1;
+                        if(currentProperty.getPlayer().equals(this)){
+                            ownedPropertiesByColour[5]+=1;
+                        }
+                        break;
+                    case green:
+                        totalNumberPerColour[6]+=1;
+                        if(currentProperty.getPlayer().equals(this)){
+                            ownedPropertiesByColour[6]+=1;
+                        }
+                        break;
+                    case blue:
+                        totalNumberPerColour[7]+=1;
+                        if(currentProperty.getPlayer().equals(this)){
+                            ownedPropertiesByColour[7]+=1;
+                        }
+                        break;
+                }
+            }
+        }
+
+        boolean[] output = new boolean[8];
+        for(int i =0; i<output.length; i++){
+            if(totalNumberPerColour[i] == ownedPropertiesByColour[i]){
+                output[i] = true;
+            }
+            else{
+                output[i] = false;
+            }
+        }
+        return output;
+    }
 }
