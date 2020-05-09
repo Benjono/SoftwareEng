@@ -94,9 +94,15 @@ public class BuyableTile extends Tile {
     /**
      * cancel mortgage on tile, paying half of the value for this
      */
-    public void unMortgageTile(){
-        mortgaged = false;
-        owner.setMoney(owner.getMoney()-(costToBuy/2));
+    public void unMortgageTile() throws NotEnoughMoneyException {
+        try {
+            checkIfEnoughMoney((costToBuy/2),owner.getMoney(),owner);
+            mortgaged = false;
+            owner.setMoney(owner.getMoney() - (costToBuy / 2));
+        }
+        finally{
+
+        }
     }
 
     /**
@@ -118,9 +124,15 @@ public class BuyableTile extends Tile {
      * buy the tile from the bank for base price
      * @param newOwner player purchasing the tile
      */
-    public void buyTile(Player newOwner){
-        setOwner(newOwner);
-        newOwner.setMoney(newOwner.getMoney() - costToBuy);
+    public void buyTile(Player newOwner) throws NotEnoughMoneyException{
+        try{
+            checkIfEnoughMoney(costToBuy,newOwner.getMoney(),newOwner);
+            setOwner(newOwner);
+            newOwner.setMoney(newOwner.getMoney() - costToBuy);
+        }
+        finally{
+
+        }
     }
 
     /**
@@ -131,5 +143,10 @@ public class BuyableTile extends Tile {
         //here to be overridden
         System.out.println("BEN YOU HAD ONE JOB WHY THIS PRINTING");
         return 0;
+    }
+    public void checkIfEnoughMoney(int cost, int fundsAvailable,Player player) throws NotEnoughMoneyException {
+        if(cost>fundsAvailable){
+            throw new NotEnoughMoneyException("you don't have enough money to do that",cost-fundsAvailable,player);
+        }
     }
 }

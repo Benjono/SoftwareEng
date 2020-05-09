@@ -28,11 +28,17 @@ public class Property extends BuyableTile {
 
     /**
      * buys levels of housing dependant on input
-     * @param houseLevel
+     * @param houseLevel - how many houses the owner wants to buy
      */
-    public void buyHouse(int houseLevel){
-        currentHouseLevel += houseLevel;
-        owner.setMoney(owner.getMoney()-(houseLevel*houseCost));
+    public void buyHouse(int houseLevel)throws NotEnoughMoneyException{
+        try {
+            checkIfEnoughMoney(houseLevel*houseCost,owner.getMoney(),owner);
+            currentHouseLevel += houseLevel;
+            owner.setMoney(owner.getMoney() - (houseLevel * houseCost));
+        }
+        finally{
+
+        }
     }
 
     public Colours getColour(){
