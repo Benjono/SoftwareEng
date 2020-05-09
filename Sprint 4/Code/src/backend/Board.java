@@ -179,7 +179,8 @@ public class Board {
                             Long convert = (Long) rentConversion.get(rentKey);
                             rentArray[i] = convert.intValue();
                         }
-                        Property currentProperty = new Property(key, embeddedTile.get("colour").toString(),  Integer.valueOf(embeddedTile.get("cost").toString()), rentArray,  Integer.valueOf(embeddedTile.get("houseCost").toString())); //instantiate property
+                        String colour = embeddedTile.get("colour").toString();
+                        Property currentProperty = new Property(key, Colours.valueOf(colour) ,  Integer.valueOf(embeddedTile.get("cost").toString()), rentArray,  Integer.valueOf(embeddedTile.get("houseCost").toString())); //instantiate property
                         tileGrid[Integer.valueOf(embeddedTile.get("position").toString())] = currentProperty; //add it to the tile array
                         break;
 

@@ -38,6 +38,7 @@ public class AI extends Player {
             else{
                 property.buyTile(this);
             }
+            
         }
     }
 
