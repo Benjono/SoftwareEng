@@ -100,8 +100,8 @@ public class BuyableTile extends Tile {
             mortgaged = false;
             owner.setMoney(owner.getMoney() - (costToBuy / 2));
         }
-        finally{
-
+        catch(NotEnoughMoneyException e){
+            throw new NotEnoughMoneyException(e.getMessage(),e.moneyShort,e.player);
         }
     }
 
@@ -130,8 +130,8 @@ public class BuyableTile extends Tile {
             setOwner(newOwner);
             newOwner.setMoney(newOwner.getMoney() - costToBuy);
         }
-        finally{
-
+        catch(NotEnoughMoneyException e){
+            throw new NotEnoughMoneyException(e.getMessage(),e.moneyShort,e.player);
         }
     }
 

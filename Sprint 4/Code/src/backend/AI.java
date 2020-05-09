@@ -25,7 +25,7 @@ public class AI extends Player {
      * @param property - property landed on by the AI
      * @throws triggerAuctionException - is thrown if auction is needed
      */
-    public void purchaseOrAuction(Property property) throws triggerAuctionException{
+    public void purchaseOrAuction(Property property) throws triggerAuctionException,  NotEnoughMoneyException{
         if(getMoney()<property.costToBuy){
             throw new triggerAuctionException("auction");
         }
@@ -36,9 +36,14 @@ public class AI extends Player {
                 throw new triggerAuctionException("auction");
             }
             else{
-                property.buyTile(this);
+                try {
+                    property.buyTile(this);
+                }
+                catch(NotEnoughMoneyException e){
+                    throw new NotEnoughMoneyException(e.getMessage(),e.moneyShort,e.player);
+                }
             }
-            
+
         }
     }
 
@@ -61,7 +66,7 @@ public class AI extends Player {
      * buys houses sometimes after moving - will increase a whole colours housing level by 1 at a time, prioritising the most expensive
      * @param board board being played on
      */
-    public void optionalStuff(Board board){
+    public void optionalStuff(Board board) throws NotEnoughMoneyException {
         //amount of money that can be spent on houses each turn, rounded up so as to be able to afford at least 1 house for 50
         int spendingMoney = (int) (50*Math.floor((0.4*getMoney())/50));
         int[] setPrices = new int[]{100,150,300,300,450,450,600,400};;
@@ -83,7 +88,12 @@ public class AI extends Player {
             }
             boolean purchased = false;
             while(!purchased) {
-                purchased = purchase(board, canUpgrade);
+                try {
+                    purchased = purchase(board, canUpgrade);
+                }
+                catch(NotEnoughMoneyException e){
+                    throw new NotEnoughMoneyException(e.getMessage(),e.moneyShort,e.player);
+                }
             }
 
         }
@@ -96,7 +106,7 @@ public class AI extends Player {
      * @param purchasable array of how many sets have housing that can be built
      * @return inverse of if the method will be run again due to no purchase being made (random choice was already max upgraded)
      */
-    private boolean purchase(Board board, boolean[] purchasable) {
+    private boolean purchase(Board board, boolean[] purchasable) throws NotEnoughMoneyException {
         boolean brought = false;
         ArrayList randomiser = new ArrayList();
         for(int i =0;i<purchasable.length;i++){
@@ -148,8 +158,13 @@ public class AI extends Player {
                 currentProperty = (Property) board.getTileGrid()[i];
                 if(currentProperty.getColour().equals(setToBuy)){
                     if(currentProperty.getCurrentHouseLevel()<5) {
-                        currentProperty.buyHouse(1);
-                        brought = true;
+                        try {
+                            currentProperty.buyHouse(1);
+                            brought = true;
+                        }
+                        catch(NotEnoughMoneyException e){
+                            throw new NotEnoughMoneyException(e.getMessage(),e.moneyShort,e.player);
+                        }
                     }
                     else{
                         purchasable[chosen] = false;

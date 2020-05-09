@@ -36,8 +36,8 @@ public class Property extends BuyableTile {
             currentHouseLevel += houseLevel;
             owner.setMoney(owner.getMoney() - (houseLevel * houseCost));
         }
-        finally{
-
+        catch(NotEnoughMoneyException e){
+            throw new NotEnoughMoneyException(e.getMessage(),e.moneyShort,e.player);
         }
     }
 
