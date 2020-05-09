@@ -180,7 +180,7 @@ public class GameMaster {
      * For buying a tile
      * @param newOwner
      */
-    public void applyTileEffect(Player newOwner){
+    public void applyTileEffect(Player newOwner) throws NotEnoughMoneyException{
         ((BuyableTile)this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).buyTile(newOwner);
     }
 
