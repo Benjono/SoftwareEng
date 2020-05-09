@@ -20,6 +20,15 @@ public class Player {
     private int outOfJailFreePotLuck;
     private int outOfJailFreeOpportunity;
     private int jail;
+
+    public int getJail() {
+        return jail;
+    }
+
+    public boolean isPassedGo() {
+        return passedGo;
+    }
+
     private boolean passedGo;
 
     /**
