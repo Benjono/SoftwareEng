@@ -7,6 +7,7 @@ import backend.Property;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+/*
 public class PropertyTest {
     @Test
     public void creationTest(){
@@ -41,3 +42,4 @@ public class PropertyTest {
         prop.getCurrentHouseLevel();
     }
 }
+*/

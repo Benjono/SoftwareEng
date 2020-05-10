@@ -13,6 +13,7 @@ import java.util.Iterator;
 /**
  *
  */
+/*
 public class BoardTest {
     @Test
     public void test1(){
@@ -125,3 +126,4 @@ public class BoardTest {
         }
     }
 }
+*/
