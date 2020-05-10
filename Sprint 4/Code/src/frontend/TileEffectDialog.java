@@ -28,7 +28,7 @@ public class TileEffectDialog extends MonopolyDialog {
         }
         else if(curTile instanceof BuyableTile){
             this.setHeaderText("You are losing money");
-            this.setContentText("You rent worth £" + money + " to " + ((BuyableTile) curTile).getPlayer());
+            this.setContentText("You pay rent worth £" + money + " to " + ((BuyableTile) curTile).getPlayer().getToken().name());
         }
         else if (curTile instanceof Tax){
             this.setHeaderText("The authorities are on to you!");
