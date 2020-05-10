@@ -41,7 +41,7 @@ public class SideTabGui extends VBox {
             Label playerList = new Label("Player " + (i+1));
             Label token = new Label("   Token: " + GM.getPlayer(i).getToken().name());
             Label playerMoney = new Label("   Money: " + GM.getPlayer(i).getMoney());
-            Label outOfJail = new Label("   Get out of Jail free cards: "+ (GM.getPlayer(i).getOutOfJailFreeOpportunity() + GM.getPlayer(i).getOutOfJailFreePotLuck()));
+            Label outOfJail = new Label("   Get out of Jail free cards: "+ (GM.getPlayer(i).getOutOfJailFreeOpportunity().size() + GM.getPlayer(i).getOutOfJailFreePotLuck().size()));
             Label numProperties = propertiesLabelSetup(i);
             Label place = new Label("  Place: " + GM.getBoard().getTile(GM.getPlayer(i).getPlace()).getName());
             this.getChildren().addAll(playerList, token, playerMoney, outOfJail, numProperties, place);
@@ -112,7 +112,7 @@ public class SideTabGui extends VBox {
                 this.getChildren().get(i).setStyle("");
             }
             this.getChildren().set(i+2, new Label("   Money: " + GM.getPlayer(playerNumber).getMoney()));
-            this.getChildren().set(i+3, new Label("   Get out of Jail free cards: "+ (GM.getPlayer(playerNumber).getOutOfJailFreeOpportunity() + GM.getPlayer(playerNumber).getOutOfJailFreePotLuck())));
+            this.getChildren().set(i+3, new Label("   Get out of Jail free cards: "+ (GM.getPlayer(playerNumber).getOutOfJailFreeOpportunity().size() + GM.getPlayer(playerNumber).getOutOfJailFreePotLuck().size())));
             this.getChildren().set(i+4, propertiesLabelSetup(playerNumber));
             this.getChildren().set(i+5, new Label("   Place: " + GM.getBoard().getTile(GM.getPlayer(playerNumber).getPlace()).getName()));
             playerNumber++;
