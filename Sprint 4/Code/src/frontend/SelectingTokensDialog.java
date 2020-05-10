@@ -1,10 +1,19 @@
 package frontend;
 
 import backend.Tokens;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Takes an integer and creates a dialogue box for assigning tokens to players
@@ -43,7 +52,7 @@ public class SelectingTokensDialog extends MonopolyDialog {
      */
     private VBox setContents(int players){
         Label playerLabel;
-        Tokens[] allTokens = {Tokens.Boot, Tokens.Cat, Tokens.Goblet, Tokens.HatStand, Tokens.SmartPhone, Tokens.Spoon};
+        ArrayList<Tokens> availableTokens = new ArrayList<>(Arrays.asList(Tokens.Boot, Tokens.Cat, Tokens.Goblet, Tokens.HatStand, Tokens.SmartPhone, Tokens.Spoon));
         VBox hBoxHolder = new VBox();
         HBox[] hBoxArray = new HBox[players];
         ComboBox[] tokenCombos = new ComboBox[players];
@@ -57,9 +66,20 @@ public class SelectingTokensDialog extends MonopolyDialog {
             hBoxArray[i].setSpacing(15);
             hBoxArray[i].setAlignment(Pos.CENTER);
             tokenCombos[i]= new ComboBox<Tokens>();
-            tokenCombos[i].getItems().addAll(allTokens);
-            tokenCombos[i].setValue(allTokens[i]);
-            //tokenCombos[i].getItems().addListener();
+            tokenCombos[i].getItems().addAll(availableTokens);
+            int finalI = i;
+            tokenCombos[i].valueProperty().addListener((observableValue, o, t1) -> {
+                    for (int j=0; j<players; j++){
+                        if(j!=finalI){
+                            tokenCombos[j].getItems().remove(observableValue.getValue());
+                        }
+                        if(o != null){
+                            if(!tokenCombos[j].getItems().contains(o)){
+                                tokenCombos[j].getItems().add(o);
+                            }
+                        }
+                    }
+            });
             hBoxArray[i].getChildren().addAll(playerLabel, tokenCombos[i]);
         }
         //adding as children
