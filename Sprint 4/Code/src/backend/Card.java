@@ -56,6 +56,10 @@ public class Card {
         return "e";
     }
 
+    public String getMethodName(){
+        return methodName;
+    }
+
     /**
      * This function is for the bank paying the player money
      * @param player
@@ -150,9 +154,23 @@ public class Card {
     /**
      * Makes the player pay a 'repair bill', not implemented
      * @param player the player to apply the effect to
+     * @param houseCost cost of each house that the player has
+     * @param apartmentCost cost of each apartment the player has
      */
-    public void repairBill(Player player){
-
+    public void repairBill(Player player, int houseCost, int apartmentCost){
+        Tile[] tiles = gameMaster.getPlayerProperties(player);
+        int total = 0;
+        for (Tile t: tiles){
+            if(t instanceof Property){
+                if(((Property) t).getCurrentHouseLevel()<5){
+                    total+=houseCost*((Property) t).getCurrentHouseLevel();
+                }
+                else{
+                    total+=apartmentCost;
+                }
+            }
+        }
+        player.setMoney(player.getMoney()-total);
     }
 
     /**
@@ -160,7 +178,15 @@ public class Card {
      * @param player the player to apply the effect to
      */
     public void getOutOfJail(Player player){
-
+        if(gameMaster.getBoard().getTile(player.getPlace()) instanceof CardDraw){
+            if(((CardDraw) gameMaster.getBoard().getTile(player.getPlace())).getDrawType().equals(DrawTypes.opportunityKnocks)){
+                player.getOutOfJailFreeOpportunity().add(this);
+            } else{
+                player.getOutOfJailFreePotLuck().add(this);
+            }
+        } else{
+            System.out.println("You've drawn a card when not on CardDraw, congrats!");
+        }
     }
 
     /**

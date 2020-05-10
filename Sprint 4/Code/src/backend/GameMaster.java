@@ -171,7 +171,19 @@ public class GameMaster {
             ((FreeParking)curTile).setCurrentPenalties(0);
             return penalties;
         } else if (curTile instanceof CardDraw){
-            //none
+            if(((CardDraw)curTile).getDrawType().equals("opportunityKnocks")) {
+                Card c = (Card)board.getOpportunityKnocks().get(0);
+                board.getOpportunityKnocks().remove(c);
+                if(!c.getMethodName().equals("getOutOfJail")) {
+                    board.getOpportunityKnocks().add(c);
+                }
+            } else{
+                Card c = (Card)board.getPotLuck().get(0);
+                board.getPotLuck().remove(c);
+                if(!c.getMethodName().equals("getOutOfJail")) {
+                    board.getPotLuck().add(c);
+                }
+            }
         }
         return 0;
     }

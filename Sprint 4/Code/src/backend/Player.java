@@ -1,5 +1,7 @@
 package backend;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Random;
 /**
  * backend.Player class
@@ -17,14 +19,16 @@ public class Player {
     private int money;
     private int jailTime;
     private int turnsTaken;
-    private int outOfJailFreePotLuck;
-    private int outOfJailFreeOpportunity;
+    private ArrayList<Card> outOfJailFreePotLuck;
+    private ArrayList<Card> outOfJailFreeOpportunity;
     private int jail;
 
     public int getJail() {
         return jail;
     }
-
+    public void setJail(int jailtime){
+        jailTime = jailtime;
+    }
     public boolean isPassedGo() {
         return passedGo;
     }
@@ -42,8 +46,8 @@ public class Player {
         countTrain = 0;
         countUtil = 0;
         jailTime=0;
-        outOfJailFreeOpportunity=0;
-        outOfJailFreePotLuck=0;
+        outOfJailFreeOpportunity=new ArrayList<>();
+        outOfJailFreePotLuck=new ArrayList<>();
         turnsTaken=0;
         jail=jailAt;
         passedGo=false;
@@ -56,18 +60,17 @@ public class Player {
      * @author Jonathan Morris
      * @author Joseph Corbett
      */
-    public int[] move(int maxBoardTiles){
+    public int[] move(int maxBoardTiles) {
         int[] dice = roll();
         int rolls = dice[0] + dice[1];
-        if((getPlace() + rolls) % maxBoardTiles!=(getPlace() + rolls)){
-            this.setMoney(this.getMoney()+200);
-            passedGo=true;
+        if ((getPlace() + rolls) % maxBoardTiles != (getPlace() + rolls)) {
+            this.setMoney(this.getMoney() + 200);
+            passedGo = true;
         }
         place = (getPlace() + rolls) % maxBoardTiles;
 
         return dice;
     }
-
     /**
      * Jails the player
      */
@@ -179,7 +182,7 @@ public class Player {
      * Getter for if the player has one (or more) out of jail free cards from pot luck
      * @return
      */
-    public int getOutOfJailFreePotLuck() {
+    public ArrayList<Card> getOutOfJailFreePotLuck() {
         return outOfJailFreePotLuck;
     }
 
@@ -187,7 +190,7 @@ public class Player {
      * Getter for if the player has one (or more) out of jail free cards from opportunity knocks
      * @return
      */
-    public int getOutOfJailFreeOpportunity() {
+    public ArrayList<Card> getOutOfJailFreeOpportunity() {
         return outOfJailFreeOpportunity;
     }
 
@@ -198,20 +201,7 @@ public class Player {
     public void setJailTime(int jailTime) {
         this.jailTime = jailTime;
     }
-    /**
-     * Setter for if the player has one (or more) out of jail free cards from opportunity knocks
-     * @return
-     */
-    public void setOutOfJailFreePotLuck(int outOfJailFreePotLuck) {
-        this.outOfJailFreePotLuck = outOfJailFreePotLuck;
-    }
-    /**
-     * Setter for if the player has one (or more) out of jail free cards from opportunity knocks
-     * @return
-     */
-    public void setOutOfJailFreeOpportunity(int outOfJailFreeOpportunity) {
-        this.outOfJailFreeOpportunity = outOfJailFreeOpportunity;
-    }
+
     /**
      * Getter for the number of turns the player has had
      * @return
