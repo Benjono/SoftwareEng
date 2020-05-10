@@ -2,6 +2,7 @@ package backend;
 
 //import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -11,7 +12,6 @@ public class Card {
     private String cardText;
     private String methodName;
     private Object[] params;
-    private Class[] paramTypes;
     private GameMaster gameMaster;
     private String type;
 
@@ -28,11 +28,6 @@ public class Card {
         methodName=Method;
         this.params=params;
         this.type=potOrKnock;
-        paramTypes = new Class[params.length+1];
-        paramTypes[0] = Player.class;
-        for(int i=1; i<params.length+1;i++){
-            paramTypes[i]=params[i-1].getClass();
-        }
         gameMaster=gm;
     }
 
@@ -42,19 +37,41 @@ public class Card {
      * @param player the player to apply the cards effect to
      * @return returns a string, return doesn't change
      */
-    public String cardEffect(Player player){
-        try {
-            Class<?> c = Class.forName("Card"); //get the class of card
-            Method method = c.getDeclaredMethod(methodName,paramTypes); //get the method with methodName and parameters of paramTypes (an array)
-            Object newParams = Arrays.copyOf(new Object[]{player},params.length+1);
-            System.arraycopy(params,0,newParams,1,params.length);
-            Object m = method.invoke(this,newParams);
-            System.out.println(m);
-        } catch (Exception e) {
-            System.out.println(this.methodName);
-            System.out.println(this.cardText);
+    public void cardEffect(Player player){
+        switch (methodName){
+            case "gainMoney":{
+                gainMoney(player,(int)params[0]);
+                break;
+            } case "payMoney":{
+                payMoney(player,(int)params[0]);
+                break;
+            } case "fine":{
+                fine(player,(int)params[0]);
+                break;
+            } case "birthday":{
+                birthday(player,(int)params[0]);
+                break;
+            } case "moveTo":{
+                try{
+                    moveTo(player,(int)params[0],(boolean)params[1]);
+                } catch (Exception e){
+                    moveTo(player,(String)params[0],(boolean)params[1]);
+                }
+                break;
+            } case "repairBill":{
+                repairBill(player,(int)params[0],(int)params[1]);
+                break;
+            } case "getOutOfJail":{
+                getOutOfJail(player);
+                break;
+            } case "toJail":{
+                toJail(player);
+                break;
+            } default:
+                System.out.println("ERROR");
+                System.out.println(this.methodName);
+                System.out.println(this.cardText);
         }
-        return "e";
     }
 
     public String getMethodName(){
