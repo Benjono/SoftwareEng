@@ -173,12 +173,14 @@ public class GameMaster {
         } else if (curTile instanceof CardDraw){
             if(((CardDraw)curTile).getDrawType().equals("opportunityKnocks")) {
                 Card c = (Card)board.getOpportunityKnocks().get(0);
+                c.cardEffect(this.getPlayer(this.getCurTurn()));
                 board.getOpportunityKnocks().remove(c);
                 if(!c.getMethodName().equals("getOutOfJail")) {
                     board.getOpportunityKnocks().add(c);
                 }
             } else{
                 Card c = (Card)board.getPotLuck().get(0);
+                c.cardEffect(this.getPlayer(this.getCurTurn()));
                 board.getPotLuck().remove(c);
                 if(!c.getMethodName().equals("getOutOfJail")) {
                     board.getPotLuck().add(c);
