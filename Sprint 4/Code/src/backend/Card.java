@@ -51,7 +51,8 @@ public class Card {
             Object m = method.invoke(this,newParams);
             System.out.println(m);
         } catch (Exception e) {
-            System.out.print("Reee");
+            System.out.println(this.methodName);
+            System.out.println(this.cardText);
         }
         return "e";
     }
