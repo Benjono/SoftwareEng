@@ -53,7 +53,7 @@ public class Card {
                 break;
             } case "moveTo":{
                 try{
-                    moveTo(player,(int)params[0],(boolean)params[1]);
+                    moveTo(player,Integer.parseInt((String)params[0]),(boolean)params[1]);
                 } catch (Exception e){
                     moveTo(player,(String)params[0],(boolean)params[1]);
                 }
