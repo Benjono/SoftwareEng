@@ -11,10 +11,9 @@ public class GameMaster {
      * Constructor
      * @author Jonathan Morris
      */
-    public GameMaster(int startTurns){
+    public GameMaster(){
         board = new Board(this);
         setCurTurn(0);
-        numTurns = startTurns;
     }
     /**
      * This function does the setup for the game.
@@ -22,8 +21,9 @@ public class GameMaster {
      * @param numPlayers
      * @param playerTokens
      */
-    public void setup(int numPlayers, Tokens[] playerTokens){
+    public void setup(int numPlayers, Tokens[] playerTokens, int startTurns){
         players = new Player[numPlayers];
+        numTurns = startTurns;
         int jail = 0;
         for(int i=0;i<board.getTileGrid().length;i++){
             if(board.getTileGrid()[i].getName().equals("Jail")){
@@ -104,6 +104,7 @@ public class GameMaster {
             players[curTurn].setTurnsTaken(0); //no more turns taken in a row
             canNotTakeTurn();
             canMove();
+            if((getCurTurn()+1)%players.length)
             setCurTurn((getCurTurn() + 1) % players.length);
         }
 
