@@ -234,8 +234,8 @@ public class GameMaster {
         }
         return 0;
     }
-    public void applyTileEffect(int roll){
-        ((Utility)this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).rent(this.getPlayer(this.getCurTurn()),roll);
+    public int applyTileEffect(int roll){
+        return ((Utility)this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).rent(this.getPlayer(this.getCurTurn()),roll);
     }
     /**
      * For buying a tile
