@@ -42,7 +42,8 @@ public class Player_Test {
     public void moneyTest(){
         GameMaster gm = new GameMaster();
         Tokens[] tk = new Tokens[]{Tokens.Boot, Tokens.Cat, Tokens.Goblet};
-        gm.setup(3,tk, -1);
+        int[] players = {3,0};
+        gm.setup(players,tk, -1);
         //On setup, all players should have 1500 for their money
         for(int i = 0; i < gm.getPlayers().length; i++) {
             Assertions.assertEquals(1500, gm.getPlayer(i).getMoney());

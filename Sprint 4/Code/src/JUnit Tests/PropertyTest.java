@@ -13,7 +13,8 @@ public class PropertyTest {
     public void creationTest(){
         GameMaster gm = new GameMaster();
         Tokens[] tk = new Tokens[]{Tokens.Boot, Tokens.Cat, Tokens.Goblet};
-        gm.setup(3,tk, -1);
+        int[] players = {3,0};
+        gm.setup(players,tk, -1);
         int[] rent = {25, 50, 75, 100};
         Property prop = new Property(gm.getTile(1).getName(), Colours.purple, 200, rent,75);
         Assertions.assertTrue(prop.getBuyable());
@@ -24,7 +25,8 @@ public class PropertyTest {
     public void houseLevelTest(){
         GameMaster gm = new GameMaster();
         Tokens[] tk = new Tokens[]{Tokens.Boot, Tokens.Cat, Tokens.Goblet};
-        gm.setup(3,tk, -1);
+        int[] players = {3,0};
+        gm.setup(players,tk, -1);
         int[] rent = {25, 50, 75, 100};
         Property prop = new Property(gm.getTile(6).getName(), Colours.red, 200, rent,75);
 
@@ -50,7 +52,8 @@ public class PropertyTest {
     public void mortgageTest(){
         GameMaster gm = new GameMaster();
         Tokens[] tk = new Tokens[]{Tokens.Boot, Tokens.Cat, Tokens.Goblet};
-        gm.setup(3,tk, -1);
+        int[] players = {3,0};
+        gm.setup(players,tk, -1);
         int[] rent = {25, 50, 75, 100};
         Property prop = new Property(gm.getTile(3).getName(), Colours.blue, 200, rent,75);
         gm.getPlayer(0).setPlace(3);
