@@ -90,15 +90,19 @@ public class BoardGui extends GridPane {
      * @author Ben
      */
     public void movePlayer(){
-        removePlayer();
+
         int currentPlace = GM.getPlayer(GM.getCurTurn()).getPlace();
         int[] roll = GM.moveNextPiece();
         if (roll != null){
             new ShowRollDialog(roll,GM);
             passedGo(roll,currentPlace);
+            removePlayer(currentPlace);
+            addPlayer();
             GM.landedTileAction();
+            removePlayer(GM.getPlayer(GM.getCurTurn()).getPlace());
+            addPlayer();
         }
-        addPlayer();
+
     }
 
     private void passedGo(int[] roll, int currentPlace){
@@ -112,9 +116,9 @@ public class BoardGui extends GridPane {
      * @author Joe C
      * @author Ben
      */
-    public void removePlayer(){
+    public void removePlayer(int currentPlace){
         ImageView playerSprite = playerImages[GM.getCurTurn()];
-        findPane(boardCoordinates(GM.getPlayer(GM.getCurTurn()).getPlace())).getChildren().remove(playerSprite);
+        findPane(boardCoordinates(currentPlace)).getChildren().remove(playerSprite);
     }
 
     /**
