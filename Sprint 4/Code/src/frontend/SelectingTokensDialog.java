@@ -66,6 +66,7 @@ public class SelectingTokensDialog extends MonopolyDialog {
             hBoxArray[i].setSpacing(15);
             hBoxArray[i].setAlignment(Pos.CENTER);
             tokenCombos[i]= new ComboBox<Tokens>();
+            tokenCombos[i].setValue(availableTokens.get(i));
             tokenCombos[i].getItems().addAll(availableTokens);
             int finalI = i;
             tokenCombos[i].valueProperty().addListener((observableValue, o, t1) -> {
