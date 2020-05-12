@@ -9,7 +9,8 @@ import backend.*;
  */
 public class GameMasterGui extends GameMaster {
 
-    public GameMasterGui(int numPlayers, Tokens[] playerTokens, int abridgeValue){
+
+    public GameMasterGui(int numPlayers, Tokens[] playerTokens, int abridgeValue) {
         this.setup(numPlayers, playerTokens, abridgeValue);
     }
 
@@ -38,6 +39,7 @@ public class GameMasterGui extends GameMaster {
         else if (this.getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof  InstructionOnCross ||
                 this.getPlayer(this.getCurTurn()).getPlace() == this.getPlayer(this.getCurTurn()).getJail()){
             // go and jail do nothing as dialogs already called
+            System.out.println(" ");
         }
         else{
             //rent time

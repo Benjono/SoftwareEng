@@ -13,7 +13,7 @@ public class PropertyTest {
     public void creationTest(){
         GameMaster gm = new GameMaster();
         Tokens[] tk = new Tokens[]{Tokens.Boot, Tokens.Cat, Tokens.Goblet};
-        gm.setup(3,tk);
+        gm.setup(3,tk, -1);
         int[] rent = {25, 50, 75, 100};
         Property prop = new Property(gm.getTile(1).getName(), Colours.purple, 200, rent,75);
         Assertions.assertTrue(prop.getBuyable());
@@ -24,7 +24,7 @@ public class PropertyTest {
     public void houseLevelTest(){
         GameMaster gm = new GameMaster();
         Tokens[] tk = new Tokens[]{Tokens.Boot, Tokens.Cat, Tokens.Goblet};
-        gm.setup(3,tk);
+        gm.setup(3,tk, -1);
         int[] rent = {25, 50, 75, 100};
         Property prop = new Property(gm.getTile(1).getName(), Colours.red, 200, rent,75);
         try {
@@ -40,10 +40,16 @@ public class PropertyTest {
     public void mortgageTest(){
         GameMaster gm = new GameMaster();
         Tokens[] tk = new Tokens[]{Tokens.Boot, Tokens.Cat, Tokens.Goblet};
-        gm.setup(3,tk);
+        gm.setup(3,tk, -1);
         int[] rent = {25, 50, 75, 100};
-        Property prop = new Property(gm.getTile(1).getName(), Colours.blue, 200, rent,75);
-        prop.getCurrentHouseLevel();
+        Property prop = new Property(gm.getTile(3).getName(), Colours.blue, 200, rent,75);
+        gm.getPlayer(0).setPlace(3);
+        try{
+            gm.applyTileEffect(gm.getPlayer(0));
+        } catch(Exception m){
+            System.out.print(m);
+        }
+
         try{
             prop.mortgageTile();
         } catch(Exception e){
