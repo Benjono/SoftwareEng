@@ -198,6 +198,11 @@ public class GameMaster {
             return ((BuyableTile) curTile).rent(this.getPlayer(this.getCurTurn()));
         } else if (curTile instanceof Tax){
             ((Tax) curTile).payTax(this.getPlayer(this.getCurTurn()));
+            for(Tile t: board.getTileGrid()){
+                if (t instanceof FreeParking){
+                    ((FreeParking) t).setCurrentPenalties(((FreeParking) t).getCurrentPenalties()+((Tax) curTile).getTax());
+                }
+            }
             return ((Tax) curTile).getTax();
         } else if (curTile instanceof toJail){
             players[getCurTurn()].jail();
