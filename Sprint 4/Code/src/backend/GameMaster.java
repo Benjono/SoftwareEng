@@ -6,13 +6,15 @@ public class GameMaster {
     private int curTurn;
     private boolean canMove;
     private boolean canNextTurn;
+    private int numTurns;
     /**
      * Constructor
      * @author Jonathan Morris
      */
-    public GameMaster(){
+    public GameMaster(int startTurns){
         board = new Board(this);
         setCurTurn(0);
+        numTurns = startTurns;
     }
     /**
      * This function does the setup for the game.
@@ -64,7 +66,35 @@ public class GameMaster {
         }
         return null;
     }
+    public boolean gameWon(){
+        int playersLeft = 0;
+        for (Player p: players){
+            if(p!=null){
+                playersLeft++;
+            }
+        }
+        return playersLeft==1;
+    }
+    public boolean playerLost() {
+        if (players[this.getCurTurn()].getMoney() < 1) {
+            Tile[] playersProperties = this.getPlayerProperties(players[this.getCurTurn()]);
+            for (Tile t : playersProperties) {
+                ((BuyableTile) t).owner = null;
+            }
+            if (players[this.getCurTurn()].getOutOfJailFreeOpportunity().size() > 0) {
+                for (int i = 0; i < players[this.getCurTurn()].getOutOfJailFreeOpportunity().size(); i++) {
+                    board.getOpportunityKnocks().add(players[this.getCurTurn()].getOutOfJailFreeOpportunity().get(i));
+                }
+            } else if (players[this.getCurTurn()].getOutOfJailFreePotLuck().size() > 0) {
+                for (int i = 0; i < players[this.getCurTurn()].getOutOfJailFreeOpportunity().size(); i++) {
+                    board.getPotLuck().add(players[this.getCurTurn()].getOutOfJailFreePotLuck().get(i));
+                }
+            }
+            players[this.getCurTurn()] = null;
+        }
 
+        return players[this.getCurTurn()].getMoney() < 1;
+    }
     /**
      * This function causes the next turn to happen if the player is allowed to.
      * @author Jonathan Morris
