@@ -3,10 +3,11 @@ package backend;
 public class GameMaster {
     private Board board;
     private Player[] players;
+    private int numPlayers;
     private int curTurn;
     private boolean canMove;
     private boolean canNextTurn;
-    private int numTurns;
+    private int numRounds;
     /**
      * Constructor
      * @author Jonathan Morris
@@ -21,9 +22,10 @@ public class GameMaster {
      * @param numPlayers
      * @param playerTokens
      */
-    public void setup(int numPlayers, Tokens[] playerTokens, int startTurns){
+    public void setup(int numPlayers, Tokens[] playerTokens, int startRounds){
         players = new Player[numPlayers];
-        numTurns = startTurns;
+        numRounds = startRounds;
+        this.numPlayers=numPlayers;
         int jail = 0;
         for(int i=0;i<board.getTileGrid().length;i++){
             if(board.getTileGrid()[i].getName().equals("Jail")){
@@ -73,7 +75,7 @@ public class GameMaster {
                 playersLeft++;
             }
         }
-        return playersLeft==1;
+        return playersLeft==1||numRounds==0;
     }
     public boolean playerLost() {
         if (players[this.getCurTurn()].getMoney() < 1) {
@@ -90,6 +92,7 @@ public class GameMaster {
                     board.getPotLuck().add(players[this.getCurTurn()].getOutOfJailFreePotLuck().get(i));
                 }
             }
+            numPlayers--;
             players[this.getCurTurn()] = null;
         }
 
@@ -104,8 +107,10 @@ public class GameMaster {
             players[curTurn].setTurnsTaken(0); //no more turns taken in a row
             canNotTakeTurn();
             canMove();
-            if((getCurTurn()+1)%players.length)
-            setCurTurn((getCurTurn() + 1) % players.length);
+            if((getCurTurn()+1)>numPlayers){
+                numRounds--;
+            }
+            setCurTurn((getCurTurn() + 1) % numPlayers);
         }
 
     }
