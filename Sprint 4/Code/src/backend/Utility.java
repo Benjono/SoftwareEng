@@ -28,7 +28,6 @@ public class Utility extends BuyableTile {
             // nothing needed here
         }
     }
-
     public int rent(Player debtor, int diceRoll){
         int rentOwed;
         if(owner.getCountUtil() == 1){

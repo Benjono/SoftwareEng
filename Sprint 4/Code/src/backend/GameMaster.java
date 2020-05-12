@@ -225,7 +225,9 @@ public class GameMaster {
         }
         return 0;
     }
-
+    public void applyTileEffect(Player p, int roll){
+        ((Utility)this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).rent(p,roll);
+    }
     /**
      * For buying a tile
      * @param newOwner
@@ -238,8 +240,8 @@ public class GameMaster {
      * FOr auctuioning a tile
      * @param money
      */
-    public void applyTileEffect(int[] money){
-        ((BuyableTile)this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).auction(this.getPlayers(),money);
+    public int applyTileEffect(int[] money){
+        return ((BuyableTile)this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).auction(this.getPlayers(),money);
     }
     /******************************
      * Getters and Setters
