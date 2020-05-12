@@ -10,7 +10,7 @@ import backend.*;
 public class GameMasterGui extends GameMaster {
 
     public GameMasterGui(int numPlayers, Tokens[] playerTokens){
-        this.setup(numPlayers, playerTokens);
+        this.setup(numPlayers, playerTokens, -1);
     }
 
     /**

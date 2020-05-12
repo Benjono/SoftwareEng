@@ -8,6 +8,6 @@ public class TileTest {
     public void yeet(){
         GameMaster gm = new GameMaster();
         Tokens[] tk = new Tokens[]{Tokens.Boot, Tokens.Cat, Tokens.Goblet};
-        gm.setup(3,tk);
+        gm.setup(3,tk, -1);
     }
 }
