@@ -26,9 +26,19 @@ public class PropertyTest {
         Tokens[] tk = new Tokens[]{Tokens.Boot, Tokens.Cat, Tokens.Goblet};
         gm.setup(3,tk, -1);
         int[] rent = {25, 50, 75, 100};
-        Property prop = new Property(gm.getTile(1).getName(), Colours.red, 200, rent,75);
+        Property prop = new Property(gm.getTile(6).getName(), Colours.red, 200, rent,75);
+
+        gm.getPlayer(0).setPlace(6);
+        gm.getPlayer(0).setMoney(50000);
+        try{
+            gm.applyTileEffect(gm.getPlayer(0));
+        } catch(Exception m){
+            System.out.print(m);
+        }
+
         try {
             prop.buyHouse(1);
+            Assertions.assertEquals(1, prop.getCurrentHouseLevel());
         }
         catch(Exception e){
             System.out.print(e);
@@ -44,6 +54,7 @@ public class PropertyTest {
         int[] rent = {25, 50, 75, 100};
         Property prop = new Property(gm.getTile(3).getName(), Colours.blue, 200, rent,75);
         gm.getPlayer(0).setPlace(3);
+        gm.getPlayer(0).setMoney(50000);
         try{
             gm.applyTileEffect(gm.getPlayer(0));
         } catch(Exception m){
