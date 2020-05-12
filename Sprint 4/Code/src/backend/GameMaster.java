@@ -171,7 +171,7 @@ public class GameMaster {
             ((FreeParking)curTile).setCurrentPenalties(0);
             return penalties;
         } else if (curTile instanceof CardDraw){
-            if(((CardDraw)curTile).getDrawType().equals("opportunityKnocks")) {
+            if(((CardDraw)curTile).getDrawType().equals(DrawTypes.opportunityKnocks)){
                 Card c = (Card)board.getOpportunityKnocks().get(0);
                 c.cardEffect(this.getPlayer(this.getCurTurn()));
                 board.getOpportunityKnocks().remove(c);

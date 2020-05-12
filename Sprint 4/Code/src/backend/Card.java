@@ -38,18 +38,19 @@ public class Card {
      * @return returns a string, return doesn't change
      */
     public void cardEffect(Player player){
+        System.out.println(methodName);
         switch (methodName){
             case "gainMoney":{
-                gainMoney(player,(int)params[0]);
+                gainMoney(player,Integer.parseInt((String)params[0]));
                 break;
             } case "payMoney":{
-                payMoney(player,(int)params[0]);
+                payMoney(player,Integer.parseInt((String)params[0]));
                 break;
-            } case "fine":{
-                fine(player,(int)params[0]);
+            } case "freeParkingFine":{
+                fine(player,Integer.parseInt((String)params[0]));
                 break;
-            } case "birthday":{
-                birthday(player,(int)params[0]);
+            } case "transferMoney":{
+                birthday(player,Integer.parseInt((String)params[0]));
                 break;
             } case "moveTo":{
                 try{
@@ -67,8 +68,11 @@ public class Card {
             } case "toJail":{
                 toJail(player);
                 break;
+            } case "throw":{
+
             } default:
                 System.out.println("ERROR");
+                System.out.println(this.type);
                 System.out.println(this.methodName);
                 System.out.println(this.cardText);
         }
