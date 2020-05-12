@@ -4,6 +4,7 @@ import backend.GameMaster;
 import backend.Player;
 import backend.Tokens;
 import backend.Property;
+import frontend.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
