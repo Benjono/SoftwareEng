@@ -61,7 +61,7 @@ public class Card {
                 }
                 break;
             } case "repairBill":{
-                repairBill(player,(int)params[0],(int)params[1]);
+                repairBill(player,Integer.parseInt((String)params[0]),Integer.parseInt((String)params[1]));
                 break;
             } case "getOutOfJail":{
                 getOutOfJail(player);
