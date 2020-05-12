@@ -78,6 +78,9 @@ public class Card {
                 System.out.println(this.cardText);
         }
     }
+    public void cardEffect(Player player, boolean choice){
+
+    }
 
     public String getMethodName(){
         return methodName;

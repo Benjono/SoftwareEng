@@ -3,7 +3,7 @@ package backend;
 public class GameMaster {
     private Board board;
     private Player[] players;
-    private int numPlayers;
+    private int totNumPlayers;
     private int curTurn;
     private boolean canMove;
     private boolean canNextTurn;
@@ -22,19 +22,23 @@ public class GameMaster {
      * @param numPlayers
      * @param playerTokens
      */
-    public void setup(int numPlayers, Tokens[] playerTokens, int startRounds){
-        players = new Player[numPlayers];
+    public void setup(int[] numPlayers, Tokens[] playerTokens, int startRounds){
+        players = new Player[numPlayers[0]];
         numRounds = startRounds;
-        this.numPlayers=numPlayers;
+        this.totNumPlayers =numPlayers[0]+numPlayers[1];
         int jail = 0;
         for(int i=0;i<board.getTileGrid().length;i++){
             if(board.getTileGrid()[i].getName().equals("Jail")){
                 jail=i;
             }
         }
-        for(int player=0;player<numPlayers;player++){
+        for(int player=0;player<numPlayers[0];player++){
             players[player]=new Player(playerTokens[player],jail);
             players[player].setMoney(1500);
+        }
+        for(int ai = 0; ai<numPlayers[1]; ai++){
+            players[numPlayers[0]+ai]=new AI(playerTokens[numPlayers[0]+ai],jail);
+            players[numPlayers[0]+ai].setMoney(1500);
         }
         canMove();
         canNotTakeTurn();
@@ -92,7 +96,7 @@ public class GameMaster {
                     board.getPotLuck().add(players[this.getCurTurn()].getOutOfJailFreePotLuck().get(i));
                 }
             }
-            numPlayers--;
+            totNumPlayers--;
             players[this.getCurTurn()] = null;
         }
 
@@ -107,10 +111,10 @@ public class GameMaster {
             players[curTurn].setTurnsTaken(0); //no more turns taken in a row
             canNotTakeTurn();
             canMove();
-            if((getCurTurn()+1)>numPlayers){
+            if((getCurTurn()+1)> totNumPlayers){
                 numRounds--;
             }
-            setCurTurn((getCurTurn() + 1) % numPlayers);
+            setCurTurn((getCurTurn() + 1) % totNumPlayers);
         }
 
     }
