@@ -23,28 +23,34 @@ public class AI extends Player {
     /**
      *
      * @param property - property landed on by the AI
+     * @return true for buying(no action needed), false for auction (trigger auction)
      * @throws triggerAuctionException - is thrown if auction is needed
      */
-    public void purchaseOrAuction(Property property) throws triggerAuctionException,  NotEnoughMoneyException{
+    public boolean purchaseOrAuction(Property property) throws NotEnoughMoneyException{
+        boolean output;
         if(getMoney()<property.costToBuy){
-            throw new triggerAuctionException("auction");
+            output = false;
         }
         else{
             //50/50 on buy or auction
             int comparitor = random.nextInt(100);
             if(comparitor <50){
-                throw new triggerAuctionException("auction");
+                output = false;
             }
             else{
                 try {
                     property.buyTile(this);
+                    output = true;
                 }
                 catch(NotEnoughMoneyException e){
+                    output = false;
                     throw new NotEnoughMoneyException(e.getMessage(),e.moneyShort,e.player);
+
                 }
             }
 
         }
+        return output;
     }
 
     /**
