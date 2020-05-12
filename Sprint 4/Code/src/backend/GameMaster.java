@@ -23,7 +23,7 @@ public class GameMaster {
      * @param playerTokens
      */
     public void setup(int[] numPlayers, Tokens[] playerTokens, int startRounds){
-        players = new Player[numPlayers[0]];
+        players = new Player[numPlayers[0]+numPlayers[1]];
         numRounds = startRounds;
         this.totNumPlayers =numPlayers[0]+numPlayers[1];
         int jail = 0;
