@@ -56,7 +56,7 @@ public class AI extends Player {
      * @param property - property being auctioned
      * @return - how much the AI is willing to bid on the property
      */
-    public int getBidOffer(Property property){
+    public int getBidOffer(BuyableTile property){
         int currentOffer =(int) Math.floor(property.getCostToBuy()*0.9);
         currentOffer+=(Math.floor(currentOffer*(random.nextFloat()/2)));
         if(currentOffer>getMoney()){
