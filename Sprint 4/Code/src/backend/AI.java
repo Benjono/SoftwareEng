@@ -1,5 +1,4 @@
 package backend;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -26,7 +25,7 @@ public class AI extends Player {
      * @return true for buying(no action needed), false for auction (trigger auction)
      * @throws triggerAuctionException - is thrown if auction is needed
      */
-    public boolean purchaseOrAuction(Property property) throws NotEnoughMoneyException{
+    public boolean purchaseOrAuction(BuyableTile property) throws NotEnoughMoneyException{
         boolean output;
         if(getMoney()<property.costToBuy){
             output = false;
