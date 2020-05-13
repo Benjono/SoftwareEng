@@ -4,6 +4,7 @@ public class GameMaster {
     private Board board;
     private Player[] players;
     private int totNumPlayers;
+    private int numAI;
     private int curTurn;
     private boolean canMove;
     private boolean canNextTurn;
@@ -40,8 +41,36 @@ public class GameMaster {
             players[numPlayers[0]+ai]=new AI(playerTokens[numPlayers[0]+ai],jail);
             players[numPlayers[0]+ai].setMoney(1500);
         }
+        numAI = numPlayers[1];
         canMove();
         canNotTakeTurn();
+    }
+    public int getNumAI(){
+        return numAI;
+    }
+
+    public int winner() {
+        int[] money = new int[this.totNumPlayers];
+        int winner = 0;
+        for (int i = 0; i < this.totNumPlayers; i++) {
+            if (players[i] != null) {
+                Tile[] playerTiles = this.getPlayerProperties(players[i]);
+                money[i] = players[i].getMoney();
+                for (Tile t : playerTiles) {
+                    if (t instanceof BuyableTile) {
+                        money[i] += ((BuyableTile) t).getCostToBuy();
+                        if (((BuyableTile) t).mortgaged) {
+                            money[i] -= ((BuyableTile) t).getCostToBuy() / 2;
+                        }
+                    }
+                }
+            }
+            if (money[i] > money[winner]) {
+                winner = i;
+            }
+        }
+
+        return winner;
     }
     /**
      * This function will move player who's turn it is and then decide, based on the rolls returned, whether
