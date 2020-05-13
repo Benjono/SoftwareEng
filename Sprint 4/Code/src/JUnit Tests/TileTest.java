@@ -1,5 +1,6 @@
 import backend.GameMaster;
 import backend.Tokens;
+import frontend.*;
 import org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
@@ -8,6 +9,7 @@ public class TileTest {
     public void yeet(){
         GameMaster gm = new GameMaster();
         Tokens[] tk = new Tokens[]{Tokens.Boot, Tokens.Cat, Tokens.Goblet};
-        gm.setup(3,tk, -1);
+        int[] players = {3,0};
+        gm.setup(players,tk, -1);
     }
 }

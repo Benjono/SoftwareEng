@@ -71,7 +71,13 @@ public class SideTabGui extends VBox {
 
                 } else {
                     if(GM.getPlayer(GM.getCurTurn()).getJailTime() > 0){
-                        new TileEffectDialog(GM,false,0,null,null);
+                        new TileEffectDialog(GM);
+                    }
+                    if(GM.playerLost()){
+                        // current player lost
+                    }
+                    if (GM.gameWon()){
+                        // current player won
                     }
                     GM.nextTurn();
                     updateSideTab();//the player with the current turn will have a highlighted label

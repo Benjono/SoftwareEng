@@ -98,7 +98,7 @@ public class BoardGui extends GridPane {
             passedGo(roll,currentPlace);
             removePlayer(currentPlace);
             addPlayer();
-            GM.landedTileAction();
+            GM.landedTileAction(roll[0]+roll[1]);
             removePlayer(GM.getPlayer(GM.getCurTurn()).getPlace());
             addPlayer();
         }
@@ -107,7 +107,7 @@ public class BoardGui extends GridPane {
 
     private void passedGo(int[] roll, int currentPlace){
         if(currentPlace + roll[0] + roll[1] >= 40){
-            new TileEffectDialog(GM, true, 0, null, GM.getTile(GM.getPlayer(GM.getCurTurn()).getPlace()));
+            new TileEffectDialog();
         }
     }
 

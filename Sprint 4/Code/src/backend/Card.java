@@ -56,11 +56,12 @@ public class Card {
                 try{
                     moveTo(player,Integer.parseInt((String)params[0]),(boolean)params[1]);
                 } catch (Exception e){
+                    System.out.println();
                     moveTo(player,(String)params[0],(boolean)params[1]);
                 }
                 break;
             } case "repairBill":{
-                repairBill(player,(int)params[0],(int)params[1]);
+                repairBill(player,Integer.parseInt((String)params[0]),Integer.parseInt((String)params[1]));
                 break;
             } case "getOutOfJail":{
                 getOutOfJail(player);
@@ -76,6 +77,9 @@ public class Card {
                 System.out.println(this.methodName);
                 System.out.println(this.cardText);
         }
+    }
+    public void cardEffect(Player player, boolean choice){
+
     }
 
     public String getMethodName(){

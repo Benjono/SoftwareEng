@@ -110,14 +110,17 @@ public class BuyableTile extends Tile {
      * @param players list of players in the game
      * @param bids list of player bids
      */
-    public void auction(Player[] players, int[] bids){
+    public int auction(Player[] players, int[] bids){
         int highestBid= 0;
+        int highestBidder = 0;
         for(int i =0; i<bids.length;i++){
             if(bids[i]> bids[highestBid]){
                 highestBid = bids[i];
+                highestBidder = i;
             }
         }
-        setOwner(players[highestBid]);
+        setOwner(players[highestBidder]);
+        return highestBidder;
     }
 
     /**

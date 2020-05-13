@@ -2,6 +2,8 @@ package frontend;
 
 import backend.*;
 
+import java.awt.*;
+
 /**
  * Extends the backend GameMaster in order to easily implement on the frontend. This when called sets up the game,
  * It has methods for when landing on a tile, buying a tile and drawing a card.
@@ -10,14 +12,14 @@ import backend.*;
 public class GameMasterGui extends GameMaster {
 
 
-    public GameMasterGui(int numPlayers, Tokens[] playerTokens, int abridgeValue) {
+    public GameMasterGui(int[] numPlayers, Tokens[] playerTokens, int abridgeValue) {
         this.setup(numPlayers, playerTokens, abridgeValue);
     }
 
     /**
      * Works out what to do when a player lands on a specific tile. buy it, draw a card, etc.
      */
-    public void landedTileAction() {
+    public void landedTileAction(int totalRoll) {
         if (this.getBuyable(this.getPlayer(this.getCurTurn()).getPlace())){
             //can buy/auction time
             if (this.getPlayer(this.getCurTurn()).isPassedGo()){
@@ -28,11 +30,11 @@ public class GameMasterGui extends GameMaster {
             //card draw
             if (((CardDraw) this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).getDrawType() == DrawTypes.opportunityKnocks) {
                 // get method effect opportunity knocks
-                new TileEffectDialog(this,false,0,(Card) this.getBoard().getOpportunityKnocks().get(0),this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+                new TileEffectDialog((Card) this.getBoard().getOpportunityKnocks().get(0),this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
             }
             else{
                 // get method effect potluck
-                new TileEffectDialog(this,false, 0,(Card) this.getBoard().getPotLuck().get(0), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+                new TileEffectDialog((Card) this.getBoard().getPotLuck().get(0), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
             }
             this.applyTileEffect();
         }
@@ -41,11 +43,20 @@ public class GameMasterGui extends GameMaster {
             // go and jail do nothing as dialogs already called
             System.out.println(" ");
         }
-        else{
+        else {
             //rent time
             // free parking
             // go to jail
-            new TileEffectDialog(this,false, this.applyTileEffect(), null, this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+            if (this.getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof Utility) {
+                new TileEffectDialog(this.applyTileEffect(totalRoll), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+
+            }
+            else if (this.getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof toJail){
+                new TileEffectDialog(this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+            }
+            else {
+                new TileEffectDialog(this.applyTileEffect(), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+            }
         }
     }
 

@@ -3,7 +3,7 @@ package backend;
 public class GameMaster {
     private Board board;
     private Player[] players;
-    private int numPlayers;
+    private int totNumPlayers;
     private int curTurn;
     private boolean canMove;
     private boolean canNextTurn;
@@ -22,19 +22,23 @@ public class GameMaster {
      * @param numPlayers
      * @param playerTokens
      */
-    public void setup(int numPlayers, Tokens[] playerTokens, int startRounds){
-        players = new Player[numPlayers];
+    public void setup(int[] numPlayers, Tokens[] playerTokens, int startRounds){
+        players = new Player[numPlayers[0]+numPlayers[1]];
         numRounds = startRounds;
-        this.numPlayers=numPlayers;
+        this.totNumPlayers =numPlayers[0]+numPlayers[1];
         int jail = 0;
         for(int i=0;i<board.getTileGrid().length;i++){
             if(board.getTileGrid()[i].getName().equals("Jail")){
                 jail=i;
             }
         }
-        for(int player=0;player<numPlayers;player++){
+        for(int player=0;player<numPlayers[0];player++){
             players[player]=new Player(playerTokens[player],jail);
             players[player].setMoney(1500);
+        }
+        for(int ai = 0; ai<numPlayers[1]; ai++){
+            players[numPlayers[0]+ai]=new AI(playerTokens[numPlayers[0]+ai],jail);
+            players[numPlayers[0]+ai].setMoney(1500);
         }
         canMove();
         canNotTakeTurn();
@@ -92,12 +96,13 @@ public class GameMaster {
                     board.getPotLuck().add(players[this.getCurTurn()].getOutOfJailFreePotLuck().get(i));
                 }
             }
-            numPlayers--;
+            totNumPlayers--;
             players[this.getCurTurn()] = null;
         }
 
         return players[this.getCurTurn()].getMoney() < 1;
     }
+
     /**
      * This function causes the next turn to happen if the player is allowed to.
      * @author Jonathan Morris
@@ -107,12 +112,14 @@ public class GameMaster {
             players[curTurn].setTurnsTaken(0); //no more turns taken in a row
             canNotTakeTurn();
             canMove();
-            if((getCurTurn()+1)>numPlayers){
+            if((getCurTurn()+1)> totNumPlayers){
                 numRounds--;
             }
-            setCurTurn((getCurTurn() + 1) % numPlayers);
+            setCurTurn((getCurTurn() + 1) % totNumPlayers);
         }
-
+        while(players[this.getCurTurn()]==null){
+            setCurTurn((getCurTurn() + 1) % totNumPlayers);
+        }
     }
 
     public boolean canBuyHouse(Property tileToBuyHouseOn, Player player){
@@ -198,6 +205,11 @@ public class GameMaster {
             return ((BuyableTile) curTile).rent(this.getPlayer(this.getCurTurn()));
         } else if (curTile instanceof Tax){
             ((Tax) curTile).payTax(this.getPlayer(this.getCurTurn()));
+            for(Tile t: board.getTileGrid()){
+                if (t instanceof FreeParking){
+                    ((FreeParking) t).setCurrentPenalties(((FreeParking) t).getCurrentPenalties()+((Tax) curTile).getTax());
+                }
+            }
             return ((Tax) curTile).getTax();
         } else if (curTile instanceof toJail){
             players[getCurTurn()].jail();
@@ -225,7 +237,9 @@ public class GameMaster {
         }
         return 0;
     }
-
+    public int applyTileEffect(int roll){
+        return ((Utility)this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).rent(this.getPlayer(this.getCurTurn()),roll);
+    }
     /**
      * For buying a tile
      * @param newOwner
@@ -238,8 +252,8 @@ public class GameMaster {
      * FOr auctuioning a tile
      * @param money
      */
-    public void applyTileEffect(int[] money){
-        ((BuyableTile)this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).auction(this.getPlayers(),money);
+    public int applyTileEffect(int[] money){
+        return ((BuyableTile)this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).auction(this.getPlayers(),money);
     }
     /******************************
      * Getters and Setters
