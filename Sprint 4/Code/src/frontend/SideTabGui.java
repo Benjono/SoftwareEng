@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.AI;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -58,35 +59,62 @@ public class SideTabGui extends VBox {
 
         updateSideTab(); //player 1 will have a highlighted label
 
-        diceRollNextTurn.setOnAction(new EventHandler<>() {
-            @Override
-            public synchronized void handle(ActionEvent event) {
-                if (!GM.isCanNextTurn()) {
-                    boardGui.movePlayer();
-                    if (GM.isCanNextTurn()) {
-                        diceRollNextTurn.setGraphic(buttonImages[1]);
-                    } else {
-                        boardGui.setBoardRotation();
-                    }
-
-                } else {
-                    if(GM.getPlayer(GM.getCurTurn()).getJailTime() > 0){
-                        new TileEffectDialog(GM);
-                    }
-                    if(GM.playerLost()){
-                        // current player lost
-                    }
-                    if (GM.gameWon()){
-                        // current player won
-                    }
-                    GM.nextTurn();
-                    updateSideTab();//the player with the current turn will have a highlighted label
-                    boardGui.setBoardRotation();
-                    diceRollNextTurn.setGraphic(buttonImages[0]);
-                }
-
+        diceRollNextTurn.setOnAction(actionEvent -> {
+            if(GM.getPlayer(GM.getCurTurn())instanceof AI){
+                takeAiTurn();
+            }
+            else{
+                takePlayerTurn(diceRollNextTurn);
             }
         });
+
+    }
+
+    private void takePlayerTurn(Button diceRollNextTurn){
+        if (!GM.isCanNextTurn()) {
+            boardGui.movePlayer();
+            if (GM.isCanNextTurn()) {
+                diceRollNextTurn.setGraphic(buttonImages[1]);
+            } else {
+                boardGui.setBoardRotation();
+            }
+
+        } else {
+            endTurn();
+            diceRollNextTurn.setGraphic(buttonImages[0]);
+        }
+    }
+
+    private void takeAiTurn(){
+        while(!GM.isCanNextTurn()){
+            boardGui.movePlayer();
+            boardGui.setBoardRotation();
+        }
+        endTurn();
+    }
+
+    private void endTurn(){
+        if(GM.getPlayer(GM.getCurTurn()).getJailTime() > 0){
+            new TileEffectDialog(GM);
+        }
+        if (GM.getPlayer(GM.getCurTurn()) instanceof AI){
+            ((AI) GM.getPlayer(GM.getCurTurn())).optionalStuff(GM.getBoard());
+        }
+        if(GM.getPlayer(GM.getCurTurn()).getMoney() < 1){
+            // get token off board and properties reset to original image
+            boardGui.removePlayer(GM.getPlayer(GM.getCurTurn()).getPlace());
+            boardGui.removeHouseImages();
+            // current player lost
+            GM.playerLost();
+            new TileEffectDialog(GM, -1);
+        }
+        if (GM.gameWon()){
+            // current player won
+            new TileEffectDialog(GM, GM.winner());
+        }
+        GM.nextTurn();
+        updateSideTab();//the player with the current turn will have a highlighted label
+        boardGui.setBoardRotation();
     }
 
     /**
@@ -111,16 +139,24 @@ public class SideTabGui extends VBox {
     public void updateSideTab(){
         int playerNumber = 0;
         for(int i = 0; i < this.getChildren().size()-3; i += 6){
-            if (playerNumber == GM.getCurTurn()){
-                this.getChildren().get(i).setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
+            if(GM.getPlayer(playerNumber) == null){
+                // removes players who have lost from the game
+                for(int j =0; j < 6; j++){
+                    this.getChildren().set(i+j, null);
+                }
             }
             else{
-                this.getChildren().get(i).setStyle("");
+                if (playerNumber == GM.getCurTurn()){
+                    this.getChildren().get(i).setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
+                }
+                else{
+                    this.getChildren().get(i).setStyle("");
+                }
+                this.getChildren().set(i+2, new Label("   Money: " + GM.getPlayer(playerNumber).getMoney()));
+                this.getChildren().set(i+3, new Label("   Get out of Jail free cards: "+ (GM.getPlayer(playerNumber).getOutOfJailFreeOpportunity().size() + GM.getPlayer(playerNumber).getOutOfJailFreePotLuck().size())));
+                this.getChildren().set(i+4, propertiesLabelSetup(playerNumber));
+                this.getChildren().set(i+5, new Label("   Place: " + GM.getBoard().getTile(GM.getPlayer(playerNumber).getPlace()).getName()));
             }
-            this.getChildren().set(i+2, new Label("   Money: " + GM.getPlayer(playerNumber).getMoney()));
-            this.getChildren().set(i+3, new Label("   Get out of Jail free cards: "+ (GM.getPlayer(playerNumber).getOutOfJailFreeOpportunity().size() + GM.getPlayer(playerNumber).getOutOfJailFreePotLuck().size())));
-            this.getChildren().set(i+4, propertiesLabelSetup(playerNumber));
-            this.getChildren().set(i+5, new Label("   Place: " + GM.getBoard().getTile(GM.getPlayer(playerNumber).getPlace()).getName()));
             playerNumber++;
         }
     }

@@ -31,9 +31,9 @@ public class TileEffectDialog extends MonopolyDialog {
     }
 
     //End of Game or the Player has lost
-    public TileEffectDialog(GameMasterGui GM, boolean gameEnd){
-        if(gameEnd){
-            this.setHeaderText(GM.getPlayer(GM.getCurTurn()) + "has Won!");
+    public TileEffectDialog(GameMasterGui GM, int playerWon){
+        if(playerWon != -1){
+            this.setHeaderText(GM.getPlayer(playerWon) + "has Won!");
             this.setContentText("Well played. GG!");
             this.setResultConverter(buttonType -> {
                 if (buttonType == this.getDialogPane().getButtonTypes().get(0)){System.exit(0);}
@@ -79,6 +79,12 @@ public class TileEffectDialog extends MonopolyDialog {
             this.setHeaderText("You have drawn a " + curTile.getName() + " card");
             this.setContentText("It says: " + card.getCardText());
         }
+        setup();
+    }
+
+    public TileEffectDialog(Player player, Tile curTile){
+        this.setHeaderText(player.getToken().name() + " won the auction!");
+        this.setContentText("They now own " + curTile.getName());
         setup();
     }
 

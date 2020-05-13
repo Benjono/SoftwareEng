@@ -2,8 +2,6 @@ package frontend;
 
 import backend.*;
 
-import java.awt.*;
-
 /**
  * Extends the backend GameMaster in order to easily implement on the frontend. This when called sets up the game,
  * It has methods for when landing on a tile, buying a tile and drawing a card.
@@ -23,7 +21,14 @@ public class GameMasterGui extends GameMaster {
         if (this.getBuyable(this.getPlayer(this.getCurTurn()).getPlace())){
             //can buy/auction time
             if (this.getPlayer(this.getCurTurn()).isPassedGo()){
-                buyingTile();
+                if(this.getPlayer(this.getCurTurn()) instanceof AI){
+                     if (!(((AI) this.getPlayer(this.getCurTurn())).purchaseOrAuction((BuyableTile) this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())))){
+                         buyingTile(false);
+                     }
+                }
+                else {
+                    buyingTile((Boolean) (new FirstTimeLandedDialog(this)).getR());
+                }
             }
         }
         else if (this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof CardDraw){
@@ -64,23 +69,34 @@ public class GameMasterGui extends GameMaster {
      * Implements the first time buying a property by working out whether it is being auctioned or brought for base price,
      * it then implements this.
      */
-    private void buyingTile(){
-        if(!(Boolean) (new FirstTimeLandedDialog(this)).getR()){
-            // auction
-            this.applyTileEffect((int[]) (new AuctionDialog(this)).getR());
-            // winner dialog
-            System.out.println(((BuyableTile)this.getBoard().getTileGrid()[this.getPlayer(this.getCurTurn()).getPlace()]).getPlayer().getToken());
-
-            //needs winner dialog here
-        }
-        else {
-            // player buys tile
+    private void buyingTile(boolean buyTile){
+        if(buyTile){
+            //buy tile
             try {
                 this.applyTileEffect(this.getPlayer(this.getCurTurn()));
             } catch (NotEnoughMoneyException e) {
                 this.applyTileEffect((int[]) (new AuctionDialog(this)).getR());
             }
         }
+        else{
+            // auction
+            new TileEffectDialog(this.getPlayer(manageAuction()), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+        }
+
+    }
+
+    /**
+     * called to manage the auction process, with AI and Player Bids, returns int for player who won!
+     * @return int
+     */
+    private int manageAuction(){
+        int[] bids = (int[]) new AuctionDialog(this).getR();
+        for(int i = 0; i < this.getPlayers().length; i++){
+            if(i >= this.getPlayers().length - this.getNumAI()){
+                bids[i] = ((AI) this.getPlayer(i)).getBidOffer((BuyableTile) this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+            }
+        }
+        return this.applyTileEffect(bids);
     }
 
 }
