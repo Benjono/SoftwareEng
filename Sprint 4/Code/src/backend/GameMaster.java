@@ -102,6 +102,7 @@ public class GameMaster {
 
         return players[this.getCurTurn()].getMoney() < 1;
     }
+
     /**
      * This function causes the next turn to happen if the player is allowed to.
      * @author Jonathan Morris
@@ -116,7 +117,9 @@ public class GameMaster {
             }
             setCurTurn((getCurTurn() + 1) % totNumPlayers);
         }
-
+        while(players[this.getCurTurn()]==null){
+            setCurTurn((getCurTurn() + 1) % totNumPlayers);
+        }
     }
 
     public boolean canBuyHouse(Property tileToBuyHouseOn, Player player){
