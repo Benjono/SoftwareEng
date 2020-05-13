@@ -1,5 +1,4 @@
 package backend;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -26,7 +25,7 @@ public class AI extends Player {
      * @return true for buying(no action needed), false for auction (trigger auction)
      * @throws triggerAuctionException - is thrown if auction is needed
      */
-    public boolean purchaseOrAuction(Property property) throws NotEnoughMoneyException{
+    public boolean purchaseOrAuction(BuyableTile property){
         boolean output;
         if(getMoney()<property.costToBuy){
             output = false;
@@ -44,7 +43,6 @@ public class AI extends Player {
                 }
                 catch(NotEnoughMoneyException e){
                     output = false;
-                    throw new NotEnoughMoneyException(e.getMessage(),e.moneyShort,e.player);
 
                 }
             }
@@ -58,7 +56,7 @@ public class AI extends Player {
      * @param property - property being auctioned
      * @return - how much the AI is willing to bid on the property
      */
-    public int getBidOffer(Property property){
+    public int getBidOffer(BuyableTile property){
         int currentOffer =(int) Math.floor(property.getCostToBuy()*0.9);
         currentOffer+=(Math.floor(currentOffer*(random.nextFloat()/2)));
         if(currentOffer>getMoney()){
@@ -72,7 +70,7 @@ public class AI extends Player {
      * buys houses sometimes after moving - will increase a whole colours housing level by 1 at a time, prioritising the most expensive
      * @param board board being played on
      */
-    public void optionalStuff(Board board) throws NotEnoughMoneyException {
+    public void optionalStuff(Board board){
         //amount of money that can be spent on houses each turn, rounded up so as to be able to afford at least 1 house for 50
         int spendingMoney = (int) (50*Math.floor((0.4*getMoney())/50));
         int[] setPrices = new int[]{100,150,300,300,450,450,600,400};;
@@ -98,7 +96,6 @@ public class AI extends Player {
                     purchased = purchase(board, canUpgrade);
                 }
                 catch(NotEnoughMoneyException e){
-                    throw new NotEnoughMoneyException(e.getMessage(),e.moneyShort,e.player);
                 }
             }
 
