@@ -236,9 +236,13 @@ public class Player {
                 switch(currentProperty.getColour()){
                     case brown:
                     totalNumberPerColour[0]+=1;
-                    if(currentProperty.getPlayer().equals(this)){
-                        ownedPropertiesByColour[0]+=1;
+                    try {
+                        if (currentProperty.getPlayer().equals(this)) {
+                            ownedPropertiesByColour[0] += 1;
+                        }
                     }
+                    catch(NullPointerException e){
+                        }
                     break;
                     case cyan:
                         totalNumberPerColour[1]+=1;
