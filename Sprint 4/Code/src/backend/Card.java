@@ -69,8 +69,6 @@ public class Card {
             } case "toJail":{
                 toJail(player);
                 break;
-            } case "throw":{
-
             } default:
                 System.out.println("ERROR");
                 System.out.println(this.type);
@@ -79,7 +77,17 @@ public class Card {
         }
     }
     public void cardEffect(Player player, boolean choice){
-
+        if(choice){
+            player.setMoney(player.getMoney()-10);
+        } else {
+            Board board = gameMaster.getBoard();
+            Card c = (Card)board.getOpportunityKnocks().get(0);
+            c.cardEffect(gameMaster.getPlayer(gameMaster.getCurTurn()));
+            board.getOpportunityKnocks().remove(c);
+            if(!c.getMethodName().equals("getOutOfJail")) {
+                board.getOpportunityKnocks().add(c);
+            }
+        }
     }
 
     public String getMethodName(){
