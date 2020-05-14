@@ -86,6 +86,7 @@ public class SideTabGui extends VBox {
             } else {
                 boardGui.setBoardRotation();
             }
+            updateSideTab();
 
         } else {
             endTurn(diceRollNextTurn);
@@ -100,6 +101,7 @@ public class SideTabGui extends VBox {
         while(!GM.isCanNextTurn()){
             boardGui.movePlayer();
             boardGui.setBoardRotation();
+            updateSideTab();
         }
         endTurn(diceRollNextTurn);
     }

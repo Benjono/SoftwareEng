@@ -99,6 +99,7 @@ public class BoardGui extends GridPane {
             GM.landedTileAction(roll[0]+roll[1]);
             removePlayer(GM.getPlayer(GM.getCurTurn()).getPlace());
             addPlayer();
+
         }
 
     }
