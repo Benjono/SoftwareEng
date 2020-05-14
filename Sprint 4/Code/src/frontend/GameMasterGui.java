@@ -43,11 +43,11 @@ public class GameMasterGui extends GameMaster {
                 TileEffectDialog dialog = new TileEffectDialog((Card) this.getBoard().getPotLuck().get(0), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
                 if(((Card) this.getBoard().getPotLuck().get(0)).getMethodName().equals("throw")){
                     if((boolean)dialog.getR()){
-                        this.applyTileEffect();
+                        ((Card) this.getBoard().getPotLuck().get(0)).cardEffect(this.getPlayer(this.getCurTurn()), true);
                     }
                     else{
                         new TileEffectDialog((Card) this.getBoard().getOpportunityKnocks().get(0),this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
-                        this.applyTileEffect();
+                        ((Card) this.getBoard().getOpportunityKnocks().get(0)).cardEffect(this.getPlayer(this.getCurTurn()), false);
                     }
                 }
                 else {
