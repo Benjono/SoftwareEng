@@ -166,6 +166,9 @@ public class AI extends Player {
                             System.out.println("AI broke and i dont know why");
                             purchasable[chosen] = false;
                         }
+                        catch(NullPointerException e){
+                            
+                        }
 
                     }
                     else{
