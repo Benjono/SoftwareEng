@@ -44,7 +44,7 @@ public class AI extends Player {
                 }
                 catch(NotEnoughMoneyException e){
                     output = false;
-
+                    System.out.println("catch - should never come up");
                 }
             }
 
@@ -72,17 +72,13 @@ public class AI extends Player {
      * @param board board being played on
      */
     public void optionalStuff(Board board){
-        System.out.println("optionalStuff");
         //amount of money that can be spent on houses each turn, rounded up so as to be able to afford at least 1 house for 50
         int spendingMoney = (int) (50*Math.floor((0.4*getMoney())/50));
         int[] setPrices = new int[]{100,150,300,300,450,450,600,400};;
         //chance to do after every turn
         if(random.nextFloat()<=0.4){
-
             //see what colours are fully owned
             boolean ownedColours[] = fullyOwnedSets(board);
-
-
             boolean[] canUpgrade = new boolean[8];
             for(int i=0;i<setPrices.length;i++) {
                 if(spendingMoney >=setPrices[i] && ownedColours[i]==true) {
@@ -115,79 +111,86 @@ public class AI extends Player {
                 randomiser.add(i);
             }
         }
-        int chosen = random.nextInt(randomiser.size());
-        Colours setToBuy;
-        switch (chosen) {
-            case 0:
-                setToBuy = Colours.brown;
-                break;
-
-            case 1:
-                setToBuy = Colours.cyan;
-                break;
-
-            case 2:
-                setToBuy = Colours.purple;
-                break;
-
-            case 3:
-                setToBuy = Colours.orange;
-                break;
-
-            case 4:
-                setToBuy = Colours.red;
-                break;
-
-            case 5:
-                setToBuy = Colours.yellow;
-                break;
-
-            case 6:
-                setToBuy = Colours.green;
-                break;
-
-            case 7:
-                setToBuy = Colours.blue;
-                break;
-
-            default:
-                throw new IllegalStateException("Unexpected value: " + chosen);
+        int chosen;
+        if(randomiser.size()>0) {
+            chosen = random.nextInt(randomiser.size());
         }
-        Property currentProperty;
-        for (int i =0;i<board.getTileGrid().length;i++){
-            if(board.getTileGrid()[i] instanceof Property){
-                currentProperty = (Property) board.getTileGrid()[i];
-                if(currentProperty.getColour().equals(setToBuy)){
-                    if(currentProperty.getCurrentHouseLevel()<5) {
-                        try {
-                            currentProperty.buyHouse(1);
-                            brought = true;
-                        }
-                        catch(NotEnoughMoneyException e){
-                            System.out.println("AI broke and i dont know why");
+        else{
+            chosen = 90;
+        }
+        Colours setToBuy;
+        try {
+            switch (chosen) {
+                case 0:
+                    setToBuy = Colours.brown;
+                    break;
+
+                case 1:
+                    setToBuy = Colours.cyan;
+                    break;
+
+                case 2:
+                    setToBuy = Colours.purple;
+                    break;
+
+                case 3:
+                    setToBuy = Colours.orange;
+                    break;
+
+                case 4:
+                    setToBuy = Colours.red;
+                    break;
+
+                case 5:
+                    setToBuy = Colours.yellow;
+                    break;
+
+                case 6:
+                    setToBuy = Colours.green;
+                    break;
+
+                case 7:
+                    setToBuy = Colours.blue;
+                    break;
+
+                default:
+                    throw new IllegalStateException("Unexpected value: " + chosen);
+            }
+            Property currentProperty;
+            for (int i = 0; i < board.getTileGrid().length; i++) {
+                if (board.getTileGrid()[i] instanceof Property) {
+                    currentProperty = (Property) board.getTileGrid()[i];
+                    if (currentProperty.getColour().equals(setToBuy)) {
+                        if (currentProperty.getCurrentHouseLevel() < 5) {
+                            try {
+                                currentProperty.buyHouse(1);
+                                brought = true;
+                            } catch (NotEnoughMoneyException e) {
+                                System.out.println("AI broke and i dont know why");
+                                purchasable[chosen] = false;
+                            } catch (NullPointerException e) {
+
+                            }
+
+                        } else {
                             purchasable[chosen] = false;
                         }
-                        catch(NullPointerException e){
-
-                        }
-
-                    }
-                    else{
-                        purchasable[chosen] = false;
                     }
                 }
             }
-        }
-        boolean checkIfMoreToBuy = false;
-        for(int i = 0;i<purchasable.length;i++){
-            if(purchasable[i] == true){
-                checkIfMoreToBuy = true;
+            boolean checkIfMoreToBuy = false;
+            for (int i = 0; i < purchasable.length; i++) {
+                if (purchasable[i]) {
+                    checkIfMoreToBuy = true;
+                }
+            }
+            if (checkIfMoreToBuy == false) {
+                brought = true;
             }
         }
-        if(checkIfMoreToBuy == false){
-            brought = true;
+        catch(IllegalStateException e){
+                brought = true;
         }
-        //System.out.println(Arrays.toString(purchasable));
         return brought;
     }
 
@@ -206,7 +209,7 @@ public class AI extends Player {
         for(int i =0; i<board.getTileGrid().length;i++){
             if(board.getTileGrid()[i] instanceof Property){
                 currentProperty = (Property) board.getTileGrid()[i];
-                if(!(currentProperty.getPlayer() ==null)) {
+                if(!(currentProperty.getPlayer() == null)) {
                     switch (currentProperty.getColour()) {
                         case brown:
                             totalNumberPerColour[0] += 1;
@@ -256,13 +259,40 @@ public class AI extends Player {
                                 ownedPropertiesByColour[7] += 1;
                             }
                             break;
+                        default:
+                    }
+                }
+                else{
+                    switch (currentProperty.getColour()) {
+                        case brown:
+                            totalNumberPerColour[0] += 1;
+                            break;
+                        case cyan:
+                            totalNumberPerColour[1] += 1;
+                            break;
+                        case purple:
+                            totalNumberPerColour[2] += 1;
+                            break;
+                        case orange:
+                            totalNumberPerColour[3] += 1;
+                            break;
+                        case red:
+                            totalNumberPerColour[4] += 1;
+                            break;
+                        case yellow:
+                            totalNumberPerColour[5] += 1;
+                            break;
+                        case green:
+                            totalNumberPerColour[6] += 1;
+                            break;
+                        case blue:
+                            totalNumberPerColour[7] += 1;
+                            break;
+                        default:
                     }
                 }
             }
-            System.out.println("total colours: " + Arrays.toString(totalNumberPerColour));
-            System.out.println("current colours: " + Arrays.toString(ownedPropertiesByColour));
         }
-
         boolean[] output = new boolean[8];
         for(int i =0; i<output.length; i++){
             if(totalNumberPerColour[i] == ownedPropertiesByColour[i]){
