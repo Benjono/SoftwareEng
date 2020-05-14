@@ -57,11 +57,6 @@ public class GameMasterGui extends GameMaster {
             }
 
         }
-        else if (this.getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof  InstructionOnCross ||
-                this.getPlayer(this.getCurTurn()).getPlace() == this.getPlayer(this.getCurTurn()).getJail()){
-            // go and jail do nothing as dialogs already called
-            System.out.println(" ");
-        }
         else if (this.getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof toJail) {
             // go to jail
             new TileEffectDialog(this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
@@ -69,7 +64,7 @@ public class GameMasterGui extends GameMaster {
         }
         else if(this.getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof BuyableTile){
             //rent time if not the owner
-            if (((BuyableTile) this.getTile(this.getPlayer(this.getCurTurn()).getPlace())).getPlayer().equals(this.getPlayer(this.getCurTurn()))) {
+            if (!(((BuyableTile) this.getTile(this.getPlayer(this.getCurTurn()).getPlace())).getPlayer().equals(this.getPlayer(this.getCurTurn())))) {
                 if (this.getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof Utility) {
                     new TileEffectDialog(this.applyTileEffect(totalRoll), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
                 } else {
