@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.AI;
 import backend.GameMaster;
 import javafx.geometry.Pos;
 import javafx.scene.control.ButtonBar;
@@ -46,9 +47,9 @@ public class AuctionDialog extends MonopolyDialog {
         NumField[] bets = new NumField[GM.getPlayers().length];
         //creating box's for each player
         for (int i =0; i<GM.getPlayers().length ;i++){
-            if(i < (GM.getPlayers().length - GM.getNumAI())){
+            hBoxArray[i] = new HBox();
+            if(!(GM.getPlayer(i) instanceof AI)){
                 playerLabel = new Label("Player " + (i+1) + " Amount:");
-                hBoxArray[i] = new HBox();
                 hBoxArray[i].setMaxHeight(50);
                 hBoxArray[i].setMinHeight(50);
                 hBoxArray[i].setSpacing(15);
