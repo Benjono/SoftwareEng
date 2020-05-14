@@ -52,9 +52,9 @@ public class GameMaster {
     }
 
     public int winner() {
-        int[] money = new int[this.totNumPlayers];
+        int[] money = new int[players.length];
         int winner = 0;
-        for (int i = 0; i < this.totNumPlayers; i++) {
+        for (int i = 0; i < this.players.length; i++) {
             if (players[i] != null) {
                 Tile[] playerTiles = this.getPlayerProperties(players[i]);
                 money[i] = players[i].getMoney();
@@ -114,6 +114,7 @@ public class GameMaster {
         return playersLeft==1||numRounds==0;
     }
     public boolean playerLost() {
+        System.out.println(players[this.getCurTurn()].getMoney()<1);
         if (players[this.getCurTurn()].getMoney() < 1) {
             Tile[] playersProperties = this.getPlayerProperties(players[this.getCurTurn()]);
             int monet = players[this.getCurTurn()].getMoney();
