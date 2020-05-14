@@ -15,6 +15,7 @@ public class MonopolyDialog extends Dialog<Object> {
         localStage.getIcons().add(new Image("logo.png"));
         this.setTitle("Property Tycoon");
         this.setResizable(false);
+        localStage.setOnCloseRequest(windowEvent -> { windowEvent.consume();});
     }
 
     /**
