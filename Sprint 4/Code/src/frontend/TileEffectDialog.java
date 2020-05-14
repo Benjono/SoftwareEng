@@ -74,7 +74,12 @@ public class TileEffectDialog extends MonopolyDialog {
 
     //cardDraw
     public TileEffectDialog(Card card){
-        this.setHeaderText("You have drawn a " + card.getCardType() + " card");
+        if(card.getCardType().equals("opportunityKnocks")){
+            this.setHeaderText("You have drawn a Opportunity Knocks card");
+        }
+        else{
+            this.setHeaderText("You have drawn a Pot Luck card");
+        }
         Label label = new Label("It says: " + card.getCardText());
         if (card.getMethodName().equals("throw")){
             label.setWrapText(true);
