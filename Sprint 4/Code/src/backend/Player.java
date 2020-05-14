@@ -236,49 +236,49 @@ public class Player {
                 switch(currentProperty.getColour()){
                     case brown:
                     totalNumberPerColour[0]+=1;
-                    if(currentProperty.getPlayer().equals(this)){
+                    if(currentProperty.getPlayer()!=null&&currentProperty.getPlayer().equals(this)){
                         ownedPropertiesByColour[0]+=1;
                     }
                     break;
                     case cyan:
                         totalNumberPerColour[1]+=1;
-                        if(currentProperty.getPlayer().equals(this)){
+                        if(currentProperty.getPlayer()!=null&&currentProperty.getPlayer().equals(this)){
                             ownedPropertiesByColour[1]+=1;
                         }
                         break;
                     case purple:
                         totalNumberPerColour[2]+=1;
-                        if(currentProperty.getPlayer().equals(this)){
+                        if(currentProperty.getPlayer()!=null&&currentProperty.getPlayer().equals(this)){
                             ownedPropertiesByColour[2]+=1;
                         }
                         break;
                     case orange:
                         totalNumberPerColour[3]+=1;
-                        if(currentProperty.getPlayer().equals(this)){
+                        if(currentProperty.getPlayer()!=null&&currentProperty.getPlayer().equals(this)){
                             ownedPropertiesByColour[3]+=1;
                         }
                         break;
                     case red:
                         totalNumberPerColour[4]+=1;
-                        if(currentProperty.getPlayer().equals(this)){
+                        if(currentProperty.getPlayer()!=null&&currentProperty.getPlayer().equals(this)){
                             ownedPropertiesByColour[4]+=1;
                         }
                         break;
                     case yellow:
                         totalNumberPerColour[5]+=1;
-                        if(currentProperty.getPlayer().equals(this)){
+                        if(currentProperty.getPlayer()!=null&&currentProperty.getPlayer().equals(this)){
                             ownedPropertiesByColour[5]+=1;
                         }
                         break;
                     case green:
                         totalNumberPerColour[6]+=1;
-                        if(currentProperty.getPlayer().equals(this)){
+                        if(currentProperty.getPlayer()!=null&&currentProperty.getPlayer().equals(this)){
                             ownedPropertiesByColour[6]+=1;
                         }
                         break;
                     case blue:
                         totalNumberPerColour[7]+=1;
-                        if(currentProperty.getPlayer().equals(this)){
+                        if(currentProperty.getPlayer()!=null&&currentProperty.getPlayer().equals(this)){
                             ownedPropertiesByColour[7]+=1;
                         }
                         break;
