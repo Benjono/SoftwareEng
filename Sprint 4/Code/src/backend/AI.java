@@ -168,6 +168,9 @@ public class AI extends Player {
                         catch(NotEnoughMoneyException e){
                             throw new NotEnoughMoneyException(e.getMessage(),e.moneyShort,e.player);
                         }
+                        catch(NullPointerException e){
+                            purchasable[chosen] = false;
+                        }
                     }
                     else{
                         purchasable[chosen] = false;
