@@ -1,8 +1,12 @@
 package frontend;
 
 import backend.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  * Every tile effect that requires no input from player is outputted to the player via this dialog;
@@ -75,11 +79,23 @@ public class TileEffectDialog extends MonopolyDialog {
 
     //cardDraw
     public TileEffectDialog(Card card, Tile curTile){
-        if (curTile instanceof CardDraw){
-            this.setHeaderText("You have drawn a " + curTile.getName() + " card");
-            this.setContentText("It says: " + card.getCardText());
+        this.setHeaderText("You have drawn a " + curTile.getName() + " card");
+        this.setContentText("It says: " + card.getCardText());
+        if (card.getMethodName().equals("throw")){
+            ButtonType payFine = new ButtonType("Pay Fine", ButtonBar.ButtonData.YES);
+            ButtonType takeCard = new ButtonType("Draw Card", ButtonBar.ButtonData.NO);
+            this.getDialogPane().getButtonTypes().addAll(payFine,takeCard);
+            this.setResultConverter(buttonType -> {
+                if(buttonType == payFine){
+                    return true;
+                }
+                return false;
+            });
+            this.showAndWait();
         }
-        setup();
+        else {
+            setup();
+        }
     }
 
     public TileEffectDialog(Player player, Tile curTile){

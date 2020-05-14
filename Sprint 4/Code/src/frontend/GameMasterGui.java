@@ -36,12 +36,25 @@ public class GameMasterGui extends GameMaster {
             if (((CardDraw) this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).getDrawType() == DrawTypes.opportunityKnocks) {
                 // get method effect opportunity knocks
                 new TileEffectDialog((Card) this.getBoard().getOpportunityKnocks().get(0),this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+                this.applyTileEffect();
             }
             else{
                 // get method effect potluck
-                new TileEffectDialog((Card) this.getBoard().getPotLuck().get(0), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+                TileEffectDialog dialog = new TileEffectDialog((Card) this.getBoard().getPotLuck().get(0), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+                if(((Card) this.getBoard().getPotLuck().get(0)).getMethodName().equals("throw")){
+                    if((boolean)dialog.getR()){
+                        this.applyTileEffect();
+                    }
+                    else{
+                        new TileEffectDialog((Card) this.getBoard().getOpportunityKnocks().get(0),this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+                        this.applyTileEffect();
+                    }
+                }
+                else {
+                    this.applyTileEffect();
+                }
             }
-            this.applyTileEffect();
+
         }
         else if (this.getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof  InstructionOnCross ||
                 this.getPlayer(this.getCurTurn()).getPlace() == this.getPlayer(this.getCurTurn()).getJail()){
