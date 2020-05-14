@@ -27,6 +27,7 @@ public class Card {
         cardText=Description;
         methodName=Method;
         this.params=params;
+        System.out.println(params.length);
         this.type=potOrKnock;
         gameMaster=gm;
     }
