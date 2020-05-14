@@ -33,7 +33,7 @@ public class TileEffectDialog extends MonopolyDialog {
     //End of Game or the Player has lost
     public TileEffectDialog(GameMasterGui GM, int playerWon){
         if(playerWon != -1){
-            this.setHeaderText(GM.getPlayer(playerWon) + "has Won!");
+            this.setHeaderText(GM.getPlayer(playerWon).getToken().name() + "has Won!");
             this.setResultConverter(buttonType -> {
                 if (buttonType == this.getDialogPane().getButtonTypes().get(0)){System.exit(0);}
                 return null;
