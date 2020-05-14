@@ -238,38 +238,38 @@ public class GameMaster {
     /**
      * Used for tiles that have been bought or have other effects
      */
-    public int applyTileEffect(){
+    public int applyTileEffect() {
         Tile curTile = this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace());
-        if (curTile instanceof BuyableTile){
+        if (curTile instanceof BuyableTile) {
             return ((BuyableTile) curTile).rent(this.getPlayer(this.getCurTurn()));
-        } else if (curTile instanceof Tax){
+        } else if (curTile instanceof Tax) {
             ((Tax) curTile).payTax(this.getPlayer(this.getCurTurn()));
-            for(Tile t: board.getTileGrid()){
-                if (t instanceof FreeParking){
-                    ((FreeParking) t).setCurrentPenalties(((FreeParking) t).getCurrentPenalties()+((Tax) curTile).getTax());
+            for (Tile t : board.getTileGrid()) {
+                if (t instanceof FreeParking) {
+                    ((FreeParking) t).setCurrentPenalties(((FreeParking) t).getCurrentPenalties() + ((Tax) curTile).getTax());
                 }
             }
             return ((Tax) curTile).getTax();
-        } else if (curTile instanceof toJail){
+        } else if (curTile instanceof toJail) {
             players[getCurTurn()].jail();
-        } else if (curTile instanceof FreeParking){
-            players[getCurTurn()].setMoney(players[getCurTurn()].getMoney()+((FreeParking)curTile).getCurrentPenalties());
-            int penalties = ((FreeParking)curTile).getCurrentPenalties();
-            ((FreeParking)curTile).setCurrentPenalties(0);
+        } else if (curTile instanceof FreeParking) {
+            players[getCurTurn()].setMoney(players[getCurTurn()].getMoney() + ((FreeParking) curTile).getCurrentPenalties());
+            int penalties = ((FreeParking) curTile).getCurrentPenalties();
+            ((FreeParking) curTile).setCurrentPenalties(0);
             return penalties;
-        } else if (curTile instanceof CardDraw){
-            if(((CardDraw)curTile).getDrawType().equals(DrawTypes.opportunityKnocks)){
-                Card c = (Card)board.getOpportunityKnocks().get(0);
+        } else if (curTile instanceof CardDraw) {
+            if (((CardDraw) curTile).getDrawType().equals(DrawTypes.opportunityKnocks)) {
+                Card c = (Card) board.getOpportunityKnocks().get(0);
                 c.cardEffect(this.getPlayer(this.getCurTurn()));
                 board.getOpportunityKnocks().remove(c);
-                if(!c.getMethodName().equals("getOutOfJail")) {
+                if (!c.getMethodName().equals("getOutOfJail")) {
                     board.getOpportunityKnocks().add(c);
                 }
-            } else{
-                Card c = (Card)board.getPotLuck().get(0);
+            } else {
+                Card c = (Card) board.getPotLuck().get(0);
                 c.cardEffect(this.getPlayer(this.getCurTurn()));
                 board.getPotLuck().remove(c);
-                if(!c.getMethodName().equals("getOutOfJail")) {
+                if (!c.getMethodName().equals("getOutOfJail")) {
                     board.getPotLuck().add(c);
                 }
             }

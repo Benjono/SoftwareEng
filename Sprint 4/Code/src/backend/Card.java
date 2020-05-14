@@ -88,6 +88,10 @@ public class Card {
                 board.getOpportunityKnocks().add(c);
             }
         }
+        Board board = gameMaster.getBoard();
+        Card c = this;
+        board.getPotLuck().remove(c);
+        board.getPotLuck().add(c);
     }
 
     public String getMethodName(){
