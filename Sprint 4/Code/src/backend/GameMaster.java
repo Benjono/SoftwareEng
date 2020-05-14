@@ -149,13 +149,13 @@ public class GameMaster {
             players[curTurn].setTurnsTaken(0); //no more turns taken in a row
             canNotTakeTurn();
             canMove();
-            if((getCurTurn()+1)> totNumPlayers){
+            if((getCurTurn()+1)> players.length){
                 numRounds--;
             }
-            setCurTurn((getCurTurn() + 1) % totNumPlayers);
+            setCurTurn((getCurTurn() + 1) % players.length);
         }
         while(players[this.getCurTurn()]==null){
-            setCurTurn((getCurTurn() + 1) % totNumPlayers);
+            setCurTurn((getCurTurn() + 1) % players.length);
         }
     }
 
