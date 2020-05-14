@@ -20,7 +20,7 @@ public class GameMaster {
     /**
      * This function does the setup for the game.
      * @author Jonathan Morris
-     * @param numPlayers
+     * @param playerOrAI
      * @param playerTokens
      */
     public void setup(boolean[] playerOrAI, Tokens[] playerTokens, int startRounds){
@@ -150,7 +150,7 @@ public class GameMaster {
             players[curTurn].setTurnsTaken(0); //no more turns taken in a row
             canNotTakeTurn();
             canMove();
-            if((getCurTurn()+1)> players.length){
+            if((getCurTurn()+1)>= players.length){
                 numRounds--;
             }
             setCurTurn((getCurTurn() + 1) % players.length);
