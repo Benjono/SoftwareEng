@@ -120,14 +120,16 @@ public class GameMaster {
             int monet = players[this.getCurTurn()].getMoney();
             System.out.println(playersProperties.length);
             for (Tile t : playersProperties) {
-                System.out.println(t.getName());
-                if(t instanceof BuyableTile) {
-                    if (t instanceof Property) {
-                        ((Property) t).mortgaged = false;
-                        ((Property) t).sellHouse(((Property) t).getCurrentHouseLevel());
+                if (t!=null) {
+                    System.out.println(t.getName());
+                    if (t instanceof BuyableTile) {
+                        if (t instanceof Property) {
+                            ((Property) t).mortgaged = false;
+                            ((Property) t).sellHouse(((Property) t).getCurrentHouseLevel());
+                        }
+                        System.out.println(((BuyableTile) t).owner);
+                        ((BuyableTile) t).owner = null;
                     }
-                    System.out.println(((BuyableTile) t).owner);
-                    ((BuyableTile) t).owner = null;
                 }
             }
             players[this.getCurTurn()].setMoney(monet);
