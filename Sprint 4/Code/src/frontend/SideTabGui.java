@@ -1,8 +1,6 @@
 package frontend;
 
 import backend.AI;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -50,7 +48,13 @@ public class SideTabGui extends VBox {
         Label blank = new Label(" ");
         //button next turn and roll dice
         Button diceRollNextTurn = new Button();
-        diceRollNextTurn.setGraphic(buttonImages[0]);
+        if(GM.getPlayer(GM.getCurTurn()) instanceof AI){
+            diceRollNextTurn.setGraphic(buttonImages[1]);
+        }
+        else{
+            diceRollNextTurn.setGraphic(buttonImages[0]);
+        }
+
         diceRollNextTurn.setStyle("-fx-focus-color: transparent; -fx-background-color: transparent;");
         HBox containterForButton = new HBox();
         containterForButton.setAlignment(Pos.BOTTOM_CENTER);
