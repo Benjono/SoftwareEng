@@ -1,12 +1,9 @@
 package frontend;
 
 import backend.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 /**
  * Every tile effect that requires no input from player is outputted to the player via this dialog;
@@ -76,8 +73,13 @@ public class TileEffectDialog extends MonopolyDialog {
     }
 
     //cardDraw
-    public TileEffectDialog(Card card, Tile curTile){
-        this.setHeaderText("You have drawn a " + curTile.getName() + " card");
+    public TileEffectDialog(Card card){
+        if(card.getCardType().equals("opportunityKnocks")){
+            this.setHeaderText("You have drawn a Opportunity Knocks card");
+        }
+        else{
+            this.setHeaderText("You have drawn a Pot Luck card");
+        }
         Label label = new Label("It says: " + card.getCardText());
         if (card.getMethodName().equals("throw")){
             label.setWrapText(true);
