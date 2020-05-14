@@ -118,6 +118,7 @@ public class GameMaster {
         if (players[this.getCurTurn()].getMoney() < 1) {
             Tile[] playersProperties = this.getPlayerProperties(players[this.getCurTurn()]);
             int monet = players[this.getCurTurn()].getMoney();
+            System.out.println(playersProperties.length);
             for (Tile t : playersProperties) {
                 System.out.println(t.getName());
                 if(t instanceof BuyableTile) {
