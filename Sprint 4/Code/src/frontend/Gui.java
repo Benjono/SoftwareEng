@@ -27,7 +27,7 @@ import javafx.scene.control.Button;
 public class Gui extends Application {
 
     GameMasterGui GM;
-    int[] numPlayers;
+    boolean[] numPlayers;
 
     public static void main(String[] args) {
         launch(args);
@@ -72,8 +72,8 @@ public class Gui extends Application {
         if (abridged){
             abridgedValue = (int) new AbridgedDialog().getR();
         }
-        numPlayers = (int[]) (new NumberOfPlayersAndAIDialog()).getR();
-        Tokens[] playerTokens = (Tokens[]) (new SelectingTokensDialog(numPlayers[0]+numPlayers[1])).getR();
+        numPlayers = (boolean[]) (new NumberOfPlayersAndAIDialog()).getR();
+        Tokens[] playerTokens = (Tokens[]) (new SelectingTokensDialog(numPlayers.length)).getR();
 
         GM = new GameMasterGui(numPlayers, playerTokens, abridgedValue);
         primaryStage.close();
@@ -87,10 +87,10 @@ public class Gui extends Application {
         alignV.getChildren().add(alignH);
         gameScreen.setCenter(alignV);
         //Game board
-        BoardGui boardGui = new BoardGui(GM,numPlayers[0]+numPlayers[1]);
+        BoardGui boardGui = new BoardGui(GM,numPlayers.length);
         alignH.getChildren().add(boardGui);
         //Right tab
-        gameScreen.setRight(new SideTabGui(GM,boardGui, numPlayers[0]+numPlayers[1]));
+        gameScreen.setRight(new SideTabGui(GM,boardGui, numPlayers.length));
 
         //Scene
         Scene scene = new Scene(gameScreen, 1024, 768);

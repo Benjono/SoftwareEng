@@ -61,7 +61,7 @@ public class SideTabGui extends VBox {
 
         diceRollNextTurn.setOnAction(actionEvent -> {
             if(GM.getPlayer(GM.getCurTurn())instanceof AI){
-                takeAiTurn();
+                takeAiTurn(diceRollNextTurn);
             }
             else{
                 takePlayerTurn(diceRollNextTurn);
@@ -70,6 +70,10 @@ public class SideTabGui extends VBox {
 
     }
 
+    /**
+     * Takes a player's turn if clicked
+     * @param diceRollNextTurn
+     */
     private void takePlayerTurn(Button diceRollNextTurn){
         if (!GM.isCanNextTurn()) {
             boardGui.movePlayer();
@@ -80,20 +84,27 @@ public class SideTabGui extends VBox {
             }
 
         } else {
-            endTurn();
-            diceRollNextTurn.setGraphic(buttonImages[0]);
+            endTurn(diceRollNextTurn);
         }
     }
 
-    private void takeAiTurn(){
+    /**
+     * Takes an AI's turn
+     * @param diceRollNextTurn
+     */
+    private void takeAiTurn(Button diceRollNextTurn){
         while(!GM.isCanNextTurn()){
             boardGui.movePlayer();
             boardGui.setBoardRotation();
         }
-        endTurn();
+        endTurn(diceRollNextTurn);
     }
 
-    private void endTurn(){
+    /**
+     * Checks at the end of the turn if in jail, opitional stuff for AI, player has lost, game has been won.
+     * @param diceRollNextTurn
+     */
+    private void endTurn(Button diceRollNextTurn){
         if(GM.getPlayer(GM.getCurTurn()).getJailTime() > 0){
             new TileEffectDialog(GM);
         }
@@ -115,6 +126,12 @@ public class SideTabGui extends VBox {
         GM.nextTurn();
         updateSideTab();//the player with the current turn will have a highlighted label
         boardGui.setBoardRotation();
+        if(!(GM.getPlayer(GM.getCurTurn()) instanceof AI)){
+            diceRollNextTurn.setGraphic(buttonImages[0]);
+        }
+        else{
+            diceRollNextTurn.fire();
+        }
     }
 
     /**
