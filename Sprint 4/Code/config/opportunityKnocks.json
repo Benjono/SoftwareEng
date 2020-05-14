@@ -1,4 +1,4 @@
-{
+﻿{
 	"1":{
 		"text":"Bank pays you divided of £50",
 		"method":"gainMoney",
@@ -20,7 +20,7 @@
 		"method":"moveTo",
 		"inputs":{
 			"1":"Turing Heights",
-			"2":"True"
+			"2":"true"
 		}
 	},
 	"4":{
@@ -28,7 +28,7 @@
 		"method":"moveTo",
 		"inputs":{
 			"1":"Han Xin Gardens",
-			"2":null
+			"2":"true"
 		}
 	},
 	"5":{
@@ -52,7 +52,7 @@
 		"method":"moveTo",
 		"inputs":{
 			"1":"Hove station",
-			"2":null
+			"2":"true"
 		}
 	},
 	"8":{
