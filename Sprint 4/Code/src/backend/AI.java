@@ -1,5 +1,6 @@
 package backend;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -92,11 +93,7 @@ public class AI extends Player {
             }
             boolean purchased = false;
             while(!purchased) {
-                try {
-                    purchased = purchase(board, canUpgrade);
-                }
-                catch(NotEnoughMoneyException e){
-                }
+                purchased = purchase(board, canUpgrade);
             }
 
         }
@@ -109,7 +106,7 @@ public class AI extends Player {
      * @param purchasable array of how many sets have housing that can be built
      * @return inverse of if the method will be run again due to no purchase being made (random choice was already max upgraded)
      */
-    private boolean purchase(Board board, boolean[] purchasable) throws NotEnoughMoneyException {
+    private boolean purchase(Board board, boolean[] purchasable){
         boolean brought = false;
         ArrayList randomiser = new ArrayList();
         for(int i =0;i<purchasable.length;i++){
@@ -166,11 +163,10 @@ public class AI extends Player {
                             brought = true;
                         }
                         catch(NotEnoughMoneyException e){
-                            throw new NotEnoughMoneyException(e.getMessage(),e.moneyShort,e.player);
-                        }
-                        catch(NullPointerException e){
+                            System.out.println("AI broke and i dont know why");
                             purchasable[chosen] = false;
                         }
+
                     }
                     else{
                         purchasable[chosen] = false;
@@ -187,6 +183,7 @@ public class AI extends Player {
         if(checkIfMoreToBuy == false){
             brought = true;
         }
+        System.out.println(Arrays.toString(purchasable))
         return brought;
     }
 
