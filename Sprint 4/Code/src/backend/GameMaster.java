@@ -146,7 +146,7 @@ public class GameMaster {
             players[this.getCurTurn()] = null;
         }
 
-        return players[this.getCurTurn()].getMoney() < 1;
+        return players[this.getCurTurn()]==null;
     }
 
     /**
