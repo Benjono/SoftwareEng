@@ -183,7 +183,7 @@ public class AI extends Player {
         if(checkIfMoreToBuy == false){
             brought = true;
         }
-        System.out.println(Arrays.toString(purchasable))
+        System.out.println(Arrays.toString(purchasable));
         return brought;
     }
 
