@@ -151,7 +151,7 @@ public class Card {
     public void moveTo(Player player, String destination, boolean forward){
         int destDiff = 0;
         for (int i=0;i<40;i++){
-            if(gameMaster.getBoard().getTileGrid()[(i+player.getPlace())%40].getName()==destination){
+            if(gameMaster.getBoard().getTileGrid()[(i+player.getPlace())%40].getName().equals(destination)){
                 destDiff=i;
             }
         }
