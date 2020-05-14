@@ -1,6 +1,6 @@
 {
 	"1":{
-		"text":"Bank pays you divided of £50",
+		"text":"Bank pays you divided of Â£50",
 		"method":"gainMoney",
 		"inputs":{
 			"1":50,
@@ -8,7 +8,7 @@
 		}
 	},
 	"2":{
-		"text":"You have won a lip sync battle. Collect £100",
+		"text":"You have won a lip sync battle. Collect Â£100",
 		"method":"gainMoney",
 		"inputs":{
 			"1":100,
@@ -24,7 +24,7 @@
 		}
 	},
 	"4":{
-		"text":"Advance to Han Xin Gardens. If you pass GO, collect £200",
+		"text":"Advance to Han Xin Gardens. If you pass GO, collect Â£200",
 		"method":"moveTo",
 		"inputs":{
 			"1":"Han Xin Gardens",
@@ -32,7 +32,7 @@
 		}
 	},
 	"5":{
-		"text":"Fined £15 for speeding",
+		"text":"Fined Â£15 for speeding",
 		"method":"freeParkingFine",
 		"inputs":{
 			"1":15,
@@ -40,7 +40,7 @@
 		}
 	},
 	"6":{
-		"text":"Pay university fees of £150",
+		"text":"Pay university fees of Â£150",
 		"method":"payMoney",
 		"inputs":{
 			"1":150,
@@ -48,7 +48,7 @@
 		}
 	},
 	"7":{
-		"text":"Take a trip to Hove station. If you pass GO collect £200",
+		"text":"Take a trip to Hove station. If you pass GO collect Â£200",
 		"method":"moveTo",
 		"inputs":{
 			"1":"Hove station",
@@ -56,7 +56,7 @@
 		}
 	},
 	"8":{
-		"text":"Loan matures, collect £150",
+		"text":"Loan matures, collect Â£150",
 		"method":"gainMoney",
 		"inputs":{
 			"1":150,
@@ -64,7 +64,7 @@
 		}
 	},
 	"9":{
-		"text":"You are assessed for repairs, £40/house, £115/hotel",
+		"text":"You are assessed for repairs, Â£40/house, Â£115/hotel",
 		"method":"repairBill",
 		"inputs":{
 			"1":40,
@@ -80,7 +80,7 @@
 		}
 	},
 	"11":{
-		"text":"You are assessed for repairs, £25/house, £100/hotel",
+		"text":"You are assessed for repairs, Â£25/house, Â£100/hotel",
 		"method":"repairBill",
 		"inputs":{
 			"1":25,
@@ -97,7 +97,7 @@
 		}
 	},
 	"13":{
-		"text":"Advance to Skywalker Drive. If you pass GO collect £200",
+		"text":"Advance to Skywalker Drive. If you pass GO collect Â£200",
 		"method":"moveTo",
 		"inputs":{
 			"1":"Skywalker Drive",
@@ -105,7 +105,7 @@
 		}
 	},
 	"14":{
-		"text":"Go to jail. Do not pass GO, do not collect £200",
+		"text":"Go to jail. Do not pass GO, do not collect Â£200",
 		"method":"toJail",
 		"inputs":{
 			"1":null,
@@ -113,7 +113,7 @@
 		}
 	},
 	"15":{
-		"text":"Drunk in charge of a skateboard. Fine £20",
+		"text":"Drunk in charge of a skateboard. Fine Â£20",
 		"method":"freeParkingFine",
 		"inputs":{
 			"1":20,
