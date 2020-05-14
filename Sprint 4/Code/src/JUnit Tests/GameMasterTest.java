@@ -13,7 +13,7 @@ public class GameMasterTest {
     public void setupTest(){
         GameMaster gm = new GameMaster();
         Tokens[] tk = new Tokens[]{Tokens.Boot, Tokens.Cat, Tokens.Goblet};
-        int[] players = {3,0};
+        boolean[] players = {true, true, true};
         gm.setup(players,tk, -1);
         Assertions.assertTrue(gm.getPlayers()[0].getToken()==Tokens.Boot);
         Assertions.assertTrue(gm.getPlayers()[1].getToken()==Tokens.Cat);
@@ -28,7 +28,7 @@ public class GameMasterTest {
     public void moveTest(){
         GameMaster gm = new GameMaster();
         Tokens[] tk = new Tokens[]{Tokens.Boot, Tokens.Cat, Tokens.Goblet};
-        int[] players = {3,0};
+        boolean[] players = {true, true, true};
         gm.setup(players,tk, -1);
         int notDouble = 0;
         while (notDouble<3){
@@ -49,7 +49,7 @@ public class GameMasterTest {
     public void nextTurnTest(){
         GameMaster gm = new GameMaster();
         Tokens[] tk = new Tokens[]{Tokens.Boot, Tokens.Cat, Tokens.Goblet};
-        int[] players = {3,0};
+        boolean[] players = {true, true, true};
         gm.setup(players,tk, -1);
         //Turn should be 0 as start of the game
         Assertions.assertEquals(0, gm.getCurTurn());

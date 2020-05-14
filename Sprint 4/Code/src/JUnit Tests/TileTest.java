@@ -9,7 +9,7 @@ public class TileTest {
     public void yeet(){
         GameMaster gm = new GameMaster();
         Tokens[] tk = new Tokens[]{Tokens.Boot, Tokens.Cat, Tokens.Goblet};
-        int[] players = {3,0};
+        boolean[] players = {true, true, true};
         gm.setup(players,tk, -1);
     }
 }
