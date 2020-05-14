@@ -22,7 +22,7 @@ public class AuctionDialog extends MonopolyDialog {
         this.setResultConverter((ButtonType b) -> {
             if (b == buttonTypeOk){
                 int[] moneyBets = new int[GM.getPlayers().length];
-                for (int i =0; i<GM.getPlayers().length-1 ;i++){
+                for (int i =0; i<GM.getPlayers().length-GM.getNumAI();i++){
                     moneyBets[i] = Integer.parseInt(((NumField)((HBox)((VBox) this.getDialogPane().getContent()).getChildren().get(i+1)).getChildren().get(1)).getCharacters().toString());
                 }
                 return moneyBets;
@@ -46,14 +46,16 @@ public class AuctionDialog extends MonopolyDialog {
         NumField[] bets = new NumField[GM.getPlayers().length];
         //creating box's for each player
         for (int i =0; i<GM.getPlayers().length ;i++){
-            playerLabel = new Label("Player " + (i+1) + " Amount:");
-            hBoxArray[i] = new HBox();
-            hBoxArray[i].setMaxHeight(50);
-            hBoxArray[i].setMinHeight(50);
-            hBoxArray[i].setSpacing(15);
-            hBoxArray[i].setAlignment(Pos.CENTER);
-            bets[i] = new NumField();
-            hBoxArray[i].getChildren().addAll(playerLabel, bets[i]);
+            if(i < (GM.getPlayers().length - GM.getNumAI())){
+                playerLabel = new Label("Player " + (i+1) + " Amount:");
+                hBoxArray[i] = new HBox();
+                hBoxArray[i].setMaxHeight(50);
+                hBoxArray[i].setMinHeight(50);
+                hBoxArray[i].setSpacing(15);
+                hBoxArray[i].setAlignment(Pos.CENTER);
+                bets[i] = new NumField();
+                hBoxArray[i].getChildren().addAll(playerLabel, bets[i]);
+            }
         }
         //adding as children
         hBoxHolder.getChildren().addAll(hBoxArray);

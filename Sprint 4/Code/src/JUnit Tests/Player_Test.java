@@ -43,7 +43,7 @@ public class Player_Test {
     public void moneyTest(){
         GameMaster gm = new GameMaster();
         Tokens[] tk = new Tokens[]{Tokens.Boot, Tokens.Cat, Tokens.Goblet};
-        int[] players = {3,0};
+        boolean[] players = {true, true, true};
         gm.setup(players,tk, -1);
         //On setup, all players should have 1500 for their money
         for(int i = 0; i < gm.getPlayers().length; i++) {

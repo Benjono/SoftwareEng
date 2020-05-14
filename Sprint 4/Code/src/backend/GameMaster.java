@@ -4,6 +4,7 @@ public class GameMaster {
     private Board board;
     private Player[] players;
     private int totNumPlayers;
+    private int numAI;
     private int curTurn;
     private boolean canMove;
     private boolean canNextTurn;
@@ -22,26 +23,56 @@ public class GameMaster {
      * @param numPlayers
      * @param playerTokens
      */
-    public void setup(int[] numPlayers, Tokens[] playerTokens, int startRounds){
-        players = new Player[numPlayers[0]+numPlayers[1]];
+    public void setup(boolean[] playerOrAI, Tokens[] playerTokens, int startRounds){
+        players = new Player[playerOrAI.length];
         numRounds = startRounds;
-        this.totNumPlayers =numPlayers[0]+numPlayers[1];
+        this.totNumPlayers =playerOrAI.length;
+        numAI = 0;
         int jail = 0;
         for(int i=0;i<board.getTileGrid().length;i++){
             if(board.getTileGrid()[i].getName().equals("Jail")){
                 jail=i;
             }
         }
-        for(int player=0;player<numPlayers[0];player++){
-            players[player]=new Player(playerTokens[player],jail);
-            players[player].setMoney(1500);
-        }
-        for(int ai = 0; ai<numPlayers[1]; ai++){
-            players[numPlayers[0]+ai]=new AI(playerTokens[numPlayers[0]+ai],jail);
-            players[numPlayers[0]+ai].setMoney(1500);
+        for(int i = 0; i<playerOrAI.length;i++){
+            if(playerOrAI[i]==true){
+                players[i]=new Player(playerTokens[i],jail);
+                players[i].setMoney(1500);
+            } else {
+                players[i]=new AI(playerTokens[i],jail);
+                players[i].setMoney(1500);
+                numAI++;
+            }
         }
         canMove();
         canNotTakeTurn();
+    }
+    public int getNumAI(){
+        return numAI;
+    }
+
+    public int winner() {
+        int[] money = new int[this.totNumPlayers];
+        int winner = 0;
+        for (int i = 0; i < this.totNumPlayers; i++) {
+            if (players[i] != null) {
+                Tile[] playerTiles = this.getPlayerProperties(players[i]);
+                money[i] = players[i].getMoney();
+                for (Tile t : playerTiles) {
+                    if (t instanceof BuyableTile) {
+                        money[i] += ((BuyableTile) t).getCostToBuy();
+                        if (((BuyableTile) t).mortgaged) {
+                            money[i] -= ((BuyableTile) t).getCostToBuy() / 2;
+                        }
+                    }
+                }
+            }
+            if (money[i] > money[winner]) {
+                winner = i;
+            }
+        }
+
+        return winner;
     }
     /**
      * This function will move player who's turn it is and then decide, based on the rolls returned, whether
@@ -84,9 +115,15 @@ public class GameMaster {
     public boolean playerLost() {
         if (players[this.getCurTurn()].getMoney() < 1) {
             Tile[] playersProperties = this.getPlayerProperties(players[this.getCurTurn()]);
+            int monet = players[this.getCurTurn()].getMoney();
             for (Tile t : playersProperties) {
+                ((BuyableTile)t).mortgaged=false;
+                if(t instanceof Property){
+                    ((Property) t).sellHouse(((Property) t).getCurrentHouseLevel());
+                }
                 ((BuyableTile) t).owner = null;
             }
+            players[this.getCurTurn()].setMoney(monet);
             if (players[this.getCurTurn()].getOutOfJailFreeOpportunity().size() > 0) {
                 for (int i = 0; i < players[this.getCurTurn()].getOutOfJailFreeOpportunity().size(); i++) {
                     board.getOpportunityKnocks().add(players[this.getCurTurn()].getOutOfJailFreeOpportunity().get(i));

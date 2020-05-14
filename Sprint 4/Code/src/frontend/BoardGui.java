@@ -1,8 +1,6 @@
 package frontend;
 
-import backend.BuyableTile;
-import backend.InvalidHouseSetupException;
-import backend.Tokens;
+import backend.*;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -89,7 +87,7 @@ public class BoardGui extends GridPane {
      * @author Joe C
      * @author Ben
      */
-    public void movePlayer(){
+    public void movePlayer() {
 
         int currentPlace = GM.getPlayer(GM.getCurTurn()).getPlace();
         int[] roll = GM.moveNextPiece();
@@ -105,6 +103,11 @@ public class BoardGui extends GridPane {
 
     }
 
+    /**
+     * Works out weather the player has passed go after moving and if so shows a dialog telling the player they have
+     * @param roll
+     * @param currentPlace
+     */
     private void passedGo(int[] roll, int currentPlace){
         if(currentPlace + roll[0] + roll[1] >= 40){
             new TileEffectDialog();
@@ -146,6 +149,31 @@ public class BoardGui extends GridPane {
             }
         }
         return null;
+    }
+
+    /**
+     * Removes houses from the game screen for each property that the player who lost owned.
+     */
+    public void removeHouseImages(){
+        Tile[] ownedProperties = GM.getPlayerProperties(GM.getPlayer(GM.getCurTurn()));
+        ImageView[] houses = new ImageView[5];
+        houses[0] = new ImageView(new Image("hotel.png"));
+        for(int i = 1; i< houses.length; i++){
+            houses[i] = new ImageView(new Image("house-" + i + ".png"));
+        }
+        int count = 0;
+        for(int i = 0; i < GM.getBoard().getTileGrid().length; i++){
+            if(ownedProperties[count].equals(GM.getTile(i))){
+                // if owned property
+                if (GM.getTile(i) instanceof Property){
+                    // if property
+                    for(ImageView house : houses){
+                        findPane(boardCoordinates(i)).getChildren().remove(house);
+                    }
+                }
+                count++;
+            }
+        }
     }
 
     /**
