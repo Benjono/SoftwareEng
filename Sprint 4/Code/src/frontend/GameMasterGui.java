@@ -53,6 +53,7 @@ public class GameMasterGui extends GameMaster {
                 else {
                     this.applyTileEffect();
                 }
+
             }
 
         }
@@ -61,20 +62,24 @@ public class GameMasterGui extends GameMaster {
             // go and jail do nothing as dialogs already called
             System.out.println(" ");
         }
-        else {
-            //rent time
-            // free parking
+        else if (this.getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof toJail) {
             // go to jail
-            if (this.getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof Utility) {
-                new TileEffectDialog(this.applyTileEffect(totalRoll), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
-
+            new TileEffectDialog(this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+            this.applyTileEffect();
+        }
+        else if(this.getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof BuyableTile){
+            //rent time if not the owner
+            if (((BuyableTile) this.getTile(this.getPlayer(this.getCurTurn()).getPlace())).getPlayer().equals(this.getPlayer(this.getCurTurn()))) {
+                if (this.getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof Utility) {
+                    new TileEffectDialog(this.applyTileEffect(totalRoll), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+                } else {
+                    new TileEffectDialog(this.applyTileEffect(), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+                }
             }
-            else if (this.getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof toJail){
-                new TileEffectDialog(this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
-            }
-            else {
-                new TileEffectDialog(this.applyTileEffect(), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
-            }
+        }
+        else if (this.getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof FreeParking) {
+            // free parking
+            new TileEffectDialog(this.applyTileEffect(), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
         }
     }
 

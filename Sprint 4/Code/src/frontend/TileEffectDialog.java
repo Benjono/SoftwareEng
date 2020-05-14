@@ -18,20 +18,19 @@ public class TileEffectDialog extends MonopolyDialog {
     // Passing Go
     public TileEffectDialog(){
         this.setHeaderText("You passed Go!");
-        this.setContentText("Collect £200!");
-        setup();
+        setup(new Label("Collect £200!"));
     }
 
     // In Jail
     public TileEffectDialog(GameMasterGui GM){
         this.setHeaderText("You are currently in Jail");
         if (GM.getPlayer(GM.getCurTurn()).getJailTime() == 1){
-            this.setContentText("Your sentence currently is " + GM.getPlayer(GM.getCurTurn()).getJailTime() + " more turn.");
+            setup(new Label("Your sentence currently is " + GM.getPlayer(GM.getCurTurn()).getJailTime() + " more turn."));
         }
         else{
-            this.setContentText("Your sentence currently is " + GM.getPlayer(GM.getCurTurn()).getJailTime() + " more turns.");
+            setup(new Label("Your sentence currently is " + GM.getPlayer(GM.getCurTurn()).getJailTime() + " more turns."));
         }
-        setup();
+
     }
 
     //End of Game or the Player has lost
@@ -46,42 +45,43 @@ public class TileEffectDialog extends MonopolyDialog {
         }
         else {
             this.setHeaderText(GM.getPlayer(GM.getCurTurn()) + " has Lost");
-            this.setContentText("You ran out of money! All brought tiles are being sold back to the bank.");
+            setup(new Label("You ran out of money! All brought tiles are being sold back to the bank."));
         }
-        setup();
     }
 
     //buying tiles tax free parking
     public  TileEffectDialog(int money, Tile curTile){
         if(curTile instanceof BuyableTile){
             this.setHeaderText("You are losing money");
-            this.setContentText("You pay rent worth £" + money + " to " + ((BuyableTile) curTile).getPlayer().getToken().name());
+            setup(new Label("You pay rent worth £" + money + " to " + ((BuyableTile) curTile).getPlayer().getToken().name()));
         }
         else if (curTile instanceof Tax){
             this.setHeaderText("The authorities are on to you!");
-            this.setContentText("You need to pay £" + money + " to silence the government.");
+            setup(new Label("You need to pay £" + money + " to silence the government."));
         }
         else if (curTile instanceof FreeParking){
             this.setHeaderText("You landed on Free Parking");
-            this.setContentText("You gained £" + money + " from a bagel.");
+            setup(new Label("You gained £" + money + " from a bagel."));
         }
-        setup();
+
     }
 
     // to jail
     public TileEffectDialog(Tile curTile){
         if (curTile instanceof toJail){
             this.setHeaderText("The authorities have found you....");
-            this.setContentText("...you have been done for many bad things and are sent to Jail! \uD83D\uDE25");
+            setup(new Label("...you have been done for many bad things and are sent to Jail!"));
         }
-        setup();
+
     }
 
     //cardDraw
     public TileEffectDialog(Card card, Tile curTile){
         this.setHeaderText("You have drawn a " + curTile.getName() + " card");
-        this.setContentText("It says: " + card.getCardText());
+        Label label = new Label("It says: " + card.getCardText());
         if (card.getMethodName().equals("throw")){
+            label.setWrapText(true);
+            this.getDialogPane().setContent(label);
             ButtonType payFine = new ButtonType("Pay Fine", ButtonBar.ButtonData.YES);
             ButtonType takeCard = new ButtonType("Draw Card", ButtonBar.ButtonData.NO);
             this.getDialogPane().getButtonTypes().addAll(payFine,takeCard);
@@ -94,20 +94,21 @@ public class TileEffectDialog extends MonopolyDialog {
             this.showAndWait();
         }
         else {
-            setup();
+            setup(label);
         }
     }
 
     public TileEffectDialog(Player player, Tile curTile){
         this.setHeaderText(player.getToken().name() + " won the auction!");
-        this.setContentText("They now own " + curTile.getName());
-        setup();
+        setup(new Label("They now own " + curTile.getName()));
     }
 
     /**
      * setups the ok button and shows the dialog
      */
-    private void setup(){
+    private void setup(Label label){
+        label.setWrapText(true);
+        this.getDialogPane().setContent(label);
         ButtonType ok = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
         this.getDialogPane().getButtonTypes().add(ok);
         this.showAndWait();

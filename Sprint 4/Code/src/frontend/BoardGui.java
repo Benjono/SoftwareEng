@@ -91,15 +91,19 @@ public class BoardGui extends GridPane {
 
         int currentPlace = GM.getPlayer(GM.getCurTurn()).getPlace();
         int[] roll = GM.moveNextPiece();
+        int newPlace = GM.getPlayer(GM.getCurTurn()).getPlace();
         if (roll != null){
             new ShowRollDialog(roll,GM);
             passedGo(roll,currentPlace);
             removePlayer(currentPlace);
             addPlayer();
             GM.landedTileAction(roll[0]+roll[1]);
-            removePlayer(GM.getPlayer(GM.getCurTurn()).getPlace());
+            removePlayer(newPlace);
             addPlayer();
+            if (GM.getPlayer(GM.getCurTurn()).getPlace() != newPlace){
+                GM.landedTileAction(roll[0]+roll[1]);
 
+            }
         }
 
     }
