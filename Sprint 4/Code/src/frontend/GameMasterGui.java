@@ -35,18 +35,18 @@ public class GameMasterGui extends GameMaster {
             //card draw
             if (((CardDraw) this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).getDrawType() == DrawTypes.opportunityKnocks) {
                 // get method effect opportunity knocks
-                new TileEffectDialog((Card) this.getBoard().getOpportunityKnocks().get(0),this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+                new TileEffectDialog((Card) this.getBoard().getOpportunityKnocks().get(0));
                 this.applyTileEffect();
             }
             else{
                 // get method effect potluck
-                TileEffectDialog dialog = new TileEffectDialog((Card) this.getBoard().getPotLuck().get(0), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+                TileEffectDialog dialog = new TileEffectDialog((Card) this.getBoard().getPotLuck().get(0));
                 if(((Card) this.getBoard().getPotLuck().get(0)).getMethodName().equals("throw")){
                     if((boolean)dialog.getR()){
                         ((Card) this.getBoard().getPotLuck().get(0)).cardEffect(this.getPlayer(this.getCurTurn()), true);
                     }
                     else{
-                        new TileEffectDialog((Card) this.getBoard().getOpportunityKnocks().get(0),this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));
+                        new TileEffectDialog((Card) this.getBoard().getOpportunityKnocks().get(0));
                         ((Card) this.getBoard().getOpportunityKnocks().get(0)).cardEffect(this.getPlayer(this.getCurTurn()), false);
                     }
                 }

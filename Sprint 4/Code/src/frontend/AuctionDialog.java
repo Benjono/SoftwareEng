@@ -26,7 +26,6 @@ public class AuctionDialog extends MonopolyDialog {
                 for (int i =0; i<GM.getPlayers().length-GM.getNumAI();i++){
                     try{
                         moneyBets[i] = Integer.parseInt(((NumField)((HBox)((VBox) this.getDialogPane().getContent()).getChildren().get(i+1)).getChildren().get(1)).getCharacters().toString());
-
                     }
                     catch (NumberFormatException e){
                         moneyBets[i] = 0;
