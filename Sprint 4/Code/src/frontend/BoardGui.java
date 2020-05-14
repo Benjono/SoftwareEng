@@ -177,15 +177,19 @@ public class BoardGui extends GridPane {
         }
         int count = 0;
         for(int i = 0; i < GM.getBoard().getTileGrid().length; i++){
-            if(ownedProperties[count].equals(GM.getTile(i))){
-                // if owned property
-                if (GM.getTile(i) instanceof Property){
-                    // if property
-                    for(ImageView house : houses){
-                        findPane(boardCoordinates(i)).getChildren().remove(house);
+            try {
+                if (ownedProperties[count].equals(GM.getTile(i))) {
+                    // if owned property
+                    if (GM.getTile(i) instanceof Property) {
+                        // if property
+                        for (ImageView house : houses) {
+                            findPane(boardCoordinates(i)).getChildren().remove(house);
+                        }
                     }
+                    count++;
                 }
-                count++;
+            } catch (NullPointerException e){
+                //Not equal if null so skip
             }
         }
     }
