@@ -72,6 +72,7 @@ public class AI extends Player {
      * @param board board being played on
      */
     public void optionalStuff(Board board){
+        System.out.println("optionalStuff");
         //amount of money that can be spent on houses each turn, rounded up so as to be able to afford at least 1 house for 50
         int spendingMoney = (int) (50*Math.floor((0.4*getMoney())/50));
         int[] setPrices = new int[]{100,150,300,300,450,450,600,400};;
@@ -167,7 +168,7 @@ public class AI extends Player {
                             purchasable[chosen] = false;
                         }
                         catch(NullPointerException e){
-                            
+
                         }
 
                     }
@@ -186,7 +187,7 @@ public class AI extends Player {
         if(checkIfMoreToBuy == false){
             brought = true;
         }
-        System.out.println(Arrays.toString(purchasable));
+        //System.out.println(Arrays.toString(purchasable));
         return brought;
     }
 
@@ -258,6 +259,8 @@ public class AI extends Player {
                     }
                 }
             }
+            System.out.println("total colours: " + Arrays.toString(totalNumberPerColour));
+            System.out.println("current colours: " + Arrays.toString(ownedPropertiesByColour));
         }
 
         boolean[] output = new boolean[8];
