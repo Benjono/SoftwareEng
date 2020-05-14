@@ -119,6 +119,7 @@ public class GameMaster {
             Tile[] playersProperties = this.getPlayerProperties(players[this.getCurTurn()]);
             int monet = players[this.getCurTurn()].getMoney();
             for (Tile t : playersProperties) {
+                System.out.println(t.getName());
                 if(t instanceof Property){
                     ((Property)t).mortgaged=false;
                     ((Property) t).sellHouse(((Property) t).getCurrentHouseLevel());
