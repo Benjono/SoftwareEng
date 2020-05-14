@@ -64,7 +64,7 @@ public class GameMasterGui extends GameMaster {
         }
         else if(this.getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof BuyableTile){
             //rent time if not the owner
-            if ((!(((BuyableTile) this.getTile(this.getPlayer(this.getCurTurn()).getPlace())).getPlayer().equals(this.getPlayer(this.getCurTurn())))) ||
+            if ((!(((BuyableTile) this.getTile(this.getPlayer(this.getCurTurn()).getPlace())).getPlayer().equals(this.getPlayer(this.getCurTurn())))) &&
                     (!((BuyableTile) this.getTile(this.getPlayer(this.getCurTurn()).getPlace())).getMortgaged())) {
                 if (this.getTile(this.getPlayer(this.getCurTurn()).getPlace()) instanceof Utility) {
                     new TileEffectDialog(this.applyTileEffect(totalRoll), this.getTile(this.getPlayer(this.getCurTurn()).getPlace()));

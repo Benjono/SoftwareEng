@@ -110,7 +110,6 @@ public class GameMaster {
                 playersLeft++;
             }
         }
-        System.out.println(numRounds);
         return playersLeft==1||numRounds==0;
     }
     public boolean playerLost() {
