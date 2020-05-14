@@ -8,6 +8,7 @@ import org.json.simple.parser.ParseException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.ArrayList;
@@ -33,7 +34,6 @@ public class Board {
         potLuck = new ArrayList<Card>(); //initialisation
         opportunityKnocks = new ArrayList<Card>();
         deckConstructor();
-
 
     }
 
@@ -83,7 +83,7 @@ public class Board {
                 ArrayList<Object> param = new ArrayList();
 
                 JSONObject cardConversion = (JSONObject) embeddedCard.get("inputs"); //get inputs for the card
-                for (int i =0; i<2; i++){ //for each input
+                for (int i =1; i<3; i++){ //for each input
                     String paramKey= Integer.toString(i); //turn it into a string
                     if(cardConversion.get(paramKey)!=null) { //if it's not a null
 
