@@ -61,7 +61,7 @@ public class Board {
         generateCard("potLuck");
         Collections.shuffle(potLuck);
         Collections.shuffle(opportunityKnocks);
-    };
+    }
 
     /**
      * generateCard takes a parameter of type String called 'cardType' and instantiates the card array for the cards
@@ -90,12 +90,10 @@ public class Board {
                         try {
                             param.add(Integer.valueOf(embeddedCard.get(paramKey).toString())); //try turning it into a integer
                         } catch (Exception e) {
-                            if (cardConversion.get(paramKey) == "true") { //try turning it into a boolean
-                                boolean input = true;
-                                param.add(input);
-                            } else if (cardConversion.get(paramKey) == "false") {
-                                boolean input = false;
-                                param.add(input);
+                            if (cardConversion.get(paramKey).equals("true")) { //try turning it into a boolean
+                                param.add(true);
+                            } else if (cardConversion.get(paramKey).equals("false")) {
+                                param.add(false);
                             } else {
                                 String input = cardConversion.get(paramKey).toString(); //else keep it as a string
                                 param.add(input);
