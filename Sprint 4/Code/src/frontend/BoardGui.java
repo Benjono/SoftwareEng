@@ -20,9 +20,17 @@ public class BoardGui extends GridPane {
     GameMasterGui GM;
     ImageView[] playerImages;
 
-    public BoardGui(GameMasterGui GM, int numPlayers){
+    public BoardGui(GameMasterGui GM){
         this.GM = GM;
-        setupBoard();
+    }
+
+    /**
+     * Sets up the Gui of the board and adds the tokens
+     * @param sideTabGui
+     * @param numPlayers
+     */
+    public void setup(SideTabGui sideTabGui, int numPlayers){
+        setupBoard(sideTabGui);
         setupTokens(numPlayers);
     }
 
@@ -32,7 +40,7 @@ public class BoardGui extends GridPane {
      * @author Alex
      * @author Joe L
      */
-    private void setupBoard(){
+    private void setupBoard(SideTabGui sideTabGui){
         int tileSize = 64;
 
         for(int i=0; i<40; i++) {
@@ -41,6 +49,7 @@ public class BoardGui extends GridPane {
                 int currentTile = i;
                 square.setOnMouseClicked(mouseEvent -> {
                     new ShowTileInfoDialog((BuyableTile)GM.getTile(currentTile),GM, currentTile, this);
+                    sideTabGui.updateSideTab();
                 });
             }
             Image tileImg = new Image("tile_" + GM.getBoard().getTile(i).getName().toLowerCase().replaceAll("\\s+","") + ".png");

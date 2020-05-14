@@ -87,10 +87,13 @@ public class Gui extends Application {
         alignV.getChildren().add(alignH);
         gameScreen.setCenter(alignV);
         //Game board
-        BoardGui boardGui = new BoardGui(GM, playerOrAi.length);
-        alignH.getChildren().add(boardGui);
+        BoardGui boardGui = new BoardGui(GM);
         //Right tab
-        gameScreen.setRight(new SideTabGui(GM,boardGui, playerOrAi.length));
+        SideTabGui sideTabGui = new SideTabGui(GM,boardGui, playerOrAi.length);
+        gameScreen.setRight(sideTabGui);
+        //setting up and adding Game Board
+        boardGui.setup(sideTabGui, playerOrAi.length);
+        alignH.getChildren().add(boardGui);
 
         //Scene
         Scene scene = new Scene(gameScreen, 1024, 768);
