@@ -21,7 +21,7 @@ public class AI extends Player {
     }
 
     /**
-     *
+     * Randomly decides whether or not to buy the property or let it go to auction
      * @param property - property landed on by the AI
      * @return true for buying(no action needed), false for auction (trigger auction)
      * @throws triggerAuctionException - is thrown if auction is needed
@@ -53,7 +53,7 @@ public class AI extends Player {
     }
 
     /**
-     * decides how much to bid for a property in an auction
+     * Decides how much to bid for a property in an auction
      * @param property - property being auctioned
      * @return - how much the AI is willing to bid on the property
      */
@@ -98,28 +98,28 @@ public class AI extends Player {
     }
 
     /**
-     *
+     * Picks, from the colour groups that can be upgraded, to upgrade a group of houses.
      * @param board - board being used
      * @param purchasable array of how many sets have housing that can be built
      * @return inverse of if the method will be run again due to no purchase being made (random choice was already max upgraded)
      */
     private boolean purchase(Board board, boolean[] purchasable){
-        boolean brought = false;
-        ArrayList randomiser = new ArrayList();
-        for(int i =0;i<purchasable.length;i++){
-            if(purchasable[i]){
-                randomiser.add(i);
+        boolean brought = false; //initialize brought
+        ArrayList randomiser = new ArrayList(); //create arraylist for the randomiser
+        for(int i =0;i<purchasable.length;i++){ //get length of purchasable and iterate through it
+            if(purchasable[i]){ //if true
+                randomiser.add(i); //add i
             }
         }
         int chosen;
-        if(randomiser.size()>0) {
-            chosen = random.nextInt(randomiser.size());
+        if(randomiser.size()>0) { //if there are any chosen
+            chosen = random.nextInt(randomiser.size()); //pick a random number between 0 and the size of the randomiser.
         }
         else{
             chosen = 90;
         }
         Colours setToBuy;
-        try {
+        try { //pick the set to buy off the randomiser
             switch (chosen) {
                 case 0:
                     setToBuy = Colours.brown;
@@ -157,13 +157,13 @@ public class AI extends Player {
                     throw new IllegalStateException("Unexpected value: " + chosen);
             }
             Property currentProperty;
-            for (int i = 0; i < board.getTileGrid().length; i++) {
-                if (board.getTileGrid()[i] instanceof Property) {
+            for (int i = 0; i < board.getTileGrid().length; i++) { //go through the tile grid
+                if (board.getTileGrid()[i] instanceof Property) { //if it is a property
                     currentProperty = (Property) board.getTileGrid()[i];
-                    if (currentProperty.getColour().equals(setToBuy)) {
-                        if (currentProperty.getCurrentHouseLevel() < 5) {
+                    if (currentProperty.getColour().equals(setToBuy)) { //if it is the same colour
+                        if (currentProperty.getCurrentHouseLevel() < 5) { //and the house level is less than 5
                             try {
-                                currentProperty.buyHouse(1);
+                                currentProperty.buyHouse(1); //attempt to increase house level
                                 brought = true;
                             } catch (NotEnoughMoneyException e) {
                                 System.out.println("AI broke and i dont know why");
@@ -206,15 +206,15 @@ public class AI extends Player {
 
         //case statement to find owned
         Property currentProperty;
-        for(int i =0; i<board.getTileGrid().length;i++){
-            if(board.getTileGrid()[i] instanceof Property){
+        for(int i =0; i<board.getTileGrid().length;i++){ //for tile in board
+            if(board.getTileGrid()[i] instanceof Property){ //if a property
                 currentProperty = (Property) board.getTileGrid()[i];
-                if(!(currentProperty.getPlayer() == null)) {
+                if(!(currentProperty.getPlayer() == null)) { //if there is not no-one owning it
                     switch (currentProperty.getColour()) {
                         case brown:
-                            totalNumberPerColour[0] += 1;
-                            if (currentProperty.getPlayer().equals(this)) {
-                                ownedPropertiesByColour[0] += 1;
+                            totalNumberPerColour[0] += 1; //increment total
+                            if (currentProperty.getPlayer().equals(this)) { //if the owner is this AI
+                                ownedPropertiesByColour[0] += 1; //increment the number they own of browns
                             }
                             break;
                         case cyan:
@@ -262,10 +262,10 @@ public class AI extends Player {
                         default:
                     }
                 }
-                else{
+                else{ //otherwise
                     switch (currentProperty.getColour()) {
                         case brown:
-                            totalNumberPerColour[0] += 1;
+                            totalNumberPerColour[0] += 1; //increment total
                             break;
                         case cyan:
                             totalNumberPerColour[1] += 1;

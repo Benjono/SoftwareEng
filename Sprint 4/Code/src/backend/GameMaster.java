@@ -20,49 +20,57 @@ public class GameMaster {
     /**
      * This function does the setup for the game.
      * @author Jonathan Morris
-     * @param playerOrAI
-     * @param playerTokens
+     * @param playerOrAI takes a boolean array, true for player, false for AI
+     * @param playerTokens takes a Token array for the tokens the players are to use in order
+     * @param startRounds the number of rounds for the abridged game. -1 is a non-abridged game.
      */
     public void setup(boolean[] playerOrAI, Tokens[] playerTokens, int startRounds){
-        players = new Player[playerOrAI.length];
-        numRounds = startRounds;
-        this.totNumPlayers =playerOrAI.length;
+        players = new Player[playerOrAI.length]; //instantiate player array
+        numRounds = startRounds; //number of rounds = startRounds
+        this.totNumPlayers =playerOrAI.length; //total number of players to start with is the length of playerOrAI
         numAI = 0;
         int jail = 0;
-        for(int i=0;i<board.getTileGrid().length;i++){
-            if(board.getTileGrid()[i].getName().equals("Jail")){
+        for(int i=0;i<board.getTileGrid().length;i++){  //go over the tiles
+            if(board.getTileGrid()[i].getName().equals("Jail")){ //find jail
                 jail=i;
             }
-        }
-        for(int i = 0; i<playerOrAI.length;i++){
-            if(playerOrAI[i]==true){
-                players[i]=new Player(playerTokens[i],jail);
+        } //jail defaults to 0 if there is no jail
+        for(int i = 0; i<playerOrAI.length;i++){ //for each item in playerOrAI
+            if(playerOrAI[i]==true){ //if true
+                players[i]=new Player(playerTokens[i],jail); //create player
                 players[i].setMoney(1500);
-            } else {
-                players[i]=new AI(playerTokens[i],jail);
+            } else { //otherwise
+                players[i]=new AI(playerTokens[i],jail); //create AI
                 players[i].setMoney(1500);
                 numAI++;
             }
         }
-        canMove();
-        canNotTakeTurn();
+        canMove(); //first player can move
+        canNotTakeTurn(); //first player can not take their turn
     }
     public int getNumAI(){
         return numAI;
     }
 
+    /**
+     * Returns the index of the player that won
+     * @return
+     */
     public int winner() {
-        int[] money = new int[players.length];
+        int[] money = new int[players.length]; //initialise array with the number of players who started the game
         int winner = 0;
-        for (int i = 0; i < this.players.length; i++) {
-            if (players[i] != null) {
+        for (int i = 0; i < this.players.length; i++) { //for each player
+            if (players[i] != null) { //if there is a player
                 Tile[] playerTiles = this.getPlayerProperties(players[i]);
-                money[i] = players[i].getMoney();
-                for (Tile t : playerTiles) {
+                money[i] = players[i].getMoney(); //get their money
+                for (Tile t : playerTiles) { //for each tile the player owns
                     if (t instanceof BuyableTile) {
-                        money[i] += ((BuyableTile) t).getCostToBuy();
-                        if (((BuyableTile) t).mortgaged) {
+                        money[i] += ((BuyableTile) t).getCostToBuy(); //add the cost of it to the players wealth
+                        if (((BuyableTile) t).mortgaged) { //if mortgaged then subtract half the cost
                             money[i] -= ((BuyableTile) t).getCostToBuy() / 2;
+                        }
+                        if (t instanceof Property){
+                            money[i] += ((Property) t).getCurrentHouseLevel()*((Property) t).getHouseCost();
                         }
                     }
                 }
@@ -103,19 +111,29 @@ public class GameMaster {
         }
         return null;
     }
+
+    /**
+     * Returns true if the game has been won, either the number of rounds left being 0 or the number of players left is 1
+     * @return true if the game has been won, false otherwise
+     */
     public boolean gameWon(){
         int playersLeft = 0;
-        for (Player p: players){
-            if(p!=null){
-                playersLeft++;
+        for (Player p: players){ //for each player
+            if(p!=null){ //if they haven't lost
+                playersLeft++; //increment the number of players left
             }
         }
         System.out.println(playersLeft);
-        return playersLeft==1||numRounds==0;
+        return playersLeft==1||numRounds==0; //if there is one player or 0 rounds left
     }
+
+    /**
+     * Decides whether or not the player whose current turn it is has lost the game by having no money left.
+     * @return true if the player lost, false otherwise
+     */
     public boolean playerLost() {
         System.out.println(players[this.getCurTurn()].getMoney()<1);
-        if (players[this.getCurTurn()].getMoney() < 1) {
+        if (players[this.getCurTurn()].getMoney() < 1) { //if they have no money
             Tile[] playersProperties = this.getPlayerProperties(players[this.getCurTurn()]);
             int monet = players[this.getCurTurn()].getMoney();
             System.out.println(playersProperties.length);
@@ -123,7 +141,7 @@ public class GameMaster {
                 if (t!=null) {
                     System.out.println(t.getName());
                     if (t instanceof BuyableTile) {
-                        if (t instanceof Property) {
+                        if (t instanceof Property) { //make sure they don't own property, any mortgages are absolved
                             ((Property) t).mortgaged = false;
                             ((Property) t).sellHouse(((Property) t).getCurrentHouseLevel());
                         }
@@ -133,11 +151,11 @@ public class GameMaster {
                 }
             }
             players[this.getCurTurn()].setMoney(monet);
-            if (players[this.getCurTurn()].getOutOfJailFreeOpportunity().size() > 0) {
+            if (players[this.getCurTurn()].getOutOfJailFreeOpportunity().size() > 0) { //return get out of jail free cards for Opportunity Knocks
                 for (int i = 0; i < players[this.getCurTurn()].getOutOfJailFreeOpportunity().size(); i++) {
                     board.getOpportunityKnocks().add(players[this.getCurTurn()].getOutOfJailFreeOpportunity().get(i));
                 }
-            } else if (players[this.getCurTurn()].getOutOfJailFreePotLuck().size() > 0) {
+            } else if (players[this.getCurTurn()].getOutOfJailFreePotLuck().size() > 0) { //return get out of jail free cards for Pot Luck
                 for (int i = 0; i < players[this.getCurTurn()].getOutOfJailFreeOpportunity().size(); i++) {
                     board.getPotLuck().add(players[this.getCurTurn()].getOutOfJailFreePotLuck().get(i));
                 }
@@ -158,7 +176,7 @@ public class GameMaster {
             players[curTurn].setTurnsTaken(0); //no more turns taken in a row
             canNotTakeTurn();
             canMove();
-            if((getCurTurn()+1)>= players.length){
+            if((getCurTurn()+1)>= players.length){ //decriment number of rounds if the next turn would roll around to the first player
                 numRounds--;
             }
             setCurTurn((getCurTurn() + 1) % players.length);
@@ -168,19 +186,25 @@ public class GameMaster {
         }
     }
 
+    /**
+     * Decides whether or not a house can be bought
+     * @param tileToBuyHouseOn
+     * @param player
+     * @return true if a house can be bought on the tile, false otherwise
+     */
     public boolean canBuyHouse(Property tileToBuyHouseOn, Player player){
         Tile[] tiles = board.getTileGrid();
         int numOwnedByPlayer = 0;
         int numOnBoard = 0;
         int min=50;
 
-        for (Tile t: tiles){
-            if(t instanceof Property){
-                if(((Property) t).colour==tileToBuyHouseOn.colour){
-                    numOnBoard++;
-                    if(player.equals(((Property) t).owner)){
-                        numOwnedByPlayer++;
-                        if(((Property) t).getCurrentHouseLevel()<min){
+        for (Tile t: tiles){ //for each tile
+            if(t instanceof Property){ //if a property
+                if(((Property) t).colour==tileToBuyHouseOn.colour){ //if colour matches the one that is in parameter
+                    numOnBoard++; //increment number of same colour on board
+                    if(player.equals(((Property) t).owner)){ //if they are the owner
+                        numOwnedByPlayer++; //increment number owned by player
+                        if(((Property) t).getCurrentHouseLevel()<min){ //get the minimum house level.
                             min=((Property) t).getCurrentHouseLevel();
                         }
                     }
@@ -247,30 +271,30 @@ public class GameMaster {
      */
     public int applyTileEffect() {
         Tile curTile = this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace());
-        if (curTile instanceof BuyableTile) {
-            return ((BuyableTile) curTile).rent(this.getPlayer(this.getCurTurn()));
-        } else if (curTile instanceof Tax) {
-            ((Tax) curTile).payTax(this.getPlayer(this.getCurTurn()));
+        if (curTile instanceof BuyableTile) { //if a buyable tile
+            return ((BuyableTile) curTile).rent(this.getPlayer(this.getCurTurn())); //rent it
+        } else if (curTile instanceof Tax) { //if tax
+            ((Tax) curTile).payTax(this.getPlayer(this.getCurTurn())); //pay the tax
             for (Tile t : board.getTileGrid()) {
-                if (t instanceof FreeParking) {
+                if (t instanceof FreeParking) { //add tax to free parking
                     ((FreeParking) t).setCurrentPenalties(((FreeParking) t).getCurrentPenalties() + ((Tax) curTile).getTax());
                 }
             }
             return ((Tax) curTile).getTax();
-        } else if (curTile instanceof toJail) {
-            players[getCurTurn()].jail();
-        } else if (curTile instanceof FreeParking) {
-            players[getCurTurn()].setMoney(players[getCurTurn()].getMoney() + ((FreeParking) curTile).getCurrentPenalties());
+        } else if (curTile instanceof toJail) { //if go to jail
+            players[getCurTurn()].jail(); //go to jail
+        } else if (curTile instanceof FreeParking) { //if free parking
+            players[getCurTurn()].setMoney(players[getCurTurn()].getMoney() + ((FreeParking) curTile).getCurrentPenalties()); //get money on free parking
             int penalties = ((FreeParking) curTile).getCurrentPenalties();
             ((FreeParking) curTile).setCurrentPenalties(0);
             return penalties;
-        } else if (curTile instanceof CardDraw) {
-            if (((CardDraw) curTile).getDrawType().equals(DrawTypes.opportunityKnocks)) {
-                Card c = (Card) board.getOpportunityKnocks().get(0);
-                c.cardEffect(this.getPlayer(this.getCurTurn()));
-                board.getOpportunityKnocks().remove(c);
-                if (!c.getMethodName().equals("getOutOfJail")) {
-                    board.getOpportunityKnocks().add(c);
+        } else if (curTile instanceof CardDraw) { //if you draw a card
+            if (((CardDraw) curTile).getDrawType().equals(DrawTypes.opportunityKnocks)) { //decide what type
+                Card c = (Card) board.getOpportunityKnocks().get(0); //get the first card
+                c.cardEffect(this.getPlayer(this.getCurTurn())); //apply the card effect
+                board.getOpportunityKnocks().remove(c); //remove from front
+                if (!c.getMethodName().equals("getOutOfJail")) { //if it's not a get out of jail free card
+                    board.getOpportunityKnocks().add(c); //add to back
                 }
             } else {
                 Card c = (Card) board.getPotLuck().get(0);
@@ -283,14 +307,14 @@ public class GameMaster {
         }
         return 0;
     }
-    public int applyTileEffect(int roll){
+    public int applyTileEffect(int roll){ //if utility call this
         return ((Utility)this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).rent(this.getPlayer(this.getCurTurn()),roll);
     }
     /**
      * For buying a tile
      * @param newOwner
      */
-    public void applyTileEffect(Player newOwner) throws NotEnoughMoneyException{
+    public void applyTileEffect(Player newOwner) throws NotEnoughMoneyException{ //if they want to buy the tile call this
         ((BuyableTile)this.getBoard().getTile(this.getPlayer(this.getCurTurn()).getPlace())).buyTile(newOwner);
     }
 

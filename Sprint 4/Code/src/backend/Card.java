@@ -32,16 +32,16 @@ public class Card {
     }
 
     /**
-     * This is the [i]only[/i] function apart from the constructor that should be called. It determines which card effect to use and executes it using reflection
+     * This is the [i]only[/i] function apart from the constructor that should be called except in one circumstance. It determines which card effect to use and executes it using reflection
      *
      * @param player the player to apply the cards effect to
      * @return returns a string, return doesn't change
      */
     public void cardEffect(Player player){
         System.out.println(methodName);
-        switch (methodName){
+        switch (methodName){ //check the methodName
             case "gainMoney":{
-                gainMoney(player,Integer.parseInt((String)params[0]));
+                gainMoney(player,Integer.parseInt((String)params[0])); //call the right method with the right parameters
                 break;
             } case "payMoney":{
                 payMoney(player,Integer.parseInt((String)params[0]));
@@ -76,6 +76,12 @@ public class Card {
                 System.out.println(this.cardText);
         }
     }
+
+    /**
+     * This is specifically for the 'throw' card in potLuck as it requires user input
+     * @param player the player whose current turn it is
+     * @param choice the choice of the player whether to pay 10 (true), or draw a card (false)
+     */
     public void cardEffect(Player player, boolean choice){
         if(choice){
             player.setMoney(player.getMoney()-10);

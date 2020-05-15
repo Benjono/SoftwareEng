@@ -25,7 +25,9 @@ public class Property extends BuyableTile {
         this.rent = rent;
         this.houseCost = houseCost;
     }
-
+    public int getHouseCost(){
+        return houseCost;
+    }
     /**
      * buys levels of housing dependant on input
      * @param houseLevel - how many houses the owner wants to buy
@@ -77,6 +79,11 @@ public class Property extends BuyableTile {
             throw new InvalidHouseSetupException("cannot mortgage a property with houses/hotel built on them");
         }
     }
+
+    /**
+     *
+     * @throws InvalidHouseSetupException
+     */
     @Override
     protected void sellBaseTile() throws InvalidHouseSetupException{
         if(currentHouseLevel == 0) {

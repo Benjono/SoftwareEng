@@ -71,14 +71,13 @@ public class BuyableTile extends Tile {
 
     /**
      * sets owner to null - selling property to bank
-     * @return int amount the property is worth to the bank
      */
     protected void sellBaseTile() throws InvalidHouseSetupException{
-        if(!mortgaged){
-            owner.setMoney(owner.getMoney() + costToBuy);
+        if(!mortgaged){ //if not mortgaged
+            owner.setMoney(owner.getMoney() + costToBuy); //give full cost
         }
         else{
-            owner.setMoney(owner.getMoney() +(costToBuy/2));
+            owner.setMoney(owner.getMoney() +(costToBuy/2)); //otherwise give half cost
         }
         this.owner = null;
     }
@@ -96,12 +95,12 @@ public class BuyableTile extends Tile {
      */
     public void unMortgageTile() throws NotEnoughMoneyException {
         try {
-            checkIfEnoughMoney((costToBuy/2),owner.getMoney(),owner);
-            mortgaged = false;
-            owner.setMoney(owner.getMoney() - (costToBuy / 2));
+            checkIfEnoughMoney((costToBuy/2),owner.getMoney(),owner); //check if owner has enough money
+            mortgaged = false; //if no exceptions then unmortgage
+            owner.setMoney(owner.getMoney() - (costToBuy / 2)); //and subtract money from the player who unmortgaged
         }
         catch(NotEnoughMoneyException e){
-            throw new NotEnoughMoneyException(e.getMessage(),e.moneyShort,e.player);
+            throw new NotEnoughMoneyException(e.getMessage(),e.moneyShort,e.player); //pass the exception up
         }
     }
 
@@ -109,14 +108,15 @@ public class BuyableTile extends Tile {
      * finds the highest bidder and makes them the owner of the tile
      * @param players list of players in the game
      * @param bids list of player bids
+     * @return the index of the winner of the auction
      */
     public int auction(Player[] players, int[] bids){
         int highestBid= 0;
         int highestBidder = 0;
-        for(int i =0; i<bids.length;i++){
-            if(bids[i]> bids[highestBid]){
-                highestBid = bids[i];
-                highestBidder = i;
+        for(int i =0; i<bids.length;i++){ //go through each bid
+            if(bids[i]> bids[highestBid]){ //if bid higher than highestBid
+                highestBid = bids[i]; //new highest bid
+                highestBidder = i; //new highest bidder
             }
         }
         setOwner(players[highestBidder]);
@@ -147,6 +147,14 @@ public class BuyableTile extends Tile {
         System.out.println("BEN YOU HAD ONE JOB WHY THIS PRINTING");
         return 0;
     }
+
+    /**
+     * Checks whether or not the player has enough money to perform that action and throws an exception if they don't
+     * @param cost
+     * @param fundsAvailable
+     * @param player
+     * @throws NotEnoughMoneyException
+     */
     public void checkIfEnoughMoney(int cost, int fundsAvailable,Player player) throws NotEnoughMoneyException {
         if(cost>fundsAvailable){
             throw new NotEnoughMoneyException("you don't have enough money to do that",cost-fundsAvailable,player);
