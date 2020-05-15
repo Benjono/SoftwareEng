@@ -33,3 +33,6 @@ the .idea and output directories have been ignored in the github to stop conflic
 
 Discord for conversation logs:
 https://discord.gg/4F7Hb6m
+
+https://github.com/Benjono/SoftwareEng
+
