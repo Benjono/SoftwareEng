@@ -1,0 +1,7 @@
+- not getting the correct result for auction dialog - label instead of password field
+- getting tile info result - buttons not correctly assigned
+- board moving when rotated - hbox + vbox
+- trying to animate the movement of players - using wait doesn't work, and adding the sprites to Nodes doesn't make them show up, solution, show the dice roll then move player
+- getting the tiles to show up correctly on the board - problem was the tile names in the resourses folder
+- getting the tiles to be the right size on the board - needed to resize them to the size of the panes not their native size of 8 bits
+- Two of the same tokens can be selected in the token dialog

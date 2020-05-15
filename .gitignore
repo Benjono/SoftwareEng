@@ -6,7 +6,9 @@ Code/.idea/uiDesigner.xml
 Code/.idea/workspace.xml
 GanttChartPostStart.xlsx
 Code/.idea/workspace.xml
+Code/src/production/*
 Code/Code.iml
+Code/
 *.xml
 *.class
 =======
